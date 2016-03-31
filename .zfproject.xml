@@ -15,7 +15,15 @@
       </controllersDirectory>
       <formsDirectory enabled="false"/>
       <layoutsDirectory enabled="false"/>
-      <modelsDirectory/>
+      <modelsDirectory>
+        <modelFile modelName="City"/>
+        <modelFile modelName="Country"/>
+        <modelFile modelName="Location"/>
+        <modelFile modelName="RentCar"/>
+        <modelFile modelName="Comment"/>
+        <modelFile modelName="Experience"/>
+        <modelFile modelName="Bookhotel"/>
+      </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>
         <viewScriptsDirectory>
