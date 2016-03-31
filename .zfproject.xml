@@ -22,17 +22,24 @@
           <actionMethod actionName="twauth"/>
         </controllerFile>
       </controllersDirectory>
-      <formsDirectory>
-        <formFile formName="Register"/>
-        <formFile formName="Login"/>
-      </formsDirectory>
-      <layoutsDirectory>
-        <layoutScriptsDirectory>
-          <layoutScriptFile layoutName="layout"/>
-        </layoutScriptsDirectory>
-      </layoutsDirectory>
+        <formsDirectory>
+            <formFile formName="Register"/>
+            <formFile formName="Login"/>
+        </formsDirectory>
+        <layoutsDirectory>
+            <layoutScriptsDirectory>
+                <layoutScriptFile layoutName="layout"/>
+            </layoutScriptsDirectory>
+        </layoutsDirectory>
       <modelsDirectory>
         <modelFile modelName="User"/>
+        <modelFile modelName="City"/>
+        <modelFile modelName="Country"/>
+        <modelFile modelName="Location"/>
+        <modelFile modelName="RentCar"/>
+        <modelFile modelName="Comment"/>
+        <modelFile modelName="Experience"/>
+        <modelFile modelName="Bookhotel"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>
