@@ -28,11 +28,22 @@
         <formFile formName="Register"/>
         <formFile formName="Login"/>
       </formsDirectory>
+      <formsDirectory enabled="false"/>
       <layoutsDirectory>
         <layoutScriptsDirectory>
           <layoutScriptFile layoutName="layout"/>
         </layoutScriptsDirectory>
       </layoutsDirectory>
+      <modelsDirectory/>
+        <formsDirectory>
+            <formFile formName="Register"/>
+            <formFile formName="Login"/>
+        </formsDirectory>
+        <layoutsDirectory>
+            <layoutScriptsDirectory>
+                <layoutScriptFile layoutName="layout"/>
+            </layoutScriptsDirectory>
+        </layoutsDirectory>
       <modelsDirectory>
         <modelFile modelName="User"/>
         <modelFile modelName="City"/>

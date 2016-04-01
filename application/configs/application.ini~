@@ -8,12 +8,14 @@ appnamespace = "Application"
 resources.frontController.controllerDirectory = APPLICATION_PATH "/controllers"
 resources.frontController.params.displayExceptions = 0
 
+<<<<<<< HEAD
+=======
 resources.db.adapter = "PDO_MYSQL"
 resources.db.params.dbname = "levoyage"
 resources.db.params.host = "localhost"
 resources.db.params.username = "root"
 resources.db.params.password = "123"
-
+>>>>>>> 3e938e7fe8819f50afe405d72982874b30cf58dc
 resources.layout.layoutPath = APPLICATION_PATH "/layouts/scripts/"
 [staging : production]
 
