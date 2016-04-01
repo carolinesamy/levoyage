@@ -202,8 +202,15 @@ $this->redirect();
          }
     }
 
+    public function commAction()
+    {
+        // action body
+    }
+
 
 }
+
+
 
 
 
