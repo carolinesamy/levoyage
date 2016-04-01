@@ -10,6 +10,7 @@
       <controllersDirectory>
         <controllerFile controllerName="Index">
           <actionMethod actionName="index"/>
+          <actionMethod actionName="city"/>
         </controllerFile>
         <controllerFile controllerName="Error"/>
         <controllerFile controllerName="User">
@@ -20,9 +21,13 @@
           <actionMethod actionName="fblogout"/>
           <actionMethod actionName="logout"/>
           <actionMethod actionName="twauth"/>
+          <actionMethod actionName="comm"/>
         </controllerFile>
       </controllersDirectory>
-<<<<<<< HEAD
+      <formsDirectory>
+        <formFile formName="Register"/>
+        <formFile formName="Login"/>
+      </formsDirectory>
       <formsDirectory enabled="false"/>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -30,7 +35,6 @@
         </layoutScriptsDirectory>
       </layoutsDirectory>
       <modelsDirectory/>
-=======
         <formsDirectory>
             <formFile formName="Register"/>
             <formFile formName="Login"/>
@@ -49,8 +53,8 @@
         <modelFile modelName="Comment"/>
         <modelFile modelName="Experience"/>
         <modelFile modelName="Bookhotel"/>
+        <modelFile modelName="Hotel"/>
       </modelsDirectory>
->>>>>>> 3e938e7fe8819f50afe405d72982874b30cf58dc
       <modulesDirectory enabled="false"/>
       <viewsDirectory>
         <viewScriptsDirectory>
@@ -80,6 +84,12 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="twauth"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="comm"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="city"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

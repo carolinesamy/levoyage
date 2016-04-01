@@ -1,6 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<?php
+$isLogin=false;
+$user=null;
+$fuser=null;
+$auth = Zend_Auth::getInstance();
+$storage = $auth->getStorage();
+$sessionRead = $storage->read();
+$fpsession = new Zend_Session_Namespace('facebook');
+if (!empty($sessionRead)) {
+$isLogin=true;
+$user=$sessionRead;
+?>
+<script type="text/javascript" src="http://crypto-js.googlecode.com/files/2.0.0-crypto-sha1.js"></script>
+<script type="text/javascript" src="http://crypto-js.googlecode.com/files/2.0.0-hmac-min.js"></script>
+<script>
+var disqus_config = function () {
+/*var id='<?php echo $user->id ?>';*/
+var id=1;
+var username='<?=$user->username?>';
+var email='<?=$user->email?>';
+var secret_key="zjhrrNr8Dc7CP6uy8c7D7V4ARyW2Gjoi5Pz6Fu887xiqjn14YvG7rIYHLahjDevl";
+var public_api_key="XjFMiYJj5GbojsMhu0LRanNxl8lqBpzfKpySCKabHnZ9KD7jfuyD9KyrZM7gYDyu";
+var timestamp=(Date.now()/1000);
+var message={'id':id,'username':username,'email':email}
+var hmac = Crypto.HMAC(Crypto.SHA1,message + ' ' + timestamp,secret_key);
+// The generated payload which authenticates users with Disqus
+this.page.remote_auth_s3 = message+" "+hmac+" "+timestamp;
+this.page.api_key = public_api_key;
+}
+</script>
+<?php
+}elseif( (isset($fbsession->fname) && !empty (isset($fbsession->fname)))){
+$fuser=$fbsession->fname;
+}
+?>
+<!-- Bootstrap Core CSS -->
+
 <title></title>
 <meta charset="utf-8">
 <link rel="stylesheet" href="bootstrap/css/reset.css" type="text/css" media="screen">
@@ -22,8 +59,8 @@
 			<header>
 				<div class="row-1">
 					<h1>
-						<a class="logo" href="index.html"></a>
-						<strong class="slog">Enjoy your trip</strong>
+						<a class="logo" href="index.html">Point.co</a>
+						<strong class="slog">The most creative ideas</strong>
 					</h1>
 					<form id="search-form" method="post" enctype="multipart/form-data">
 						<fieldset>
@@ -47,27 +84,19 @@
 				</div>
 			</header>
 
-
-
-
 <?php
-$fbsession = new Zend_Session_Namespace('facebook');
-$auth = Zend_Auth::getInstance();
-$storage = $auth->getStorage();
-$sessionRead = $storage->read();
-if (!empty($sessionRead)) {
-$name = $sessionRead->username;
-echo "Welcome " . $name;
+if ($isLogin) {
+$name = $user->username;
+echo "Welcome $name";
 echo '<a class="btn btn-default navbar-btn" href="'. $this->baseUrl() .'/user/logout"> Logout </a>';
 }
-elseif (isset($fbsession->username) && !empty (isset($fbsession->username))) {
-$name = $fbsession->username;
-echo "Welcome " . $name;
-?>
-<?php
+elseif ($fuser) {
+echo "Welcome $fuser";
 }
 ?>
+
 <?php echo $this->layout()->content; ?>
+
 
 
 

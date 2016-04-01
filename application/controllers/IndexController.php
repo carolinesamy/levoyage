@@ -13,6 +13,16 @@ class IndexController extends Zend_Controller_Action
         // action body
     }
 
+    public function cityAction()
+    {
+        $city_model=new Application_Model_City();
+        $id=$this->_request->getParam("id");
+        $city=$city_model->getCity($id);
+        $this->view->city=$city;
+    }
+
 
 }
+
+
 
