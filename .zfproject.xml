@@ -20,17 +20,19 @@
           <actionMethod actionName="fblogout"/>
           <actionMethod actionName="logout"/>
           <actionMethod actionName="twauth"/>
+          <actionMethod actionName="getcountry"/>
+          <actionMethod actionName="getcities"/>
         </controllerFile>
       </controllersDirectory>
-        <formsDirectory>
-            <formFile formName="Register"/>
-            <formFile formName="Login"/>
-        </formsDirectory>
-        <layoutsDirectory>
-            <layoutScriptsDirectory>
-                <layoutScriptFile layoutName="layout"/>
-            </layoutScriptsDirectory>
-        </layoutsDirectory>
+      <formsDirectory>
+        <formFile formName="Register"/>
+        <formFile formName="Login"/>
+      </formsDirectory>
+      <layoutsDirectory>
+        <layoutScriptsDirectory>
+          <layoutScriptFile layoutName="layout"/>
+        </layoutScriptsDirectory>
+      </layoutsDirectory>
       <modelsDirectory>
         <modelFile modelName="User"/>
         <modelFile modelName="City"/>
@@ -70,6 +72,12 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="twauth"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="getcountry"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="getcities"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

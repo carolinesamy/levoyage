@@ -1,0 +1,14 @@
+<br /><br />
+<div id="view-content">
+	<p>View script for controller <b>User</b> and script/action name <b>getcities</b></p>
+</div>
+<?php
+//foreach($this->cities as $key=>$value){
+//	echo $key.": " .$value->name;
+//}
+
+
+foreach($this->cities as $key=>$value)
+{
+	echo $key.":name: " .$value['name'];
+}
