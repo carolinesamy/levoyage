@@ -18,6 +18,9 @@ class IndexController extends Zend_Controller_Action
         $city_model=new Application_Model_City();
         $id=$this->_request->getParam("id");
         $page=$this->_request->getParam("page");
+        if(!$id){
+            $id=2;
+        }
         $city=$city_model->getCity($id);
         $this->view->city=$city;
        $exps= $city->findDependentRowset('Application_Model_Experience');
@@ -35,6 +38,8 @@ class IndexController extends Zend_Controller_Action
         $page=$this->_request->getParam("page");
         if(!$page){
             $page=1;
+        }if(!$id){
+        $id=2;
         }
         $exps=$expe_model->getCityExper($id);
         $paginator = new Zend_Paginator(new Zend_Paginator_Adapter_Array($exps->toArray()));
