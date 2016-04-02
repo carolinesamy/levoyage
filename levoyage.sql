@@ -25,8 +25,8 @@ DROP TABLE IF EXISTS `book_hotel`;
 CREATE TABLE `book_hotel` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `hotel_name` varchar(50) NOT NULL,
-  `time_to` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `time_from` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `time_to` datetime NOT NULL,
+  `time_from` datetime NOT NULL,
   `num_member` int(10) NOT NULL,
   `num_rooms` int(10) NOT NULL,
   `user_id` int(10) NOT NULL,
@@ -56,10 +56,10 @@ CREATE TABLE `city` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `image_path` varchar(100) NOT NULL,
-  `desc` text NOT NULL,
+  `description` text NOT NULL,
   `rate` int(20) NOT NULL DEFAULT '0',
   `lat` double DEFAULT NULL,
-  `long` double DEFAULT NULL,
+  `longd` double DEFAULT NULL,
   `country_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `country` (`country_id`),
@@ -88,12 +88,12 @@ CREATE TABLE `comment` (
   `content` text NOT NULL,
   `exp_id` int(10) NOT NULL,
   `user_id` int(10) NOT NULL,
-  `datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `datetime` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `exp_id` (`exp_id`,`user_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`exp_id`) REFERENCES `experience` (`id`)
+  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`exp_id`) REFERENCES `experience` (`id`),
+  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -119,7 +119,7 @@ CREATE TABLE `country` (
   `image_path` varchar(100) NOT NULL,
   `rate` int(50) NOT NULL DEFAULT '0',
   `lat` double DEFAULT NULL,
-  `long` double DEFAULT NULL,
+  `longd` double DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -146,11 +146,12 @@ CREATE TABLE `experience` (
   `title` varchar(100) NOT NULL,
   `city_id` int(10) NOT NULL,
   `user_id` int(10) NOT NULL,
+  `image_path` varchar(10000) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `city_id` (`city_id`,`user_id`),
   KEY `user_id` (`user_id`),
-  CONSTRAINT `experience_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `experience_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`)
+  CONSTRAINT `experience_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`),
+  CONSTRAINT `experience_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -225,16 +226,16 @@ CREATE TABLE `rent_car` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `from_city` int(10) NOT NULL,
   `to_city` int(10) NOT NULL,
-  `pick_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `leaving_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `pick_time` datetime DEFAULT NULL,
+  `leaving_time` datetime NOT NULL,
   `user_id` int(10) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `from_city` (`from_city`,`to_city`),
   KEY `to_city` (`to_city`),
-  CONSTRAINT `rent_car_ibfk_5` FOREIGN KEY (`to_city`) REFERENCES `city` (`id`),
   CONSTRAINT `rent_car_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `rent_car_ibfk_4` FOREIGN KEY (`from_city`) REFERENCES `city` (`id`)
+  CONSTRAINT `rent_car_ibfk_4` FOREIGN KEY (`from_city`) REFERENCES `city` (`id`),
+  CONSTRAINT `rent_car_ibfk_5` FOREIGN KEY (`to_city`) REFERENCES `city` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -284,4 +285,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-03-30 21:13:40
+-- Dump completed on 2016-03-31 17:33:16

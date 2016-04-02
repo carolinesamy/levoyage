@@ -26,6 +26,8 @@ if (!empty($sessionRead)) {
 $name = $sessionRead->username;
 echo "Welcome " . $name;
 echo '<a class="btn btn-default navbar-btn" href="'. $this->baseUrl() .'/user/logout"> Logout </a>';
+ echo' <a class="btn btn-default navbar-btn" href="'. $this->baseUrl() .'/user/editprofile"> update profile </a>';
+ echo' <a class="btn btn-default navbar-btn" href="'. $this->baseUrl() .'/index"> Home </a>';
 }
 
 elseif (isset($fbsession->username) && !empty (isset($fbsession->username))) {
@@ -33,6 +35,7 @@ $name = $fbsession->username;
 echo "Welcome " . $name;
 ?>
  <a class="btn btn-default navbar-btn" href="<?php echo $this->baseUrl() ?>/user/fblogout"> Logout </a>
+echo' <a class="btn btn-default navbar-btn" href="<?php echo $this->baseUrl() ?>/index"> Home </a>';
 <?php
 }
 ?>
