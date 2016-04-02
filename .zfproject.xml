@@ -22,19 +22,24 @@
           <actionMethod actionName="fblogout"/>
           <actionMethod actionName="logout"/>
           <actionMethod actionName="twauth"/>
-          <actionMethod actionName="comm"/>
+          <actionMethod actionName="twlogout"/>
+          <actionMethod actionName="editprofile"/>
+            <actionMethod actionName="getcountry"/>
+            <actionMethod actionName="getcities"/>
+            <actionMethod actionName="comm"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="Register"/>
         <formFile formName="Login"/>
+        <formFile formName="Editform"/>
       </formsDirectory>
-      <formsDirectory enabled="false"/>
       <layoutsDirectory>
         <layoutScriptsDirectory>
           <layoutScriptFile layoutName="layout"/>
         </layoutScriptsDirectory>
       </layoutsDirectory>
+<<<<<<< HEAD
       <modelsDirectory/>
       <formsDirectory>
         <formFile formName="Register"/>
@@ -45,6 +50,8 @@
           <layoutScriptFile layoutName="layout"/>
         </layoutScriptsDirectory>
       </layoutsDirectory>
+=======
+>>>>>>> 997c70886a0be47baf7cf919ec2e7d87739733ac
       <modelsDirectory>
         <modelFile modelName="User"/>
         <modelFile modelName="City"/>
@@ -87,10 +94,18 @@
             <viewScriptFile forActionName="twauth"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
-            <viewScriptFile forActionName="comm"/>
+            <viewScriptFile forActionName="twlogout"/>
           </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Index">
-            <viewScriptFile forActionName="city"/>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="editprofile"/>
+            <viewScriptFile forActionName="getcountry"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="getcities"/>
+              <viewScriptFile forActionName="comm"/>
+          </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="city"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Index">
             <viewScriptFile forActionName="exper"/>
