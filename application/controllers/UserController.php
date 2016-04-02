@@ -15,6 +15,7 @@ class UserController extends Zend_Controller_Action
                  $this->redirect("user/login");
               }
           }
+
     }
 
     public function indexAction()
@@ -46,7 +47,7 @@ class UserController extends Zend_Controller_Action
 				$this->redirect();
 			}
 		}
-		$this->view->register_form = $form;        
+		$this->view->register_form = $form;
     }
 
     public function loginAction()
@@ -175,6 +176,7 @@ class UserController extends Zend_Controller_Action
             // write in session email & id & first_name
             $fpsession->username = $userNode->getName();
             $this->redirect();
+
     }
 
     public function fblogoutAction()
@@ -189,6 +191,7 @@ class UserController extends Zend_Controller_Action
         // action body
         Zend_Session::namespaceUnset('Zend_Auth');
         $this->redirect("/user/login");      
+
     }
 
     public function twauthAction()
@@ -218,7 +221,14 @@ class UserController extends Zend_Controller_Action
          $this->redirect("/user/login");
     }
 
-
+      
+    public function getcountryAction()
+    {
+        // action body
+        $city= new Application_Model_City();
+        $country=$city->get_country(3);
+        $this->view->ncountry=$country;
+    }
 
     public function editprofileAction()
     {
@@ -256,8 +266,28 @@ class UserController extends Zend_Controller_Action
     }
 
 
+
+
+    public function getcitiesAction()
+    {
+        // action body
+        $country=new Application_Model_Country();
+        $cities=$country->findCities(1);
+        foreach($cities as $key=>$value)
+        {
+            $city[$key]['name']=$value->name;
+            $city[$key]['image']=$value->image_path;
+            $city[$key]['rate']=$value->rate;
+        }
+        $this->view->cities=$city;
+        //$this->view->cities=$cities;
+    }
+
+    public function commAction()
+    {
+        // action body
+    }
+
+
 }
-
-
-
 

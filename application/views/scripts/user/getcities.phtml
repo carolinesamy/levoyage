@@ -1,0 +1,23 @@
+<br /><br />
+<div id="view-content">
+	<p>View script for controller <b>User</b> and script/action name <b>getcities</b></p>
+</div>
+<?php
+//foreach($this->cities as $key=>$value){
+//	echo $key.": " .$value->name;
+//}
+
+echo $this->ncountry->name;
+foreach($this->cities as $key=>$value)
+{
+	echo ":name: " .$value['name'];
+	echo ":rate: " .$value['rate'];
+	echo ":image path: " .$value['image'];
+}
+?>
+<body>
+<div class="row">
+	<div class="col-sm-12"><img src="<?php echo$value['image']?>" class="img-thumbnail" alt="Cinque Terre" width="1000" height="236"></div>
+
+	</div>
+</body>
