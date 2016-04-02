@@ -1,34 +1,196 @@
-<h1 class="bg-info text-info"><?=$this->city->name?></h1>
-<img src="/images/<?=$this->city->image_path?>" width="100%" height="500px">
-<div class="container-fluid bg-info text-primary">
-    <?=$this->city->description?>
-</div>
+<?php
+$isLogin=false;
+$user=null;
+$fuser=null;
+$auth = Zend_Auth::getInstance();
+$storage = $auth->getStorage();
+$sessionRead = $storage->read();
+$fpsession = new Zend_Session_Namespace('facebook');
+if (!empty($sessionRead)) {
+$isLogin=true;
+$user=$sessionRead;
 
-<div id="comments">
-<div id="disqus_thread"></div>
+}elseif( (isset($fbsession->fname) && !empty (isset($fbsession->fname)))){
+    $fuser=$fbsession->fname;
+}
+?>
+
+<link rel="stylesheet" type="text/css"  href="/bootstrap/css/city-style.css">
+<link rel="stylesheet" type="text/css" href="/bootstrap/css/city-animate.min.css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="/bootstrap/js/modernizr.custom.js"></script>
+<div id="preloader">
+    <div id="status"> <img src="/bootstrap/images/preloader.gif" height="64" width="64" alt=""> </div>
+</div>
+<!-- Navigation
+    ==========================================-->
+<nav id="menu" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            <a class="navbar-brand" href="index.html"><i class="fa fa-flag-checkered fa-flip-horizontal"></i>Levoyage<strong></strong></a> </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#home" class="page-scroll">Home</a></li>
+                <li><a href="#services-section" class="page-scroll">Description</a></li>
+                <li><a href="#works-section" class="page-scroll">Portfolio</a></li>
+                <li><a href="#team-section" class="page-scroll">Map</a></li>
+                <li><a href="#city-expe" class="page-scroll">Experience</a></li>
+                <?php
+                if($isLogin){
+                    ?>
+                    <li><a href="#contact-section" class="page-scroll">Reservation</a></li>
+                    <li><a href="/user/logout" class="page-scroll">LogOut</a></li>
+                    <?php
+                }else{
+                    ?>
+                    <li><a href="/user/login" class="page-scroll">LogIn</a></li>
+                    <?php
+                }
+                ?>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+
+
+<!-- Header -->
+<header class="text-center" name="home" style="	background: url(/images/<?=$this->city->image_path?>) no-repeat bottom center;">
+    <div class="intro-text">
+        <h1 class="wow fadeInDown"><strong><span class="color"><?=$this->city->name?></span></strong></h1>
+        <a href="#services-section" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="200ms">City Description</a> </div>
+</header>
+
+<!-- Description  -->
+<div id="services-section" class="text-center">
+    <div class="container">
+        <div class="section-title wow fadeInDown">
+            <h2><?=$this->city->name?><strong> Description</strong> </h2>
+            <hr>
+            <div class="clearfix">
+                <?=$this->city->description?>
+            </div>
+        </div>
+    </div>
+</div>
+<!--------------- Description  -->
+
+<!-- Team Section -->
+<div id="team-section" class="text-center">
+    <div class="container">
+        <div class="section-title wow fadeInDown">
+            <h2> <?=$this->city->name?><strong> Map</strong></h2>
+            <hr>
+            <div class="clearfix">
+            </div>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d54592.22181666019!2d29.969028499999993!3d31.2203453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2seg!4v1459552906053" width="1200" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+
+    </div>
+</div>
+<?php
+if($isLogin) {
+    ?>
+    <!-- Hotel Section -->
+    <div id="contact-section" class="text-center">
+        <div class="container">
+            <div class="section-title wow fadeInDown">
+                <h2><strong>Hotel</strong> Reservation</h2>
+                <hr>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed dapibus leo nec ornare diamcommodo
+                    nibh ante facilisis.</p>
+            </div>
+            <div class="col-md-8 col-md-offset-2 wow fadeInUp" data-wow-delay="200ms">
+                <div class="col-md-4"><i class="fa fa-map-marker fa-2x"></i>
+                    <p>321 Awesome Street<br>
+                        New York, NY 17022</p>
+                </div>
+                <div class="col-md-4"><i class="fa fa-envelope-o fa-2x"></i>
+                    <p>info@companyname.com</p>
+                </div>
+                <div class="col-md-4"><i class="fa fa-phone fa-2x"></i>
+                    <p> +1 800 123 1234</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="col-md-8 col-md-offset-2 wow fadeInUp" data-wow-delay="400ms">
+                <h3>Book Now..</h3>
+                <form name="checkin" id="contactForm" novalidate>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="datetime-local" id="from" class="form-control" placeholder="Date"
+                                       required="required">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="datetime-local" id="to" class="form-control" placeholder="Date"
+                                       required="required">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <textarea name="message" id="message" class="form-control" rows="4" placeholder="Message"
+                                  required></textarea>
+                        <p class="help-block text-danger"></p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select  id="hotels" class="form-control">
+                                <option>---Select Hotel---</option>
+                                <?php
+                                foreach ($this->hotels as $hotel):
+                                    ?>
+                                    <option><?=$hotel->name ?></option>
+                                    <?php
+                                endforeach;
+                                ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="success"></div>
+                    <button type="submit" class="btn btn-default">Check In</button>
+                </form>
+                <div class="social">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                        <li><a href="#"><i class="fa fa-github"></i></a></li>
+                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+}
+?>
+<div id="city-expe"class="bg-warning text-primary ">
+    <h2 class=" page-header btn-warning text-center"> Experiences </h2>
+    <iframe src="/index/exper/id/<?=$this->city->id?>" style="width: 100%;height: 600px ;border: none"></iframe>
+</div>
 <script>
-/**
-* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
-*/
-/*
-var disqus_config = function () {
-this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
-this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-};
-*/
-(function() { // DON'T EDIT BELOW THIS LINE
-var d = document, s = d.createElement('script');
-
-s.src = '//levoyage-iti.disqus.com/embed.js';
-
-s.setAttribute('data-timestamp', +new Date());
-(d.head || d.body).appendChild(s);
-})();
+    $("#levoyage-nav").remove();
 </script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
+<script type="text/javascript" src="/bootstrap/js/SmoothScroll.js"></script>
+<script type="text/javascript" src="/bootstrap/js/wow.min.js"></script>
+<script type="text/javascript" src="/bootstrap/js/jquery.isotope.js"></script>
+<script type="text/javascript" src="/bootstrap/js/jqBootstrapValidation.js"></script>
+<script type="text/javascript" src="/bootstrap/js/contact_me.js"></script>
+<script type="text/javascript" src="/bootstrap/js/owl.carousel.js"></script>
 
 
-<script id="dsq-count-scr" src="//levoyage-iti.disqus.com/count.js" async></script>
-<!-- href="http://example.com/bar.html#disqus_thread">Link</a>.-->
+<script type="text/javascript" src="/bootstrap/js/main.js"></script>

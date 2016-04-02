@@ -1,6 +1,6 @@
 <?php
 
-class Application_Model_Hotel
+class Application_Model_Hotel extends Zend_Db_Table_Abstract
 {
     protected $_name="hotel";
     protected $_referenceMap=array('city'=>array(

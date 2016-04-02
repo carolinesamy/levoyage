@@ -1,6 +1,6 @@
 <?php
 
-class Application_Model_Experience
+class Application_Model_Experience extends Zend_Db_Table_Abstract
 {
     protected $_name="experience";
     protected $_dependentTable = array('Comment');
@@ -16,6 +16,16 @@ class Application_Model_Experience
             'refColumns'=>array('id'),
             'onDelete'=>'cascade'
         ));
+    function getCityExper($city_id){
+
+        $query = $this->select();
+
+        $query->where('city_id = ?', $city_id);
+        // $query->order($order);
+
+        return $this->fetchAll($query);
+
+    }
 
 }
 
