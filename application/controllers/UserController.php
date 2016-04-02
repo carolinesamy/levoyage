@@ -231,27 +231,18 @@ class UserController extends Zend_Controller_Action
         foreach($cities as $key=>$value)
         {
             $city[$key]['name']=$value->name;
+            $city[$key]['image']=$value->image_path;
+            $city[$key]['rate']=$value->rate;
         }
         $this->view->cities=$city;
         //$this->view->cities=$cities;
     }
 
+    public function commAction()
+    {
+        // action body
+    }
+
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

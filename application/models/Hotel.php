@@ -1,10 +1,8 @@
 <?php
 
-class Application_Model_Location
+class Application_Model_Hotel
 {
-    protected $_name="location";
-
-
+    protected $_name="hotel";
     protected $_referenceMap=array('city'=>array(
         'columns'=>array('city_id'),
         'refTableClass'=>'Application_Model_City',

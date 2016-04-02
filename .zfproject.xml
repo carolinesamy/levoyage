@@ -10,6 +10,7 @@
       <controllersDirectory>
         <controllerFile controllerName="Index">
           <actionMethod actionName="index"/>
+          <actionMethod actionName="city"/>
         </controllerFile>
         <controllerFile controllerName="Error"/>
         <controllerFile controllerName="User">
@@ -18,10 +19,13 @@
           <actionMethod actionName="login"/>
           <actionMethod actionName="fbauth"/>
           <actionMethod actionName="fblogout"/>
+
           <actionMethod actionName="logout"/>
           <actionMethod actionName="twauth"/>
-          <actionMethod actionName="getcountry"/>
-          <actionMethod actionName="getcities"/>
+            <actionMethod actionName="getcountry"/>
+            <actionMethod actionName="getcities"/>
+            <actionMethod actionName="comm"/>
+
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -33,6 +37,7 @@
           <layoutScriptFile layoutName="layout"/>
         </layoutScriptsDirectory>
       </layoutsDirectory>
+
       <modelsDirectory>
         <modelFile modelName="User"/>
         <modelFile modelName="City"/>
@@ -42,6 +47,7 @@
         <modelFile modelName="Comment"/>
         <modelFile modelName="Experience"/>
         <modelFile modelName="Bookhotel"/>
+        <modelFile modelName="Hotel"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>
@@ -74,10 +80,16 @@
             <viewScriptFile forActionName="twauth"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
+
             <viewScriptFile forActionName="getcountry"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="getcities"/>
+
+              <viewScriptFile forActionName="comm"/>
+          </viewControllerScriptsDirectory>
+            <viewControllerScriptsDirectory forControllerName="Index">
+                <viewScriptFile forActionName="city"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
