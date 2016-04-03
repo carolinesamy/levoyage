@@ -1,0 +1,94 @@
+<!--<a href="/index/exper/id/1/page/1#disqus_thread">Link</a> -->
+<?php
+$isLogin=false;
+$user=null;
+$fuser=null;
+$auth = Zend_Auth::getInstance();
+$storage = $auth->getStorage();
+$sessionRead = $storage->read();
+$fpsession = new Zend_Session_Namespace('facebook');
+if (!empty($sessionRead)) {
+	$isLogin=true;
+	$user=$sessionRead;
+
+}elseif( (isset($fbsession->fname) && !empty (isset($fbsession->fname)))){
+	$fuser=$fbsession->fname;
+}
+?>
+
+<link rel="stylesheet" type="text/css"  href="/bootstrap/css/city-style.css">
+<link rel="stylesheet" type="text/css" href="/bootstrap/css/city-animate.min.css">
+<link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="/bootstrap/js/modernizr.custom.js"></script>
+<div id="preloader">
+	<div id="status"> <img src="/bootstrap/images/preloader.gif" height="64" width="64" alt=""> </div>
+</div>
+<!-- Header -->
+<header class="text-center " name="home"style="	background: url(/bootstrap/images/header-bg.jpg) no-repeat bottom center;height: 100%">
+	<div class="intro-text">
+		<h1 class="wow fadeInDown">Visitors <strong><span class="color">Experience</span></strong></h1>
+		<p class="wow fadeInDown">
+			<?php foreach ($this->paginator as $exp):
+			?>
+		<div class="text-center">
+			<?=
+			$this->paginationControl($this->paginator,
+				'Sliding',
+				"index/paginatorControl.phtml");
+			?>
+			<br>
+		</div>
+				<?php echo $exp['content'];
+		endforeach;
+		?>
+
+		</p>
+		<?php
+		if($isLogin){
+		?>
+		<a href="#" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="200ms">Add your
+			Experience</a></div>
+	<?php
+	}
+	?>
+</header>
+<div id="disqus_thread"></div>
+<script>
+	$("#top").remove();
+</script>
+<script type="text/javascript" src="/bootstrap/js/SmoothScroll.js"></script>
+<script type="text/javascript" src="/bootstrap/js/wow.min.js"></script>
+<script type="text/javascript" src="/bootstrap/js/jquery.isotope.js"></script>
+<script type="text/javascript" src="/bootstrap/js/jqBootstrapValidation.js"></script>
+<script type="text/javascript" src="/bootstrap/js/contact_me.js"></script>
+<script type="text/javascript" src="/bootstrap/js/owl.carousel.js"></script>
+<script type="text/javascript" src="/bootstrap/js/main.js"></script>
+
+
+<script>
+/**
+* RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+* LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL; // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+
+s.src = '//levoyage-iti.disqus.com/embed.js';
+
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+</div>
+<style>
+	body{background: rgb(3,39,49)}
+</style>
+<script id="dsq-count-scr" src="//levoyage-iti.disqus.com/count.js" async></script>

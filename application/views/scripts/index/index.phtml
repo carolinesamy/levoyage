@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,11 +12,10 @@
 
     <title></title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  
 
     <!-- Custom CSS -->
-    <link href="bootstrap/css/full-slider.css" rel="stylesheet">
+    <link href="/bootstrap/css/full-slider.css" rel="stylesheet">
 
   
 
@@ -62,32 +62,68 @@
             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
             <li data-target="#myCarousel" data-slide-to="1"></li>
             <li data-target="#myCarousel" data-slide-to="2"></li>
+            <li data-target="#myCarousel" data-slide-to="3"></li>
+            <li data-target="#myCarousel" data-slide-to="4"></li>
+            <li data-target="#myCarousel" data-slide-to="5"></li>
         </ol>
 
         <!-- Wrapper for Slides -->
         <div class="carousel-inner">
             <div class="item active">
                 <!-- Set the first background image using inline CSS below. -->
-                <div class="fill" style="background-image: url('bootstrap/images/rio.png');"></div>
+
+
+                <div class="fill" style="   background-image: url(/images/<?=$this->countries[0]['image_path']?>) ;"></div>
                 <div class="carousel-caption">
-                    <h2>Rio De Janiro</h2>
+                    <h1><?php echo $this->countries[0]['name']?></h1>
                 </div>
             </div>
+           
             <div class="item">
                 <!-- Set the second background image using inline CSS below. -->
-                <div class="fill" style="background-image: url('bootstrap/images/bg.jpg');"></div>
+                <div class="fill" style="   background-image: url(/images/<?=$this->countries[1]['image_path']?>) ;"></div>
                 <div class="carousel-caption">
-                    <h2>Caption 2</h2>
+                    <h1><?php echo $this->countries[1]['name']?></h1>
                 </div>
             </div>
+
             <div class="item">
                 <!-- Set the third background image using inline CSS below. -->
-                <div class="fill" style="background-image: url('bootstrap/images/bg.jpg');"></div>
+                <div class="fill" style="   background-image: url(/images/<?=$this->countries[2]['image_path']?>) ;"></div>
                 <div class="carousel-caption">
-                    <h2>Caption 3</h2>
+                    <h1><?php echo $this->countries[2]['name']?></h1>
+                </div>
+            </div>
+        
+
+
+        <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill" style="   background-image: url(/images/<?=$this->countries[3]['image_path']?>) ;"></div>
+                <div class="carousel-caption">
+                    <h1><?php echo $this->countries[3]['name']?></h1>
+                </div>
+            </div>
+        
+
+        <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div class="fill" style="   background-image: url(/images/<?=$this->countries[4]['image_path']?>) ;"></div>
+                <div class="carousel-caption">
+                    <h1><?php echo $this->countries[4]['name']?></h1>
+                </div>
+            </div>
+        
+
+        <div class="item">
+                <!-- Set the third background image using inline CSS below. -->
+                <div  class="fill " style="background-image: url(/images/<?=$this->countries[5]['image_path']?>);"></div>
+                <div class="carousel-caption">
+                    <h1><?php echo $this->countries[5]['name']?></h1>
                 </div>
             </div>
         </div>
+
 
         <!-- Controls -->
         <a class="left carousel-control" href="#myCarousel" data-slide="prev">
@@ -114,20 +150,6 @@
 
         <hr>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <!-- Footer -->
         <footer>
             <div class="row">
@@ -150,7 +172,7 @@
     <!-- Script to Activate the Carousel -->
     <script>
     $('.carousel').carousel({
-        interval: 5000 //changes the speed
+        interval: 2500 //changes the speed
     })
     </script>
 

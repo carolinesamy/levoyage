@@ -10,13 +10,13 @@ class Application_Form_Login extends Zend_Form
 		$this->setAttrib('class','form-horizontal col-md-3');
 
 		
-		$username = new Zend_Form_Element_Text('username');
-		$username->setAttrib('class', 'form-control ');
-		$username->setLabel('username');
-		$username->setRequired(true);
-        $username->addValidator('StringLength', false, Array(3,20));
-		$username->addFilter('StringTrim');		
-		$username->setErrorMessages(array("username not exist"));
+		$email = new Zend_Form_Element_Text('email');
+		$email->setAttrib('class', 'form-control ');
+		$email->setLabel('email');
+		$email->setRequired(true);
+		$email->addValidator('regex', false, array('/^([*+!.&#$¦\'\\%\/0-9a-z^_`{}=?~:-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,4})$/i'));
+		$email->addFilter('StringTrim');		
+		$email->setErrorMessages(array("email not valid "));
 
   		$password = new Zend_Form_Element_Password('password');
   		$password->setAttrib('class', 'form-control ');
@@ -27,7 +27,7 @@ class Application_Form_Login extends Zend_Form
 
 		$submit=new Zend_Form_Element_Submit('Login');
 		$submit->setAttrib('class','btn btn-info');
-		$this->addElements(array($username,$password,$submit));
+		$this->addElements(array($email,$password,$submit));
 		
 		
     }
