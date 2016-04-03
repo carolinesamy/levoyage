@@ -13,6 +13,31 @@ class Application_Model_Country extends Zend_Db_Table_Abstract
         return $cities;
     }
 
+    function findConid($country_id)
+    {
+        $couid=$this->find($country_id)->current();
+        return $couid;
+    }
+
+    function deletecountry($country_id)
+    {
+        $this->delete("id=$country_id");
+    }
+
+    function allcountry()
+    {
+        $couid=$this->fetchAll()->toArray();
+        return $couid;
+    }
+    function addcountry($countrydata)
+    {
+        $row=$this->createRow();
+        $row->name=$countrydata['name'];
+        $row->image_path=$countrydata['image_path'];
+        $row->save();
+
+    }
+
 
 }
 
