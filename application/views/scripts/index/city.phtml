@@ -14,7 +14,6 @@ $user=$sessionRead;
     $fuser=$fbsession->fname;
 }
 ?>
-
 <link rel="stylesheet" type="text/css"  href="/bootstrap/css/city-style.css">
 <link rel="stylesheet" type="text/css" href="/bootstrap/css/city-animate.min.css">
 <link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300' rel='stylesheet' type='text/css'>
@@ -187,16 +186,22 @@ if($isLogin) {
     <?php
 }
 ?>
-    <iframe  id="city-expe" src="/index/exper/id/<?=$this->city->id?>" style="width: 100%;height: 600px ;border: none"></iframe>
+    <iframe  id="city-expe" src="/index/exper/id/<?=$this->city->id?>#disqus_thread" style="width: 100%;height: 600px ;border: none"></iframe>
 <script>
     $("#top").remove();
 </script>
 <script>
     function initMap() {
         var mapDiv = document.getElementById('map');
+        var myLatLng = {lat:  <?= $this->city->lat?>, lng: <?= $this->city->longd?>};
         var map = new google.maps.Map(mapDiv, {
-            center: {lat: <?= $this->city->lat?>, lng: <?= $this->city->longd?>},
+            center: myLatLng,
             zoom: 8
+        });
+        var marker = new google.maps.Marker({
+            position: myLatLng,
+            map: map,
+            title: '<?= $this->city->name?>'
         });
     }
 </script>

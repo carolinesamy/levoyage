@@ -64,6 +64,47 @@ class IndexController extends Zend_Controller_Action
 
     }
 
+    public function getcountryAction()
+    {
+        // action body
+        $city= new Application_Model_City();
+        $country=$city->get_country(3);
+        $this->view->ncountry=$country;
+
+    }
+
+    public function getcitiesAction()
+    {
+        // action body
+        $countryid=$this->_request->getParam("conid");
+        $country=new Application_Model_Country();
+        $cities=$country->findCities($countryid);
+        foreach($cities as $key=>$value)
+        {
+            $city[$key]['id']=$value->id;
+            $city[$key]['name']=$value->name;
+            $city[$key]['image']=$value->image_path;
+            $city[$key]['rate']=$value->rate;
+        }
+        $this->view->cities=$city;
+        //*********find country name***************
+
+        $countrydata=$country->findConid($countryid);
+        $this->view->countrydata=$countrydata;
+
+
+        //$this->view->country=$country;
+        //$this->view->cities=$cities;
+    }
+
+
+
+
+
+
+
+
+
 
 }
 

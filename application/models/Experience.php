@@ -27,5 +27,18 @@ class Application_Model_Experience extends Zend_Db_Table_Abstract
 
     }
 
+
+
+        function addexper($id,$photo,$experData,$city_id)
+     {
+        $row = $this->createRow();
+        $row->content = $experData['content'];
+        $row->title = $experData['title'];
+        $row->city_id =$city_id;
+        $row->user_id = $id;
+        $row->image_path =$photo;
+        $row->save();   
+     }
+
 }
 

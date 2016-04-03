@@ -221,7 +221,6 @@ class UserController extends Zend_Controller_Action
          $this->redirect("/user/login");
     }
 
-      
     public function getcountryAction()
     {
         // action body
@@ -239,20 +238,21 @@ class UserController extends Zend_Controller_Action
         $id =  $sessionRead->id;
         $form = new Application_Form_Editform ();
         $user_model = new Application_Model_User();
-        $user_data = $user_model-> userDetails ($id)[0];
-        $form->populate($user_data);
+        $user_data = $user_model-> userDetails ($id)->current();
+        $carRents=$user_data->findDependentRowset('Application_Model_RentCar');
+        $this->view->cars=$carRents->current();
+
+        $form->populate($user_data->toArray());
         $this->view->user_form = $form;
         $request = $this->getRequest ();
         if($request-> isPost()){
-            if($form-> isValid($request-> getPost())){
-                
+            if($form-> isValid($request-> getPost())){          
                 $user_model-> updateuser ($id,$_POST);
-                //following code to update user name in layout
+                //the following code to update user name in layout
                 $email = $this->_request->getParam('email');
                 $password = $this->_request->getParam('password');
                 $db = Zend_Db_Table::getDefaultAdapter( );
-                $authAdapter = new Zend_Auth_Adapter_DbTable($db, "user", "email",
-                "password");
+                $authAdapter = new Zend_Auth_Adapter_DbTable($db, "user", "email","password");
                 $authAdapter->setIdentity($email);
                 $authAdapter->setCredential($password);
                 $result = $authAdapter->authenticate();
@@ -265,14 +265,12 @@ class UserController extends Zend_Controller_Action
         }
     }
 
-
-
-
     public function getcitiesAction()
     {
         // action body
+        $countryid=$this->_request->getParam("conid");
         $country=new Application_Model_Country();
-        $cities=$country->findCities(1);
+        $cities=$country->findCities($countryid);
         foreach($cities as $key=>$value)
         {
             $city[$key]['name']=$value->name;
@@ -280,6 +278,13 @@ class UserController extends Zend_Controller_Action
             $city[$key]['rate']=$value->rate;
         }
         $this->view->cities=$city;
+        //*********find country name***************
+
+        $countrydata=$country->findConid($countryid);
+        $this->view->countrydata=$countrydata;
+
+
+        //$this->view->country=$country;
         //$this->view->cities=$cities;
     }
 
@@ -288,6 +293,38 @@ class UserController extends Zend_Controller_Action
         // action body
     }
 
+    public function addexperAction()
+    {
+        // action body
+        $form = new Application_Form_Addexperience ();
+        $this->view->exper_form = $form;
+        $user_model = new Application_Model_Experience();
+        $request = $this->getRequest ();
+        $city_id = $this->_request->getParam('id');
+        if($request-> isPost()){
+            if($form-> isValid($request-> getPost())){
+    	    $auth = Zend_Auth::getInstance();
+            $storage = $auth->getStorage();
+            $sessionRead = $storage->read();
+            $id =  $sessionRead->id;
+            $upload = new Zend_File_Transfer_Adapter_Http();
+            $upload->addValidator('Size', false, 52428800, 'image');
+            $upload->setDestination('../public/images');
+            $files = $upload->getFileInfo();
+            foreach ($files as $file => $info) {
+            if ($upload->isValid($file)) {
+                //save image in server
+             $upload->receive($file);
+             //send data to model
+    	     $photo=$files['photo']['name'];
+             $user_model-> addexper($id,$photo,$_POST,$city_id);
+             $this->redirect("/index/city/id/city_id");
+         }
+    }
 
+    }
 }
 
+
+}
+}
