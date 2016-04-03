@@ -1,5 +1,0 @@
-<?php
-define('WY7NpcSMyrEpOMhXvdMixoxqJ', 'Twitter Consumer Key');
-define('vsrOIbN1adtWoqyhAJuFH44WBS3xrMarYtvV0RhO9hA5C', 'Twitter Consumer Secret');
-define('OAUTH_CALLBACK', 'http://localhost/login_with_twitter_using_php/process.php');
-?>

@@ -16,6 +16,16 @@ class Application_Model_Experience extends Zend_Db_Table_Abstract
             'refColumns'=>array('id'),
             'onDelete'=>'cascade'
         ));
+    function getCityExper($city_id){
+
+        $query = $this->select();
+
+        $query->where('city_id = ?', $city_id);
+        // $query->order($order);
+
+        return $this->fetchAll($query);
+
+    }
 
 
 
