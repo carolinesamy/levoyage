@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="/bootstrap/js/jquery.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
+
 <?php
 $isLogin=false;
 $user=null;
@@ -10,145 +14,82 @@ $storage = $auth->getStorage();
 $sessionRead = $storage->read();
 $fpsession = new Zend_Session_Namespace('facebook');
 if (!empty($sessionRead)) {
+$name = $sessionRead->username;
 $isLogin=true;
 $user=$sessionRead;
+/////////////////////////////////////////////////////////////
+define('DISQUS_SECRET_KEY', 'zjhrrNr8Dc7CP6uy8c7D7V4ARyW2Gjoi5Pz6Fu887xiqjn14YvG7rIYHLahjDevl');
+define('DISQUS_PUBLIC_KEY', 'XjFMiYJj5GbojsMhu0LRanNxl8lqBpzfKpySCKabHnZ9KD7jfuyD9KyrZM7gYDyu');
+$data = array(
+"id" => $user->id,
+"username" => $user->username,
+"email" => $user->email
+);
+function dsq_hmacsha1($data, $key) {
+$blocksize=64;
+$hashfunc='sha1';
+if (strlen($key)>$blocksize)
+$key=pack('H*', $hashfunc($key));
+$key=str_pad($key,$blocksize,chr(0x00));
+$ipad=str_repeat(chr(0x36),$blocksize);
+$opad=str_repeat(chr(0x5c),$blocksize);
+$hmac = pack(
+'H*',$hashfunc(
+($key^$opad).pack(
+'H*',$hashfunc(
+($key^$ipad).$data
+)
+)
+)
+);
+return bin2hex($hmac);
+}
+$message = base64_encode(json_encode($data));
+$timestamp = time();
+$hmac = dsq_hmacsha1($message . ' ' . $timestamp, DISQUS_SECRET_KEY);
+///////////////////////////////////
 ?>
-<script type="text/javascript" src="http://crypto-js.googlecode.com/files/2.0.0-crypto-sha1.js"></script>
-<script type="text/javascript" src="http://crypto-js.googlecode.com/files/2.0.0-hmac-min.js"></script>
-<script>
-var disqus_config = function () {
-/*var id='<?php echo $user->id ?>';*/
-var id=1;
-var username='<?=$user->username?>';
-var email='<?=$user->email?>';
-var secret_key="zjhrrNr8Dc7CP6uy8c7D7V4ARyW2Gjoi5Pz6Fu887xiqjn14YvG7rIYHLahjDevl";
-var public_api_key="XjFMiYJj5GbojsMhu0LRanNxl8lqBpzfKpySCKabHnZ9KD7jfuyD9KyrZM7gYDyu";
-var timestamp=(Date.now()/1000);
-var message={'id':id,'username':username,'email':email}
-var hmac = Crypto.HMAC(Crypto.SHA1,message + ' ' + timestamp,secret_key);
-// The generated payload which authenticates users with Disqus
-this.page.remote_auth_s3 = message+" "+hmac+" "+timestamp;
-this.page.api_key = public_api_key;
+<script type="text/javascript">
+var disqus_config = function() {
+this.page.remote_auth_s3 = "<?php echo "$message $hmac $timestamp"; ?>";
+this.page.api_key = "<?php echo DISQUS_PUBLIC_KEY; ?>";
 }
 </script>
 <?php
-}elseif( (isset($fbsession->fname) && !empty (isset($fbsession->fname)))){
-$fuser=$fbsession->fname;
+}elseif( (isset($fbsession->username) && !empty (isset($fbsession->username)))){
+$fuser=$fbsession->username;
 }
 ?>
-<!-- Bootstrap Core CSS -->
-
 <title></title>
 <meta charset="utf-8">
-<link rel="stylesheet" href="bootstrap/css/reset.css" type="text/css" media="screen">
-<link rel="stylesheet" href="bootstrap/css/style.css" type="text/css" media="screen">
-<link rel="stylesheet" href="bootstrap/css/layout.css" type="text/css" media="screen">
-<script type="text/javascript" src="bootstrap/js/jquery-1.6.min.js"></script>
-<script src="bootstrap/js/cufon-yui.js" type="text/javascript"></script>
-<script src="bootstrap/js/cufon-replace.js" type="text/javascript"></script>
-<script src="bootstrap/js/Open_Sans_400.font.js" type="text/javascript"></script>
-<script src="bootstrap/js/Open_Sans_Light_300.font.js" type="text/javascript"></script> 
-<script src="bootstrap/js/Open_Sans_Semibold_600.font.js" type="text/javascript"></script> 
-<script src="bootstrap/js/FF-cash.js" type="text/javascript"></script>  
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Bootstrap Core CSS -->
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- Latest compiled and minified JavaScript -->
+<script src="/bootstrap/js/jquery.min.js"></script>
+<script src="/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body id="page5">
 <!-- header -->
-	<div class="bg">
-		<div class="main">
-			<header>
-				<div class="row-1">
-					<h1>
-						<a class="logo" href="index.html">Point.co</a>
-						<strong class="slog">The most creative ideas</strong>
-					</h1>
-					<form id="search-form" method="post" enctype="multipart/form-data">
-						<fieldset>
-							<div class="search-form">					
-								<input type="text" name="search" value="Type Keyword Here" onBlur="if(this.value=='') this.value='Type Keyword Here'" onFocus="if(this.value =='Type Keyword Here' ) this.value=''" />
-								<a href="#" onClick="document.getElementById('search-form').submit()">Search</a>									
-							</div>
-						</fieldset>
-					</form>
-				</div>
-				<div class="row-2">
-					<nav>
-						<ul class="menu">
-						  <li><a href="index.html">Home Page</a></li>
-						  <li><a href="news.html">destinations</a></li>
-						  <li><a href="services.html">bookings</a></li>
-						  <li><a href="products.html">shop</a></li>
-						  <li class="last-item"><a class="active" href="contacts.html">Contact Us</a></li>
-						</ul>
-					</nav>
-				</div>
-			</header>
-
+<div class="bg">
+<nav id ="top" class="navbar navbar-default navbar-fixed-top">
+<p class="navbar-text" style="float:right;">
 <?php
 if ($isLogin) {
 $name = $user->username;
 echo "Welcome $name";
 echo '<a class="btn btn-default navbar-btn" href="'. $this->baseUrl() .'/user/logout"> Logout </a>';
+echo' <a class="btn btn-default navbar-btn" href="'. $this->baseUrl() .'/user/editprofile"> update profile </a>';
+echo' <a class="btn btn-default navbar-btn" href="'. $this->baseUrl() .'/index"> Home </a>';
 }
 elseif ($fuser) {
+$fuser=$fbsession->username;
 echo "Welcome $fuser";
+echo'<a class="btn btn-default navbar-btn" href="'. $this->baseUrl().'/user/fblogout"> Logout </a>';
+echo'<a class="btn btn-default navbar-btn" href="'. $this->baseUrl() .'/index"> Home </a>';
 }
 ?>
-
+</p>
+</nav>
+</div>
 <?php echo $this->layout()->content; ?>
-
-
-
-
-
-
-
-						<footer>
-				<div class="row-top">
-					<div class="row-padding">
-						<div class="wrapper">
-							
-							<div class="col-2">
-								<h4>Follow Us:</h4>
-								<ul class="list-services">
-									<li class="item-1"><a href="#">Facebook</a></li>
-									<li class="item-2"><a href="#">Twitter</a></li>
-									<li class="item-3"><a href="#">LinkedIn</a></li>
-								</ul>
-							</div>
-							
-							<div class="col-4">
-								<div class="indent3">
-									<strong class="footer-logo">Point.<strong>co</strong></strong>
-									<strong class="phone"><strong>Toll Free:</strong> 1-800-567-8934</strong>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row-bot">
-					<div class="aligncenter">
-						<p class="p0"><a rel="nofollow" href="http://www.templatemonster.com/" target="_blank">Website Template</a> by levoyage team</p>
-						<a href="http://www.templates.com/product/3d-models/" target="_blank">3D Models</a> provided by levoyage team<br>
-						<!-- {%FOOTER_LINK} -->
-					</div>
-				</div>
-			</footer>
-		</div>
-	</div>
-	<script type="text/javascript"> Cufon.now(); </script>
-</body>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
