@@ -12,7 +12,7 @@ echo "<center><strong class=\"footer-logo\">".$this->countrydata->name."</strong
 ?>
 <body>
 <div class="row">
-	<div class="col-sm-12"><img src="<?php echo $this->countrydata->image_path ?>" class="img-thumbnail" alt="Cinque Terre" width="1000" height="236"></div>
+	<div class="col-sm-12"><img src="/images/<?php echo $this->countrydata->image_path ?>" class="img-thumbnail" alt="Cinque Terre" width="1000" height="236"></div>
 
 </div>
 
@@ -21,8 +21,8 @@ echo "<center><strong class=\"footer-logo\">".$this->countrydata->name."</strong
 foreach($this->cities as $key=>$value)
 {
 	echo "<table class=\"info\"><thead><tr class=\"success\">";
-	echo "<td><img src=". $value['image']." class=\"img-thumbnail\" alt=\"Cinque Terre\" width=\"236\" height=\"236\"/></td>";
-
+	echo "<td><a href='/index/city/id/". $value['id']."' ><img src='/images/". $value['image']."' class=\"img-thumbnail\" alt=\"Cinque Terre\" width=\"236\" height=\"236\"/></td></a>";
+	//echo "/images/". $value['image'];
 	echo "<td><strong class=\"footer-logo\">".$value['name']."</strong><br>" ;
 	echo "<center>Rate: " .$value['rate']."</center></td></tr></tbody></table>";
 	//echo ":image path: " .$value['image'];

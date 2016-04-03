@@ -226,8 +226,9 @@ class UserController extends Zend_Controller_Action
     public function getcitiesAction()
     {
         // action body
+        $countryid=$this->_request->getParam("conid");
         $country=new Application_Model_Country();
-        $cities=$country->findCities(1);
+        $cities=$country->findCities($countryid);
         foreach($cities as $key=>$value)
         {
             $city[$key]['name']=$value->name;
@@ -235,6 +236,13 @@ class UserController extends Zend_Controller_Action
             $city[$key]['rate']=$value->rate;
         }
         $this->view->cities=$city;
+        //*********find country name***************
+
+        $countrydata=$country->findConid($countryid);
+        $this->view->countrydata=$countrydata;
+
+
+        //$this->view->country=$country;
         //$this->view->cities=$cities;
     }
 
