@@ -238,20 +238,21 @@ class UserController extends Zend_Controller_Action
         $id =  $sessionRead->id;
         $form = new Application_Form_Editform ();
         $user_model = new Application_Model_User();
-        $user_data = $user_model-> userDetails ($id)[0];
-        $form->populate($user_data);
+        $user_data = $user_model-> userDetails ($id)->current();
+        $carRents=$user_data->findDependentRowset('Application_Model_RentCar');
+        $this->view->cars=$carRents->current();
+
+        $form->populate($user_data->toArray());
         $this->view->user_form = $form;
         $request = $this->getRequest ();
         if($request-> isPost()){
-            if($form-> isValid($request-> getPost())){
-                
+            if($form-> isValid($request-> getPost())){          
                 $user_model-> updateuser ($id,$_POST);
-                //following code to update user name in layout
+                //the following code to update user name in layout
                 $email = $this->_request->getParam('email');
                 $password = $this->_request->getParam('password');
                 $db = Zend_Db_Table::getDefaultAdapter( );
-                $authAdapter = new Zend_Auth_Adapter_DbTable($db, "user", "email",
-                "password");
+                $authAdapter = new Zend_Auth_Adapter_DbTable($db, "user", "email","password");
                 $authAdapter->setIdentity($email);
                 $authAdapter->setCredential($password);
                 $result = $authAdapter->authenticate();

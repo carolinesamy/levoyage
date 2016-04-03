@@ -1,4 +1,15 @@
 <?php
 
-	echo $this->user_form ;
+	 echo"<br><br><br><br><br>";
+ 	 echo $this->user_form ;
+ 	 var_dump($this->cars);
+     echo'<table class="table-striped table-bordered table-hover">
+     	<tr><th>from</th><th>to</th><th>pick_time</th><th>leaving_time</th></tr>';
+     	 foreach ($this->cars as $key => $value) {
+     	 	echo"<tr><td>value->from_city</td><td>value->to_city</td><td>value->pick_time</td><td>value->leaving_time</td><tr>";
+ 				# code...
+ 			}
+ 		
+ 	echo"</table>";
+	
 ?>
