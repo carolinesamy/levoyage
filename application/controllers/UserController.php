@@ -221,7 +221,6 @@ class UserController extends Zend_Controller_Action
          $this->redirect("/user/login");
     }
 
-      
     public function getcountryAction()
     {
         // action body
@@ -265,9 +264,6 @@ class UserController extends Zend_Controller_Action
         }
     }
 
-
-
-
     public function getcitiesAction()
     {
         // action body
@@ -288,6 +284,38 @@ class UserController extends Zend_Controller_Action
         // action body
     }
 
+    public function addexperAction()
+    {
+        // action body
+        $form = new Application_Form_Addexperience ();
+        $this->view->exper_form = $form;
+        $user_model = new Application_Model_Experience();
+        $request = $this->getRequest ();
+        $city_id = $this->_request->getParam('id');
+        if($request-> isPost()){
+            if($form-> isValid($request-> getPost())){
+    	    $auth = Zend_Auth::getInstance();
+            $storage = $auth->getStorage();
+            $sessionRead = $storage->read();
+            $id =  $sessionRead->id;
+            $upload = new Zend_File_Transfer_Adapter_Http();
+            $upload->addValidator('Size', false, 52428800, 'image');
+            $upload->setDestination('../public/images');
+            $files = $upload->getFileInfo();
+            foreach ($files as $file => $info) {
+            if ($upload->isValid($file)) {
+                //save image in server
+             $upload->receive($file);
+             //send data to model
+    	     $photo=$files['photo']['name'];
+             $user_model-> addexper($id,$photo,$_POST,$city_id);
+             $this->redirect("/index/city/id/city_id");
+         }
+    }
 
+    }
 }
 
+
+}
+}

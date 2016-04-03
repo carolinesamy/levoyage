@@ -23,15 +23,17 @@
           <actionMethod actionName="twauth"/>
           <actionMethod actionName="twlogout"/>
           <actionMethod actionName="editprofile"/>
-            <actionMethod actionName="getcountry"/>
-            <actionMethod actionName="getcities"/>
-            <actionMethod actionName="comm"/>
+          <actionMethod actionName="getcountry"/>
+          <actionMethod actionName="getcities"/>
+          <actionMethod actionName="comm"/>
+          <actionMethod actionName="addexper"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="Register"/>
         <formFile formName="Login"/>
         <formFile formName="Editform"/>
+        <formFile formName="Addexperience"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -88,10 +90,13 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="getcities"/>
-              <viewScriptFile forActionName="comm"/>
+            <viewScriptFile forActionName="comm"/>
           </viewControllerScriptsDirectory>
-            <viewControllerScriptsDirectory forControllerName="Index">
-                <viewScriptFile forActionName="city"/>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="city"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="addexper"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

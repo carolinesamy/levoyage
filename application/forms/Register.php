@@ -39,13 +39,12 @@ class Application_Form_Register extends Zend_Form
         $confpassword->addValidator('Identical', false,array('token' => 'password'));
         $confpassword->addErrorMessage('The passwords do not match');
 
-		$upload= new Zend_Form_Element_File('file');
 		$submit=new Zend_Form_Element_Submit('Submit');
 		$submit->setAttrib('class','btn btn-success');
 		$reset=new Zend_Form_Element_Reset('Reset');
 		$reset->setAttrib('class','btn btn-danger');
 		
-		$this->addElements(array($id,$username,$email,$password,$confpassword,$upload,$submit,$reset));
+		$this->addElements(array($id,$username,$email,$password,$confpassword,$submit,$reset));
 		
 		
     }
