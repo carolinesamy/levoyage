@@ -310,7 +310,7 @@ class UserController extends Zend_Controller_Action
              //send data to model
     	     $photo=$files['photo']['name'];
              $user_model-> addexper($id,$photo,$_POST,$city_id);
-             $this->redirect("/index/city/id/city_id");
+             $this->redirect("/index/city/id/$city_id");
          }
     }
 

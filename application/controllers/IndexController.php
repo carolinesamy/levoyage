@@ -46,6 +46,7 @@ class IndexController extends Zend_Controller_Action
         $paginator->setItemCountPerPage(1);
         $paginator->setCurrentPageNumber($page);
         $this->view->paginator=$paginator;
+        $this->view->city_id=$id;
         $comments=$exps->getRow($page-1)->findDependentRowset('Application_Model_Comment');
         $this->comments=$comments;
 
