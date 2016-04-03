@@ -10,12 +10,18 @@ $fpsession = new Zend_Session_Namespace('facebook');
 if (!empty($sessionRead)) {
 	$isLogin=true;
 	$user=$sessionRead;
+	include "disqus.phtml";
 
 }elseif( (isset($fbsession->fname) && !empty (isset($fbsession->fname)))){
 	$fuser=$fbsession->fname;
 }
 ?>
-
+<script type="text/javascript">
+	var disqus_config = function() {
+		this.page.remote_auth_s3 = "<?php echo "$message $hmac $timestamp"; ?>";
+		this.page.api_key = "<?php echo DISQUS_PUBLIC_KEY; ?>";
+	}
+</script>
 <link rel="stylesheet" type="text/css"  href="/bootstrap/css/city-style.css">
 <link rel="stylesheet" type="text/css" href="/bootstrap/css/city-animate.min.css">
 <link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300' rel='stylesheet' type='text/css'>
