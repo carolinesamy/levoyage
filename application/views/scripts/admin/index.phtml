@@ -1,4 +1,27 @@
 <br /><br />
 <div id="view-content">
-	<p>View script for controller <b>Admin</b> and script/action name <b>index</b></p>
+</div>
+<br /><br /><br />
+<div id="view-content">
+
+	<h3 align="center" > Countries <a href='socialmedia'>Add Country</a></h3>
+	<table class='table'>
+		<thead>
+		<tr>
+			<th>ID</th><th>Country Name</th><th>Edit</th><th>Delete</th>
+		</tr>
+		</thead>
+		<?php
+		foreach($this->count as $key => $value)
+		{
+			echo "<tr>".
+				"<td>" . $value['id'] . "</td>" .
+				"<td>" . $value['name'] . "</td>" .
+				"<td><a class='btn btn-success' href='editcountry/cid/".$value['id']."'>Edit</a></td>".
+				"<td><a class='btn btn-danger' href='deletecountry/conid/".$value['id']."'>Delete</a></td>".
+				"</tr>";
+		}
+		?>
+
+	</table>
 </div>

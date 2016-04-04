@@ -41,21 +41,67 @@ class AdminController extends Zend_Controller_Action
         $this->view->addform=$form;
         $req=$this->getRequest();
 
-        if($req->isPost()){
+        if($req->isPost()) {
             if ($form->isValid($req->getPost()))//hna pcheck 3ala l form in el data valid
             {
-                $upload=new Zend_File_Transfer_Adapter_Http();
-                $upload->addFilter('Rename',"/var/www/html/levoyage/public/images/".$_POST['name'].".jpg");
+                $upload = new Zend_File_Transfer_Adapter_Http();
+                $upload->addFilter('Rename', "/var/www/html/levoyage/public/images/" . $_POST['name'] . ".jpg");
                 $upload->receive();
-                $_POST['image_path']="/images/".$_POST['name'].".jpg";
+                $_POST['image_path'] = "/images/" . $_POST['name'] . ".jpg";
                 $country->addcountry($_POST);
                 $this->redirect('/admin/allcountry');
             }
+        }
+    
     }
-    }
+
+//    public function editAction()
+//    {
+//        $form =new Application_Form_Addcounrty();
+//        $country=new Application_Model_Country();
+//        //$editcountry_form=new Application_Form_Addcountry();
+//        //$country_obj=new Application_Model_Country();
+//        $country_id=$this->_request->getParam('conid');
+//        $countryById=$country->getCountryById($country_id);
+//        $form->populate($countryById[0]);
+//        $this->view->editcountry=$form;
+//
+//        $request=$this->getRequest();
+//        if($request->isPost())
+//        {
+//            if($form->isValid($request->getPost()))
+//            {
+//                $upload = new Zend_File_Transfer_Adapter_Http();
+//                $name=$_FILES['image_path']['name'];
+//
+//                if ($name != "") {
+//                    $upload->addFilter('Rename',
+//                        array('target' => "/var/www/html/zend_project/public/images/countries/" . $name ,
+//                            'overwrite' => true));
+//
+//                    $_POST['image_path'] = "/images/countries/" . $name;
+//                }
+//
+//                else{
+//                    $_POST['image_path']="";
+//                }
+//
+//                $upload->receive();
+//
+//                $country->editCountry($_POST);
+//                $this->redirect('/admin/allcountries');
+//            }
+//        }
+//
+//
+//
+//
+//    }
 
 
 }
+
+
 
 
 

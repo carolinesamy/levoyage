@@ -22,7 +22,6 @@
           <actionMethod actionName="fblogout"/>
           <actionMethod actionName="logout"/>
           <actionMethod actionName="twauth"/>
-<<<<<<< HEAD
           <actionMethod actionName="getcountry"/>
           <actionMethod actionName="getcities"/>
           <actionMethod actionName="comm"/>
@@ -32,34 +31,27 @@
           <actionMethod actionName="allcities"/>
           <actionMethod actionName="deletecountry"/>
           <actionMethod actionName="addcountry"/>
-=======
           <actionMethod actionName="twlogout"/>
           <actionMethod actionName="editprofile"/>
           <actionMethod actionName="getcountry"/>
           <actionMethod actionName="getcities"/>
           <actionMethod actionName="comm"/>
           <actionMethod actionName="addexper"/>
->>>>>>> d4062b59fcd30884154e2faf2f796a9bf5857aae
+          <actionMethod actionName="edit"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
         <formFile formName="Register"/>
         <formFile formName="Login"/>
-<<<<<<< HEAD
         <formFile formName="Addcounrty"/>
-=======
         <formFile formName="Editform"/>
         <formFile formName="Addexperience"/>
->>>>>>> d4062b59fcd30884154e2faf2f796a9bf5857aae
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
           <layoutScriptFile layoutName="layout"/>
         </layoutScriptsDirectory>
       </layoutsDirectory>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
       <modelsDirectory/>
       <formsDirectory>
         <formFile formName="Register"/>
@@ -70,9 +62,6 @@
           <layoutScriptFile layoutName="layout"/>
         </layoutScriptsDirectory>
       </layoutsDirectory>
-=======
->>>>>>> 997c70886a0be47baf7cf919ec2e7d87739733ac
->>>>>>> d4062b59fcd30884154e2faf2f796a9bf5857aae
       <modelsDirectory>
         <modelFile modelName="User"/>
         <modelFile modelName="City"/>
@@ -128,7 +117,6 @@
           <viewControllerScriptsDirectory forControllerName="Index">
             <viewScriptFile forActionName="city"/>
           </viewControllerScriptsDirectory>
-
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="index"/>
           </viewControllerScriptsDirectory>
@@ -140,11 +128,15 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="addcountry"/>
+          </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="addexper"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Index">
             <viewScriptFile forActionName="exper"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="edit"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

@@ -18,6 +18,11 @@ class Application_Model_Country extends Zend_Db_Table_Abstract
         $couid=$this->find($country_id)->current();
         return $couid;
     }
+    function getCountryById($country_id)
+    {
+        $conid=$this->find($country_id)->toArray();
+        return $conid;
+    }
 
     function deletecountry($country_id)
     {
