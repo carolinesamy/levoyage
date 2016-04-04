@@ -5,7 +5,6 @@ class IndexController extends Zend_Controller_Action
 
     public function init()
     {
-
     }
 
     public function indexAction()
@@ -40,8 +39,8 @@ class IndexController extends Zend_Controller_Action
         $this->view->exps=$exps;
         $hotels= $city->findDependentRowset('Application_Model_Hotel');
         $this->view->hotels=$hotels;
-
-
+        $hotelform=new Application_Form_Hotel();
+        $this->view->hotel_form=$hotelform;
     }
 
     public function experAction()
@@ -98,16 +97,15 @@ class IndexController extends Zend_Controller_Action
         //$this->view->cities=$cities;
     }
 
+    public function bookhotelAction()
+    {
 
-
-
-
-
-
-
+    }
 
 
 }
+
+
 
 
 

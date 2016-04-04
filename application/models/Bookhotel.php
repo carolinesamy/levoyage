@@ -11,6 +11,9 @@ class Application_Model_Bookhotel extends Zend_Db_Table_Abstract
         'onDelete'=>'cascade'
     ));
 
-
+function addBook($data){
+	$row=$this->createRow($data);
+	$row->save();
+}
 }
 
