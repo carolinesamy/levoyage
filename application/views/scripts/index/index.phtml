@@ -56,16 +56,16 @@ $fuser=$fbsession->username;
                 <?php
             if ($isLogin) {
                 $name = $user->username;
-                echo '<li>Welcome '.$name.'</li>'.'
+                echo '<li style="color:white"> <a>Welcome '.$name.'</a></li>'.'
                  <li><a href="'. $this->baseUrl() .'/user/logout"> Logout </a></li>
                  <li><a  href="'. $this->baseUrl() .'/user/editprofile"> update profile </a>
                  <li><a  href="'. $this->baseUrl() .'/index"> Home </a></li>';
             }
             elseif ($fuser) {
             $fuser=$fbsession->username;
-            echo '<li>Welcome '.$fuser.'
-             <a  href="'. $this->baseUrl().'/user/fblogout"> Logout </a>
-             <a  href="'. $this->baseUrl() .'/index"> Home </a></li>';
+            echo '<li>Welcome '.$fuser.'</li>'.'
+             <li><a  href="'. $this->baseUrl().'/user/fblogout"> Logout </a></li>
+             <li><a  href="'. $this->baseUrl() .'/index"> Home </a></li>';
             }
             ?>
                 </ul>
@@ -168,17 +168,10 @@ $fuser=$fbsession->username;
             </div>
         </div>
 
-        <hr>
+        
 
         <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
-                </div>
-            </div>
-            <!-- /.row -->
-        </footer>
+
 
     </div>
     <!-- /.container -->
