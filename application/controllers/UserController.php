@@ -332,5 +332,32 @@ class UserController extends Zend_Controller_Action
 }
 
 
+    }
+
+    public function bookhotelAction()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $hotel_model=new Application_Model_Bookhotel();
+
+        //makes disable layout
+        $this->_helper->getHelper('layout')->disableLayout(true);
+        if(!$rooms=($_POST['members']/4)){
+            $rooms=1;
+        }
+
+        $data= array(
+            'hotel_name' =>$_POST['hotel'],
+            'time_from' =>$_POST['from'],
+            'time_to' =>$_POST['to'],
+            'user_id' =>$_POST['user_id'],
+            'num_member' =>$_POST['members'],
+            'num_rooms'=>$rooms
+        );
+        $hotel_model->addBook($data);
+        echo true;
+    }
+
+
 }
-}
+
+
