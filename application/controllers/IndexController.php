@@ -5,12 +5,25 @@ class IndexController extends Zend_Controller_Action
 
     public function init()
     {
-;
+
     }
 
     public function indexAction()
     {
         // action body
+        $model = new Application_Model_Country();
+        
+        $countries = $model->findCountries();
+        
+        foreach($countries as $key=>$value)
+        {
+            $country[$key]['id']=$value->id;
+            $country[$key]['name']=$value->name;
+            $country[$key]['image_path']=$value->image_path;
+            $country[$key]['rate']=$value->rate;
+        }
+        
+        $this->view->countries = $country;
     }
 
     public function cityAction()

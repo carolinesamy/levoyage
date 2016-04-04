@@ -247,8 +247,7 @@ class UserController extends Zend_Controller_Action
         $user_model = new Application_Model_User();
         $user_data = $user_model-> userDetails ($id)->current();
         $carRents=$user_data->findDependentRowset('Application_Model_RentCar');
-        $this->view->cars=$carRents->current();
-
+        $this->view->cars=$carRents;
         $form->populate($user_data->toArray());
         $this->view->user_form = $form;
         $request = $this->getRequest ();

@@ -12,6 +12,16 @@ class Application_Model_Country extends Zend_Db_Table_Abstract
         $cities=$countryrow->findDependentRowset('Application_Model_City');
         return $cities;
     }
+    function findCountries()
+    {
+    	
+    	$query = $this->select(); 
+    	 $query->order('rate DESC'); 
+    	 $query->limit(6);
+    	 return $results = $this->fetchAll($query);
+
+
+    }
 
     function findConid($country_id)
     {
@@ -37,6 +47,7 @@ class Application_Model_Country extends Zend_Db_Table_Abstract
         $row->save();
 
     }
+
 
 
 }
