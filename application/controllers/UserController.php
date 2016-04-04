@@ -25,13 +25,20 @@ class UserController extends Zend_Controller_Action
 
     public function addAction()
     {
+        $authorization=Zend_Auth::getInstance();
+        $fbsession=new Zend_Session_Namespace('facebook');
+        $twsession=new Zend_Session_Namespace('twitter');
+        if ($authorization->hasIdentity() || isset($fbsession->username)  || isset($twsession->username))
+          {
+            $this->redirect("/index");
+          }
         // action body
 		$form = new Application_Form_Register();
 		$request = $this->getRequest();
 		if($request->isPost()){
 			if($form->isValid($request->getPost())){
-				$std_model = new Application_Model_User();
-				$std_model-> adduser($request->getParams());
+				$user_model = new Application_Model_User();
+				$user_model-> adduser($request->getParams());
                 $email = $this->_request->getParam('email');
                 $password = $this->_request->getParam('password');
                 $db = Zend_Db_Table::getDefaultAdapter( );
@@ -44,7 +51,7 @@ class UserController extends Zend_Controller_Action
                 $storage = $auth->getStorage();
                 $storage->write($authAdapter->getResultRowObject(array('email','id',
                 'username')));
-				$this->redirect();
+				$this->redirect('/index');
 			}
 		}
 		$this->view->register_form = $form;
@@ -81,7 +88,7 @@ class UserController extends Zend_Controller_Action
                 $storage->write($authAdapter->getResultRowObject(array('email','id',
                 'username')));
                 // redirect to root index/index
-                return $this->redirect();
+                return $this->redirect('/index');
             } else {
                      // if user is not valid send error message to view
                      $this->view->error_message = "Invalid email or Password!";
