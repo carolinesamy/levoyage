@@ -1,7 +1,22 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+$isLogin=false;
+$user=null;
+$fuser=null;
+$auth = Zend_Auth::getInstance();
+$storage = $auth->getStorage();
+$sessionRead = $storage->read();
+$fpsession = new Zend_Session_Namespace('facebook');
+if (!empty($sessionRead)) {
+$name = $sessionRead->username;
+$isLogin=true;
+$user=$sessionRead;
+}elseif( (isset($fbsession->username) && !empty (isset($fbsession->username)))){
+$fuser=$fbsession->username;
+}
+?>
 <head>
 
     <meta charset="utf-8">
@@ -34,20 +49,25 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
+                <ul class="nav navbar-nav " style="float:right">
+                <?php
+            if ($isLogin) {
+                $name = $user->username;
+                echo '<li>Welcome '.$name.'</li>'.'
+                 <li><a href="'. $this->baseUrl() .'/user/logout"> Logout </a></li>
+                 <li><a  href="'. $this->baseUrl() .'/user/editprofile"> update profile </a>
+                 <li><a  href="'. $this->baseUrl() .'/index"> Home </a></li>';
+            }
+            elseif ($fuser) {
+            $fuser=$fbsession->username;
+            echo '<li>Welcome '.$fuser.'
+             <a  href="'. $this->baseUrl().'/user/fblogout"> Logout </a>
+             <a  href="'. $this->baseUrl() .'/index"> Home </a></li>';
+            }
+            ?>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
