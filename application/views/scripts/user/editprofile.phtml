@@ -112,14 +112,15 @@
 		                   </tr>
 		                   
 		                   <tbody>
-<!--                          <?php foreach ($this->cars as $key => $value) : ?>
+                         <?php foreach ($this->hotels as $key => $value) : ?>
 				                <tr class="warning text-danger">
-				                    <td><?=hi?></td>
-				                    <td><?=hi?></td>
-				                    <td><?=hi?></td>
-				                    <td><?=hi?></td>
+				                    <td><?=$value->hotel_name?></td>
+				                    <td><?=$value->time_to?></td>
+				                    <td><?=$value->time_from?></td>
+				                    <td><?=$value->num_memer?></td>
+                                    <td><?=$value->num_rooms?></td>
 				                </tr>
-                                <?php endforeach; ?> -->
+                                <?php endforeach; ?>
 		                   </tbody> 
 		                </table>
 
