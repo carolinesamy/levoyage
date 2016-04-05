@@ -5,12 +5,24 @@ class IndexController extends Zend_Controller_Action
 
     public function init()
     {
-;
     }
 
     public function indexAction()
     {
         // action body
+        $model = new Application_Model_Country();
+        
+        $countries = $model->findCountries();
+        
+        foreach($countries as $key=>$value)
+        {
+            $country[$key]['id']=$value->id;
+            $country[$key]['name']=$value->name;
+            $country[$key]['image_path']=$value->image_path;
+            $country[$key]['rate']=$value->rate;
+        }
+        
+        $this->view->countries = $country;
     }
 
     public function cityAction()
@@ -27,8 +39,8 @@ class IndexController extends Zend_Controller_Action
         $this->view->exps=$exps;
         $hotels= $city->findDependentRowset('Application_Model_Hotel');
         $this->view->hotels=$hotels;
-
-
+        $hotelform=new Application_Form_Hotel();
+        $this->view->hotel_form=$hotelform;
     }
 
     public function experAction()
@@ -46,6 +58,7 @@ class IndexController extends Zend_Controller_Action
         $paginator->setItemCountPerPage(1);
         $paginator->setCurrentPageNumber($page);
         $this->view->paginator=$paginator;
+        $this->view->city_id=$id;
         $comments=$exps->getRow($page-1)->findDependentRowset('Application_Model_Comment');
         $this->comments=$comments;
 
@@ -84,16 +97,15 @@ class IndexController extends Zend_Controller_Action
         //$this->view->cities=$cities;
     }
 
+    public function bookhotelAction()
+    {
 
-
-
-
-
-
-
+    }
 
 
 }
+
+
 
 
 

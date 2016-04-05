@@ -12,6 +12,7 @@
           <actionMethod actionName="index"/>
           <actionMethod actionName="city"/>
           <actionMethod actionName="exper"/>
+          <actionMethod actionName="bookhotel"/>
         </controllerFile>
         <controllerFile controllerName="Error"/>
         <controllerFile controllerName="User">
@@ -25,6 +26,7 @@
           <actionMethod actionName="getcountry"/>
           <actionMethod actionName="getcities"/>
           <actionMethod actionName="comm"/>
+          <actionMethod actionName="bookhotel"/>
         </controllerFile>
         <controllerFile controllerName="Admin">
           <actionMethod actionName="index"/>
@@ -33,9 +35,6 @@
           <actionMethod actionName="addcountry"/>
           <actionMethod actionName="twlogout"/>
           <actionMethod actionName="editprofile"/>
-          <actionMethod actionName="getcountry"/>
-          <actionMethod actionName="getcities"/>
-          <actionMethod actionName="comm"/>
           <actionMethod actionName="addexper"/>
           <actionMethod actionName="edit"/>
           <actionMethod actionName="deletecity"/>
@@ -56,6 +55,7 @@
         <formFile formName="Addexperience"/>
         <formFile formName="Addcity"/>
         <formFile formName="Hotel"/>
+        <formFile formName="Addhotel"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -171,6 +171,12 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="deletehotel"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Index">
+            <viewScriptFile forActionName="bookhotel"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="bookhotel"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

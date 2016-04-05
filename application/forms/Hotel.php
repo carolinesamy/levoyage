@@ -7,28 +7,29 @@ class Application_Form_Hotel extends Zend_Form
     {
         /* Form Elements & Other Definitions Here ... */
 
-        $this->setMethod('POST'); //ay 7aga gwa tag el form yt7at gwa this
-        $this->setAttrib('class','form-horizontal'); //law el attribute dah pya5od aktr mn 7aga hakrr el line dah marteen
-        $this->setAttrib('id','hotel');
+        $this->setMethod('POST');
+        $this->setAttrib('class', 'form-horizontal');
+        $members = new Zend_Form_Element_Text('members');
+        $members->setLabel('Number of members');
+        $members->setAttrib('class','form-control hotel_members');
+        $members->addValidator('int', false);
+        $members->setRequired();
 
-        $id=new Zend_Form_Element_Hidden('id');
+        $from = new Zend_Form_Element_Text('from');
+        $from->setLabel('From Date');
+        $from->setAttrib('class','form-control hotel_from');
+        $from->addValidator('Date', false);
+        $from->setRequired();
 
+        $to = new Zend_Form_Element_Text('to');
+        $to->setLabel('To Date');
+        $to->setAttrib('class','form-control hotel_to');
+        $to->addValidator('Date', false);
+        $to->setRequired();
+        $reset=new Zend_Form_Element_Reset('reset');
+        $reset->setAttrib('class','btn btn-danger');
+        $this->addElements(array($members,$from,$to,$reset));
 
-        $name= new Zend_Form_Element_Text('name');
-        $name->setLabel('Hotel Name');
-        $name->setAttribs(array('class'=>'form-control'));
-
-        $city=new Zend_Form_Element_Select('city_id');
-        $city->setLabel('City name');
-        $city->setAttribs(array('class'=>'form-control'));
-        $c=new Application_Model_City();
-        $allcities=$c->allcity();
-        foreach($allcities as $key=> $value)
-        {
-            $city->addMultiOption($value['id'], $value['name']);
-
-        }
-        $city->setRequired();
     }
 
 

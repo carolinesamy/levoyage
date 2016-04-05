@@ -9,6 +9,9 @@ class Application_Model_Hotel extends Zend_Db_Table_Abstract
         'refColumns'=>array('id'),
         'onDelete'=>'cascade'
     ));
+    function listCityHotels($city_id){
+        return $this->fetchAll("city_id=$city_id");
+    }
 
 }
 

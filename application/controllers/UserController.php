@@ -25,13 +25,20 @@ class UserController extends Zend_Controller_Action
 
     public function addAction()
     {
+        $authorization=Zend_Auth::getInstance();
+        $fbsession=new Zend_Session_Namespace('facebook');
+        $twsession=new Zend_Session_Namespace('twitter');
+        if ($authorization->hasIdentity() || isset($fbsession->username)  || isset($twsession->username))
+          {
+            $this->redirect("/index");
+          }
         // action body
 		$form = new Application_Form_Register();
 		$request = $this->getRequest();
 		if($request->isPost()){
 			if($form->isValid($request->getPost())){
-				$std_model = new Application_Model_User();
-				$std_model-> adduser($request->getParams());
+				$user_model = new Application_Model_User();
+				$user_model-> adduser($request->getParams());
                 $email = $this->_request->getParam('email');
                 $password = $this->_request->getParam('password');
                 $db = Zend_Db_Table::getDefaultAdapter( );
@@ -44,7 +51,7 @@ class UserController extends Zend_Controller_Action
                 $storage = $auth->getStorage();
                 $storage->write($authAdapter->getResultRowObject(array('email','id',
                 'username')));
-				$this->redirect();
+				$this->redirect('/index');
 			}
 		}
 		$this->view->register_form = $form;
@@ -81,7 +88,7 @@ class UserController extends Zend_Controller_Action
                 $storage->write($authAdapter->getResultRowObject(array('email','id',
                 'username')));
                 // redirect to root index/index
-                return $this->redirect();
+                return $this->redirect('/index');
             } else {
                      // if user is not valid send error message to view
                      $this->view->error_message = "Invalid email or Password!";
@@ -240,8 +247,7 @@ class UserController extends Zend_Controller_Action
         $user_model = new Application_Model_User();
         $user_data = $user_model-> userDetails ($id)->current();
         $carRents=$user_data->findDependentRowset('Application_Model_RentCar');
-        $this->view->cars=$carRents->current();
-
+        $this->view->cars=$carRents;
         $form->populate($user_data->toArray());
         $this->view->user_form = $form;
         $request = $this->getRequest ();
@@ -318,7 +324,7 @@ class UserController extends Zend_Controller_Action
              //send data to model
     	     $photo=$files['photo']['name'];
              $user_model-> addexper($id,$photo,$_POST,$city_id);
-             $this->redirect("/index/city/id/city_id");
+             $this->redirect("/index/city/id/$city_id");
          }
     }
 
@@ -326,5 +332,32 @@ class UserController extends Zend_Controller_Action
 }
 
 
+    }
+
+    public function bookhotelAction()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $hotel_model=new Application_Model_Bookhotel();
+
+        //makes disable layout
+        $this->_helper->getHelper('layout')->disableLayout(true);
+        if(!$rooms=($_POST['members']/4)){
+            $rooms=1;
+        }
+
+        $data= array(
+            'hotel_name' =>$_POST['hotel'],
+            'time_from' =>$_POST['from'],
+            'time_to' =>$_POST['to'],
+            'user_id' =>$_POST['user_id'],
+            'num_member' =>$_POST['members'],
+            'num_rooms'=>$rooms
+        );
+        $hotel_model->addBook($data);
+        echo true;
+    }
+
+
 }
-}
+
+
