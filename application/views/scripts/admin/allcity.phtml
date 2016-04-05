@@ -1,0 +1,23 @@
+
+
+	<h3 align="center" > Countries <a href='addcity'>Add City</a></h3>
+	<table class='table'>
+		<thead>
+		<tr>
+			<th>ID</th><th>City Name</th><th>Edit</th><th>Delete</th>
+		</tr>
+		</thead>
+		<?php
+		foreach($this->city as $key => $value)
+		{
+			echo "<tr>".
+				"<td>" . $value['id'] . "</td>" .
+				"<td>" . $value['name'] . "</td>" .
+				"<td><a class='btn btn-success' href='editcity/ctid/".$value['id']."'>Edit</a></td>".
+				"<td><a class='btn btn-danger' href='deletecity/ctid/".$value['id']."'>Delete</a></td>".
+				"</tr>";
+		}
+		?>
+
+	</table>
+</div>

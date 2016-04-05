@@ -42,6 +42,15 @@ class Application_Model_Country extends Zend_Db_Table_Abstract
         $row->save();
 
     }
+    function editCountry($country)
+    {
+        $edited['name']=$country['name'];
+        if($country['image_path']!="") {
+            $edited['image_path'] = $country['image_path'];
+        }
+        $cid=$country['id'];
+        $this->update($edited,"id=$cid");
+    }
 
 
 }

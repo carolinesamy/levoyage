@@ -1,25 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
 	<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<script src="/bootstrap/js/jquery.min.js"></script>
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
-	<?php
-	$isLogin=false;
-	$user=null;
-	$fuser=null;
-	$auth = Zend_Auth::getInstance();
-	$storage = $auth->getStorage();
-	$sessionRead = $storage->read();
-	$fpsession = new Zend_Session_Namespace('facebook');
-	if (!empty($sessionRead)) {
-		$name = $sessionRead->username;
-		$isLogin=true;
-		$user=$sessionRead;
-	}elseif( (isset($fbsession->username) && !empty (isset($fbsession->username)))){
-		$fuser=$fbsession->username;
-	}
-	?>
+<!--	-->
+<?php
+//	$isLogin=false;
+//	$user=null;
+//	$fuser=null;
+//	$auth = Zend_Auth::getInstance();
+//	$storage = $auth->getStorage();
+//	$sessionRead = $storage->read();
+//	$fpsession = new Zend_Session_Namespace('facebook');
+//	if (!empty($sessionRead)) {
+//		$name = $sessionRead->username;
+//		$isLogin=true;
+//		$user=$sessionRead;
+//	}elseif( (isset($fbsession->username) && !empty (isset($fbsession->username)))){
+//		$fuser=$fbsession->username;
+//	}
+//	?>
 	<title></title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,29 +30,11 @@
 	<script src="/bootstrap/js/jquery.min.js"></script>
 	<script src="/bootstrap/js/bootstrap.min.js"></script>
 </head>
-<body id="page5">
-<!-- header -->
-<div class="bg">
-	<nav  id ="top" class="navbar navbar-default navbar-fixed-top">
-		<p class="navbar-text" style="float:right;">
-			<?php
-			if ($isLogin) {
-				$name = $user->username;
-				echo "Welcome $name";
-				echo '<a class="btn btn-default navbar-btn" href="'. $this->baseUrl() .'/user/logout"> Logout </a>';
-				echo' <a class="btn btn-default navbar-btn" href="'. $this->baseUrl() .'/user/editprofile"> update profile </a>';
-				echo' <a class="btn btn-default navbar-btn" href="'. $this->baseUrl() .'/index"> Home </a>';
-			}
-			elseif ($fuser) {
-				$fuser=$fbsession->username;
-				echo "Welcome $fuser";
-				echo'<a class="btn btn-default navbar-btn" href="'. $this->baseUrl().'/user/fblogout"> Logout </a>';
-				echo'<a class="btn btn-default navbar-btn" href="'. $this->baseUrl() .'/index"> Home </a>';
-			}
-			?>
-		</p>
-	</nav>
-</div>
+<!--<body id="page5">-->
+<!--<!-- header -->
+<!--<div class="bg">-->
+<!---->
+<!--</div>-->
 <?php echo $this->layout()->content; ?>
 
 

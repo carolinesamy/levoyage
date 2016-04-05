@@ -22,6 +22,24 @@ class Application_Model_City extends Zend_Db_Table_Abstract
     {
         return $this->find($id)->current();
     }
+    function allcity()
+    {
+        return $this->fetchAll()->toArray();
+    }
+    function addcity($citydata)
+    {
+        $row=$this->createRow();
+        $row->id=$citydata['id'];
+        $row->name=$citydata['name'];
+        $row->image_path=$citydata['image_path'];
+        $row->description=$citydata['description'];
+        $row->save();
+
+    }
+    function deletecity($city_id)
+    {
+        $this->delete("id=$city_id");
+    }
 
 }
 

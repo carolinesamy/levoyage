@@ -1,62 +1,18 @@
+<br /><br />
+<div id="view-content">
+</div>
 <?php
-$isLogin=false;
-$user=null;
-$fuser=null;
-$auth = Zend_Auth::getInstance();
-$storage = $auth->getStorage();
-$sessionRead = $storage->read();
-$fpsession = new Zend_Session_Namespace('facebook');
-if (!empty($sessionRead)) {
-	$isLogin=true;
-	$user=$sessionRead;
+//foreach($this->cities as $key=>$value){
+//	echo $key.": " .$value->name;
+//}
 
-}elseif( (isset($fbsession->fname) && !empty (isset($fbsession->fname)))){
-	$fuser=$fbsession->fname;
-}
+echo "<center><strong class=\"footer-logo\">".$this->countrydata->name."</strong></center>";
+
+
 ?>
-<link rel="stylesheet" type="text/css"  href="/bootstrap/css/city-style.css">
-<link rel="stylesheet" type="text/css" href="/bootstrap/css/city-animate.min.css">
-<link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'>
-<script type="text/javascript" src="/bootstrap/js/modernizr.custom.js"></script>
-<!--<div id="preloader">-->
-<!--	<div id="status"> <img src="/bootstrap/images/preloader.gif" height="64" width="64" alt=""> </div>-->
-<!--</div>-->
-<nav id="menu" class="navbar navbar-default navbar-fixed-top">
-	<div class="container">
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-			<a class="navbar-brand" href="/"><i class="glyphicon glyphicon-flag"></i><strong> Le voyage</strong></a> </div>
-
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#home" class="page-scroll">City Home</a></li>
-				<li><a href="#services-section" class="page-scroll">Description</a></li>
-				<li><a href="#team-section" class="page-scroll">Map</a></li>
-				<li><a href="#works-section" class="page-scroll">Portfolio</a></li>
-				<li><a href="#city-expe" class="page-scroll">Experience</a></li>
-				<?php
-				if($isLogin){
-				?>
->
-				<li><a href="/user/logout" class="page-scroll">LogOut</a></li>
-
-				<?php
-				}else{
-					?>
-					<li><a href="/user/login" class="page-scroll">LogIn</a></li>
-					<?php
-				}
-				?>
-<center><strong class="footer-logo"> <?=$this->countrydata->name?></strong></center>
-
-
-
 <body>
 <div class="row">
-	<div class="col-sm-12"><img src="/images/<?= $this->countrydata->image_path ?>" class="img-thumbnail" alt="Cinque Terre" width="1000" height="236"></div>
+	<div class="col-sm-12"><img src="/images/<?php echo $this->countrydata->image_path ?>" class="img-thumbnail" alt="Cinque Terre" width="1000" height="236"></div>
 
 </div>
 
