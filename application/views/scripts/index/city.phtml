@@ -18,6 +18,7 @@ $user=$sessionRead;
 <link rel="stylesheet" type="text/css" href="/bootstrap/css/city-animate.min.css">
 <link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="/bootstrap/css/datepicker.css">
 <script type="text/javascript" src="/bootstrap/js/modernizr.custom.js"></script>
 <div id="preloader">
     <div id="status"> <img src="/bootstrap/images/preloader.gif" height="64" width="64" alt=""> </div>
@@ -29,7 +30,7 @@ $user=$sessionRead;
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-            <a class="navbar-brand" href="/"><i class="glyphicon glyphicon-flag"></i><strong> Le voyage</strong></a> </div>
+            <a class="navbar-brand" href="#home"><i class="glyphicon glyphicon-flag"></i><strong> Le voyage</strong></a> </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -37,7 +38,7 @@ $user=$sessionRead;
                 <li><a href="#home" class="page-scroll">City Home</a></li>
                 <li><a href="#services-section" class="page-scroll">Description</a></li>
                 <li><a href="#team-section" class="page-scroll">Map</a></li>
-                <li><a href="#works-section" class="page-scroll">Portfolio</a></li>
+                <li><a href="#works-section" class="page-scroll">Locations</a></li>
                 <li><a href="#city-expe" class="page-scroll">Experience</a></li>
                 <?php
                 if($isLogin){
@@ -64,8 +65,8 @@ $user=$sessionRead;
 <!-- Header -->
 <header class="text-center" name ="home" style="	background: url(/images/<?=$this->city->image_path?>) no-repeat bottom center;">
     <div class="intro-text">
-        <h1 class="wow fadeInDown"><strong><span class="color"><?=$this->city->name?></span></strong></h1>
-        <a href="#services-section" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="200ms">City Description</a> </div>
+        <h1 class="wow fadeInDown" data-wow-delay="10000ms"><strong><span class="color"><?=$this->city->name?></span></strong></h1>
+        <a href="#services-section" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="10000ms">City Description</a> </div>
 </header>
 
 <!-- Description  -->
@@ -98,6 +99,7 @@ $user=$sessionRead;
 </div>
 <?php
 if($isLogin) {
+    include "modal_alarms.php";
     ?>
     <!-- Hotel Section -->
     <div id="contact-section" class="text-center">
@@ -123,7 +125,7 @@ if($isLogin) {
                 </div>
                 <div class="clearfix"></div>
             </div>
-            <br><br><hr><hr>
+            <br><br><br>
             <div class="col-md-8 col-md-offset-2 wow fadeInUp" data-wow-delay="200ms">
                 <div class="col-md-8"><i class="fa fa-map-marker fa-2x"></i>
                     <select  id="hotels" class="form-control">
@@ -137,16 +139,15 @@ if($isLogin) {
                         ?>
                     </select>
                 </div>
-                <hr>
                 <div class="col-md-1"><i class="fa fa-phone fa-2x"></i>
                     <?= $this->hotel_form->getElement("reset");?>
                 </div>
                 <div class="clearfix"></div>
             </div>
                 <input type="hidden" value="<?=$user->id ?>" class="user_id">
+                <button type="submit" class="btn btn-default hotel_submit">Check In</button>
             </form>
             <div class="col-md-8 col-md-offset-2 wow fadeInUp" data-wow-delay="400ms">
-    <button type="submit" class="btn btn-default hotel_submit">Check In</button>
                 <div class="social">
                     <ul>
                         <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -163,7 +164,84 @@ if($isLogin) {
     <?php
 }
 ?>
-    <iframe  id="city-expe" src="/index/exper/id/<?=$this->city->id?>#disqus_thread" style="width: 100%;height: 600px ;border: none"></iframe>
+
+<!-- Portfolio Section ----------- locations!--->
+
+<div id="works-section" class="text-center">
+    <div class="container"> <!-- Container -->
+
+        <div class="section-title wow fadeInDown">
+            <h2><?=$this->city->name?><strong>Locations</strong></h2>
+            <hr>
+            <div class="clearfix"></div>
+        </div>
+        <div class="row">
+            <div class="portfolio-items">
+                <?php
+                $tim=400;
+                foreach ($this->locations as $location):
+                ?>
+                <div class="col-sm-6 col-md-3 col-lg-3 web">
+                    <div class="portfolio-item wow fadeInUp" data-wow-delay="<?=$tim?>ms">
+                        <div class="hover-bg"> <a href="#locationModal<?= $location->id?>" class="portfolio-link" data-toggle="modal">
+                                <div class="hover-text">
+                                    <h4><?= $location->name?></h4>
+                                    <div class="clearfix"></div>
+                                    <i class="fa fa-plus"></i> </div>
+                                <img src="/images/<?= $location->image_path?>" class="img-responsive" alt="Location Image"> </a> </div>
+                    </div>
+                </div>
+                    <?php
+                $tim+=200;
+                endforeach;
+                ?>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+<!-------------------------locations  modals !------------------------>
+<?php
+foreach ($this->locations as $location):
+?>
+
+    <!-- Portfolio Modal 3 -->
+    <div class="portfolio-modal modal fade" id="locationModal<?= $location->id?>" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl"> </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <!-- Project Details Go Here -->
+                            <h2><?= $location->name?></h2>
+                            <p class="item-intro">Lorem ipsum dolor sit amet consectetur.</p>
+                            <img class="img-responsive img-centered" src="/images/<?= $location->image_path?>" alt="">
+                            <p><?= $location->description?></p>
+                            <ul class="list-inline">
+                                <li><strong>City</strong>: <?=$this->city->name?></li>
+                            </ul>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php
+endforeach;
+?>
+<!------------------------end-locations  modals !------------------------>
+<iframe  id="city-expe" src="/index/exper/id/<?=$this->city->id?>/page=1" style="width: 100%;height: 600px ;border: none"></iframe>
 
 <script>
     function initMap() {
@@ -190,3 +268,5 @@ if($isLogin) {
 <script type="text/javascript" src="/bootstrap/js/owl.carousel.js"></script>
 <script type="text/javascript" src="/bootstrap/js/main.js"></script>
 <script src="/bootstrap/js/city_script.js"></script>
+<script src="/bootstrap/js/bootstrap-datepicker.js"></script>
+<script> $('.date_field').datepicker('show');</script>
