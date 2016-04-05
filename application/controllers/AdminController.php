@@ -123,23 +123,19 @@ class AdminController extends Zend_Controller_Action
         $this->view->editcity=$form;
 
         $request=$this->getRequest();
-        if($request->isPost())
-        {
-            if($form->isValid($request->getPost()))
-            {
+        if($request->isPost()) {
+            if ($form->isValid($request->getPost())) {
                 $upload = new Zend_File_Transfer_Adapter_Http();
-                $name=$_FILES['image_path']['name'];
+                $name = $_FILES['image_path']['name'];
 
                 if ($name != "") {
                     $upload->addFilter('Rename',
-                        array('target' => "/var/www/html/levoyage/public/images/" . $name ,
+                        array('target' => "/var/www/html/levoyage/public/images/" . $name,
                             'overwrite' => true));
 
-                    $_POST['image_path'] =   $name;
-                }
-
-                else{
-                    $_POST['image_path']="";
+                    $_POST['image_path'] = $name;
+                } else {
+                    $_POST['image_path'] = "";
                 }
 
                 $upload->receive();
@@ -148,6 +144,7 @@ class AdminController extends Zend_Controller_Action
                 $this->redirect('/admin/allcity');
             }
         }
+        
     }
 
     public function addcityAction()
@@ -165,14 +162,15 @@ class AdminController extends Zend_Controller_Action
                 $upload = new Zend_File_Transfer_Adapter_Http();
                 //$upload->addFilter('Rename', "/var/www/html/levoyage/public/images/" . $_POST['name'] . ".jpg");
                 $upload->addFilter('Rename',
-                    array('target' => "/var/www/html/levoyage/public/images/" . $_POST['name'] . ".jpg" ,
+                    array('target' => "/var/www/html/levoyage/public/images/" . $_POST['name'] . ".jpg",
                         'overwrite' => true));
                 $upload->receive();
-                $_POST['image_path'] =  $_POST['name'] . ".jpg";
+                $_POST['image_path'] = $_POST['name'] . ".jpg";
                 $city->addcity($_POST);
                 $this->redirect('/admin/allcity');
             }
         }
+        
     }
 
     public function allcityAction()
@@ -184,19 +182,28 @@ class AdminController extends Zend_Controller_Action
         $this->view->city=$c;
     }
 
+    public function allhotelAction()
+    {
+        // action body
+    }
+
+    public function addhotelAction()
+    {
+        // action body
+    }
+
+    public function edithotelAction()
+    {
+        // action body
+    }
+
+    public function deletehotelAction()
+    {
+        // action body
+    }
+
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 

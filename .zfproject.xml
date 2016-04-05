@@ -42,6 +42,10 @@
           <actionMethod actionName="editcity"/>
           <actionMethod actionName="addcity"/>
           <actionMethod actionName="allcity"/>
+          <actionMethod actionName="allhotel"/>
+          <actionMethod actionName="addhotel"/>
+          <actionMethod actionName="edithotel"/>
+          <actionMethod actionName="deletehotel"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -51,6 +55,7 @@
         <formFile formName="Editform"/>
         <formFile formName="Addexperience"/>
         <formFile formName="Addcity"/>
+        <formFile formName="Hotel"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -154,6 +159,18 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="allcity"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="allhotel"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="addhotel"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="edithotel"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="deletehotel"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
