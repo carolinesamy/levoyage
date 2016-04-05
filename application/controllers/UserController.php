@@ -9,9 +9,10 @@ class UserController extends Zend_Controller_Action
         $authorization=Zend_Auth::getInstance();
         $fbsession=new Zend_Session_Namespace('facebook');
         $twsession=new Zend_Session_Namespace('twitter');
-        if (!$authorization->hasIdentity() &&!isset($fbsession->username) &&!isset($twsession->username))
+        $gogsession=new Zend_Session_Namespace('google');
+        if (!$authorization->hasIdentity() &&!isset($fbsession->username) &&!isset($twsession->username) &&!isset($gogsession->username))
           {
-            if ($this->_request->getActionName() != 'login' && $this->_request->getActionName() != 'add' && $this->_request->getActionName() != 'fbauth' && $this->_request->getActionName() != 'twauth') {
+            if ($this->_request->getActionName() != 'login' && $this->_request->getActionName() != 'add' && $this->_request->getActionName() != 'fbauth' && $this->_request->getActionName() != 'twauth' && $this->_request->getActionName() != 'googleauth') {
                  $this->redirect("user/login");
               }
           }
@@ -247,6 +248,7 @@ class UserController extends Zend_Controller_Action
         $user_model = new Application_Model_User();
         $user_data = $user_model-> userDetails ($id)->current();
         $carRents=$user_data->findDependentRowset('Application_Model_RentCar');
+ 
         $this->view->cars=$carRents;
         $form->populate($user_data->toArray());
         $this->view->user_form = $form;
@@ -357,7 +359,14 @@ class UserController extends Zend_Controller_Action
         echo true;
     }
 
+    public function googleauthAction()
+    {
+
+    }
+
 
 }
+
+
 
 

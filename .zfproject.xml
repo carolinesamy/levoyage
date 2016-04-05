@@ -27,6 +27,7 @@
           <actionMethod actionName="getcities"/>
           <actionMethod actionName="comm"/>
           <actionMethod actionName="bookhotel"/>
+          <actionMethod actionName="googleauth"/>
         </controllerFile>
         <controllerFile controllerName="Admin">
           <actionMethod actionName="index"/>
@@ -138,6 +139,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="bookhotel"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="googleauth"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

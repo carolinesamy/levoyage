@@ -5,10 +5,11 @@ class Application_Form_Addexperience extends Zend_Form
 
     public function init()
     {
+        $this->setAttrib('class','col-md-5 ');
         $photo = new Zend_Form_Element_File('photo');
 		$photo->setLabel("Upload Image ")  ; 
 		$photo->setAttrib('class', 'form-control ');  
-		$photo->setAttrib('id', 'up');          
+		$photo->setAttrib('id', 'selectedFile');          
         $photo->addValidator('Extension', false, 'jpeg,png,gif,jpg');
         $photo->getValidator('Extension')->setMessage('This file type is not supportted.');
         $photo->setDestination('../public/images');
