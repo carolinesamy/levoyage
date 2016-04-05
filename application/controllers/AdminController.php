@@ -246,6 +246,25 @@ class AdminController extends Zend_Controller_Action
     public function addlocAction()
     {
         // action body
+        $form =new Application_Form_Addlocation();
+        $city=new Application_Model_Location();
+        $this->view->addform=$form;
+        $req=$this->getRequest();
+
+        if($req->isPost()) {
+            if ($form->isValid($req->getPost()))//hna pcheck 3ala l form in el data valid
+            {
+                $upload = new Zend_File_Transfer_Adapter_Http();
+                //$upload->addFilter('Rename', "/var/www/html/levoyage/public/images/" . $_POST['name'] . ".jpg");
+                $upload->addFilter('Rename',
+                    array('target' => "/var/www/html/levoyage/public/images/" . $_POST['name'] . ".jpg",
+                        'overwrite' => true));
+                $upload->receive();
+                $_POST['image_path'] = $_POST['name'] . ".jpg";
+                $city->addloc($_POST);
+                $this->redirect('/admin/allloc');
+            }
+        }
 
     }
 
@@ -261,11 +280,40 @@ class AdminController extends Zend_Controller_Action
     public function editlocAction()
     {
         // action body
+        $form =new Application_Form_Addlocation();
+        $loc=new Application_Model_Location();
+        $loc_id=$this->_request->getParam('locid');
+        $locById=$loc->getlocById($loc_id);
+        $form->populate($locById[0]);
+        $this->view->editloc=$form;
+
+        $request=$this->getRequest();
+        if($request->isPost()) {
+            if ($form->isValid($request->getPost())) {
+                $upload = new Zend_File_Transfer_Adapter_Http();
+                $name = $_FILES['image_path']['name'];
+
+                if ($name != "") {
+                    $upload->addFilter('Rename',
+                        array('target' => "/var/www/html/levoyage/public/images/" . $name,
+                            'overwrite' => true));
+
+                    $_POST['image_path'] = $name;
+                } else {
+                    $_POST['image_path'] = "";
+                }
+
+                $upload->receive();
+
+                $loc->editloc($_POST);
+                $this->redirect('/admin/allloc');
+            }
+        }
     }
 
     public function deletelocAction()
     {
-        $locid=$this->_request->getParam("hid");
+        $locid=$this->_request->getParam("locid");
         $loc=new Application_Model_Location();
 
         $loc->deleteloc($locid);

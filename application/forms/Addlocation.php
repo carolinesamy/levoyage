@@ -29,8 +29,8 @@ class Application_Form_Addlocation extends Zend_Form
         $image_path->addValidator('Extension',false,'jpg,jpeg,png,gif');
 
 
-        $city=new Zend_Form_Element_Select('country_id');
-        $city->setLabel('Country name');
+        $city=new Zend_Form_Element_Select('city_id');
+        $city->setLabel('City name');
         $city->setAttribs(array('class'=>'form-control'));
         $c=new Application_Model_City();
         $allcities=$c->allcity();
@@ -40,11 +40,6 @@ class Application_Form_Addlocation extends Zend_Form
 
         }
         $city->setRequired();
-
-
-
-
-
 
 
         $add =new Zend_Form_Element_Submit('add');
