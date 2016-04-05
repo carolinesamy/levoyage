@@ -247,7 +247,9 @@ class UserController extends Zend_Controller_Action
         $user_model = new Application_Model_User();
         $user_data = $user_model-> userDetails ($id)->current();
         $carRents=$user_data->findDependentRowset('Application_Model_RentCar');
+        $hotelRes=$user_data->findDependentRowset('Application_Model_Bookhotel');
         $this->view->cars=$carRents;
+        $this->view->hotels=$hotelRes;
         $form->populate($user_data->toArray());
         $this->view->user_form = $form;
         $request = $this->getRequest ();
@@ -357,7 +359,30 @@ class UserController extends Zend_Controller_Action
         echo true;
     }
 
+    public function mailAction()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->getHelper('layout')->disableLayout(true);
+        $request = $this->getRequest ();
+        if($request->isPost() ){
+            $message = $this->_request->getParam('message');
+            $subject = $this->_request->getParam('subject');
+            $auth = Zend_Auth::getInstance();
+            $storage = $auth->getStorage();
+            $user=$storage->read();
+            $email = new Zend_Mail();
+            $email->setFrom('opensource.iti36@gmail.com', 'Le Voyage');
+            $email->addTo($user->email, 'Le Voyage Client');
+            $email->setSubject($subject);
+            $email->setBodyText($message);
+            $email->send();
+        }
+
+    }
+
 
 }
+
+
 
 
