@@ -246,15 +246,16 @@ class AdminController extends Zend_Controller_Action
     public function addlocAction()
     {
         // action body
-        $loc=new Application_Model_Location();
-        $c=$loc->allloc();
 
-        $this->view->location=$c;
     }
 
     public function alllocAction()
     {
         // action body
+        $loc=new Application_Model_Location();
+        $c=$loc->allloc();
+
+        $this->view->location=$c;
     }
 
     public function editlocAction()
@@ -264,11 +265,75 @@ class AdminController extends Zend_Controller_Action
 
     public function deletelocAction()
     {
+        $locid=$this->_request->getParam("hid");
+        $loc=new Application_Model_Location();
+
+        $loc->deleteloc($locid);
+        $this->redirect("/admin/allloc");
+    }
+
+    public function deleteuserAction()
+    {
         // action body
+        $userid=$this->_request->getParam("uid");
+        $user=new Application_Model_User();
+
+        $user->deleteuser($userid);
+        $this->redirect("/admin/alluser");
+
+    }
+
+    public function blockuserAction()
+    {
+        // action body
+        $users=new Application_Model_User();
+        $user=$this->_request->getParam("uid");
+        $users->blockuser($user);
+        $this->redirect("/admin/alluser");
+
+    }
+
+    public function alluserAction()
+    {
+        // action body
+        $users=new Application_Model_User();
+        $user=$users->alluser();
+
+        $this->view->user=$user;
+
+    }
+
+    public function unblockuserAction()
+    {
+        // action body
+        $users=new Application_Model_User();
+        $user=$this->_request->getParam("uid");
+        $users->unblockuser($user);
+        $this->redirect("/admin/alluser");
+
+    }
+
+    public function setadminAction()
+    {
+        // action body
+        $users=new Application_Model_User();
+        $user=$this->_request->getParam("uid");
+        $users->setadmin($user);
+        $this->redirect("/admin/alluser");
     }
 
 
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -16,6 +16,10 @@ class Application_Model_Location extends Zend_Db_Table_Abstract
     {
         return $this->fetchAll()->toArray();
     }
+    function deleteloc($loc_id)
+    {
+        $this->delete("id=$loc_id");
+    }
 
 }
 

@@ -49,6 +49,11 @@
           <actionMethod actionName="allloc"/>
           <actionMethod actionName="editloc"/>
           <actionMethod actionName="deleteloc"/>
+          <actionMethod actionName="deleteuser"/>
+          <actionMethod actionName="blockuser"/>
+          <actionMethod actionName="alluser"/>
+          <actionMethod actionName="unblockuser"/>
+          <actionMethod actionName="setadmin"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -197,6 +202,21 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="deleteloc"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="deleteuser"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="blockuser"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="alluser"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="unblockuser"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="setadmin"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
