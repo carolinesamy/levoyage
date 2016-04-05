@@ -45,6 +45,10 @@
           <actionMethod actionName="addhotel"/>
           <actionMethod actionName="edithotel"/>
           <actionMethod actionName="deletehotel"/>
+          <actionMethod actionName="addloc"/>
+          <actionMethod actionName="allloc"/>
+          <actionMethod actionName="editloc"/>
+          <actionMethod actionName="deleteloc"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -56,6 +60,10 @@
         <formFile formName="Addcity"/>
         <formFile formName="Hotel"/>
         <formFile formName="Addhotel"/>
+        <formFile formName="Addlocation"/>
+        <formFile formName="Addlocation"/>
+        <formFile formName="Addlocation"/>
+        <formFile formName="Addlocation"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -177,6 +185,18 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="bookhotel"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="addloc"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="allloc"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="editloc"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="deleteloc"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

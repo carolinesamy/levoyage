@@ -12,5 +12,10 @@ class Application_Model_Location extends Zend_Db_Table_Abstract
         'onDelete'=>'cascade'
     ));
 
+    function allloc()
+    {
+        return $this->fetchAll()->toArray();
+    }
+
 }
 

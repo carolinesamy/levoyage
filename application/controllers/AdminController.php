@@ -185,25 +185,98 @@ class AdminController extends Zend_Controller_Action
     public function allhotelAction()
     {
         // action body
+        $city=new Application_Model_Hotel();
+        $c=$city->allhotel();
+
+        $this->view->hotel=$c;
     }
 
     public function addhotelAction()
     {
         // action body
+
+        $form =new Application_Form_Addhotel();
+        $hotel=new Application_Model_Hotel();
+        $this->view->addform=$form;
+        $req=$this->getRequest();
+
+        if($req->isPost()) {
+            if ($form->isValid($req->getPost()))//hna pcheck 3ala l form in el data valid
+            {
+
+                $hotel->addhotel($_POST);
+                $this->redirect('/admin/allhotel');
+            }
+        }
+
     }
 
     public function edithotelAction()
     {
         // action body
+
+        $form =new Application_Form_Addhotel();
+        $hotel=new Application_Model_Hotel();
+        $hotel_name=$this->_request->getParam('hid');
+        $hotelByName=$hotel->getHotelByname($hotel_name);
+        $form->populate($hotelByName[0]);
+        $this->view->edithotel=$form;
+
+        $request=$this->getRequest();
+        if($request->isPost()) {
+            if ($form->isValid($request->getPost())) {
+
+                $hotel->edithotel($_POST,$hotel_name);
+                $this->redirect('/admin/allhotel');
+            }
+        }
+        
     }
 
     public function deletehotelAction()
+    {
+        // action body
+        $hotelname=$this->_request->getParam("hid");
+        $hotel=new Application_Model_Hotel();
+
+        $hotel->deletehotel($hotelname);
+        $this->redirect("/admin/allhotel");
+    }
+
+    public function addlocAction()
+    {
+        // action body
+        $loc=new Application_Model_Location();
+        $c=$loc->allloc();
+
+        $this->view->location=$c;
+    }
+
+    public function alllocAction()
+    {
+        // action body
+    }
+
+    public function editlocAction()
+    {
+        // action body
+    }
+
+    public function deletelocAction()
     {
         // action body
     }
 
 
 }
+
+
+
+
+
+
+
+
 
 
 

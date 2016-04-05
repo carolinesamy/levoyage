@@ -1,0 +1,23 @@
+
+
+<h3 align="center" > Locations <a href='addloc'>Add Location</a></h3>
+<table class='table'>
+	<thead>
+	<tr>
+		<th>ID</th><th>Location Name</th><th>Edit</th><th>Delete</th>
+	</tr>
+	</thead>
+	<?php
+	foreach($this->location as $key => $value)
+	{
+		echo "<tr>".
+			"<td>" . $value['id'] . "</td>" .
+			"<td>" . $value['name'] . "</td>" .
+			"<td><a class='btn btn-success' href='editloc/locid/".$value['id']."'>Edit</a></td>".
+			"<td><a class='btn btn-danger' href='deleteloc/locid/".$value['id']."'>Delete</a></td>".
+			"</tr>";
+	}
+	?>
+
+</table>
+</div>
