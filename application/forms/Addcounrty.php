@@ -7,9 +7,13 @@ class Application_Form_Addcounrty extends Zend_Form
     {
         /* Form Elements & Other Definitions Here ... */
 
+
         $this->setMethod('POST'); //ay 7aga gwa tag el form yt7at gwa this
         $this->setAttrib('class','form-horizontal'); //law el attribute dah pya5od aktr mn 7aga hakrr el line dah marteen
         $this->setAttrib('id','edit');
+
+        $id=new Zend_Form_Element_Hidden('id');
+
 
         $name= new Zend_Form_Element_Text('name');
         $name->setLabel('Country Name');
@@ -29,7 +33,7 @@ class Application_Form_Addcounrty extends Zend_Form
 
 
 
-        $this->addElements(array($name ,$image_path,$add));
+        $this->addElements(array($id,$name ,$image_path,$add));
 
     }
 
