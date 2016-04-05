@@ -3,7 +3,7 @@
 class Application_Model_City extends Zend_Db_Table_Abstract
 {
     protected $_name="city";
-    protected $_dependentTables = array('Experience','Hotel','Location');
+    protected $_dependentTables = array('Application_Model_Experience','Application_Model_Hotel','Application_Model_Location');
     protected $_referenceMap=array('country'=>array(
         'columns'=>array('country_id'),
         'refTableClass'=>'Application_Model_Country',
@@ -20,7 +20,14 @@ class Application_Model_City extends Zend_Db_Table_Abstract
 
     function getCity($id)
     {
-        return $this->find($id)->current();
+        return $this->find($id)->current();//return it as object
+    }
+
+
+    function getCityById($city_id)
+    {
+        $ctid=$this->find($city_id)->toArray();//to return as array for populate
+        return $ctid;
     }
     function allcity()
     {
@@ -29,10 +36,14 @@ class Application_Model_City extends Zend_Db_Table_Abstract
     function addcity($citydata)
     {
         $row=$this->createRow();
-        $row->id=$citydata['id'];
         $row->name=$citydata['name'];
         $row->image_path=$citydata['image_path'];
         $row->description=$citydata['description'];
+        $row->lat=$citydata['lat'];
+        $row->longd=$citydata['longd'];
+        $row->country_id=$citydata['country_id'];
+
+
         $row->save();
 
     }
@@ -40,6 +51,24 @@ class Application_Model_City extends Zend_Db_Table_Abstract
     {
         $this->delete("id=$city_id");
     }
+    function editcity($city)
+    {
+        $edited['name']=$city['name'];
+        if($city['image_path']!="") {
+            $edited['image_path'] = $city['image_path'];
+        }
+        $edited['description']=$city['description'];
+        $edited['lat']=$city['lat'];
+        $edited['longd']=$city['longd'];
+        $edited['country_id']=$city['country_id'];
+
+
+
+        $cid=$city['id'];
+
+        $this->update($edited,"id=$cid");
+    }
+
 
 }
 

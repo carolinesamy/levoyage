@@ -107,13 +107,47 @@ class AdminController extends Zend_Controller_Action
         $cityid=$this->_request->getParam("ctid");
         $city=new Application_Model_City();
 
-        $city->deletecity( $cityid);
+        $city->deletecity($cityid);
         $this->redirect("/admin/allcity");
     }
 
     public function editcityAction()
     {
         // action body
+
+        $form =new Application_Form_Addcity();
+        $city=new Application_Model_City();
+        $city_id=$this->_request->getParam('ctid');
+        $cityById=$city->getCityById($city_id);
+        $form->populate($cityById[0]);
+        $this->view->editcity=$form;
+
+        $request=$this->getRequest();
+        if($request->isPost())
+        {
+            if($form->isValid($request->getPost()))
+            {
+                $upload = new Zend_File_Transfer_Adapter_Http();
+                $name=$_FILES['image_path']['name'];
+
+                if ($name != "") {
+                    $upload->addFilter('Rename',
+                        array('target' => "/var/www/html/levoyage/public/images/" . $name ,
+                            'overwrite' => true));
+
+                    $_POST['image_path'] =   $name;
+                }
+
+                else{
+                    $_POST['image_path']="";
+                }
+
+                $upload->receive();
+
+                $city->editcity($_POST);
+                $this->redirect('/admin/allcity');
+            }
+        }
     }
 
     public function addcityAction()
@@ -135,8 +169,8 @@ class AdminController extends Zend_Controller_Action
                         'overwrite' => true));
                 $upload->receive();
                 $_POST['image_path'] =  $_POST['name'] . ".jpg";
-                $city->addcountry($_POST);
-                $this->redirect('/admin/allcountry');
+                $city->addcity($_POST);
+                $this->redirect('/admin/allcity');
             }
         }
     }

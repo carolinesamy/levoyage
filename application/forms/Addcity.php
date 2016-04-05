@@ -51,11 +51,22 @@ class Application_Form_Addcity extends Zend_Form
         $add->setValue('Save');
         $add->setAttribs(array('class'=>'btn btn-success form-vertical'));
 
+        $lat=new Zend_Form_Element_Text('lat');
+        $lat->setLabel('Latitude');
+        $lat->setAttribs(array('class'=>'form-control'));
+       // $lat->addValidator('');
+
+        $longd=new Zend_Form_Element_Text('longd');
+        $longd->setLabel('Longitude');
+        $longd->setAttribs(array('class'=>'form-control'));
 
 
 
 
-        $this->addElements(array($id,$name ,$country,$description,$image_path,$add));
+
+
+
+        $this->addElements(array($id,$name ,$country,$description,$image_path,$lat,$longd,$add));
     }
 
 
