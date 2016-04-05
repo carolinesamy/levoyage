@@ -9,7 +9,7 @@ class Application_Form_Editform extends Zend_Form
     {
         /* Form Elements & Other Definitions Here ... */
     $this->setMethod('POST');
-		$this->setAttrib('class','form-horizontal col-md-3');
+    $this->setAttrib('class','login-form');
 
 		$id = new Zend_Form_Element_Hidden('id');
 		$username = new Zend_Form_Element_Text('username');
@@ -34,11 +34,10 @@ class Application_Form_Editform extends Zend_Form
     $confpassword->addErrorMessage('The passwords do not match');
 
 		$submit=new Zend_Form_Element_Submit('Submit');
-		$submit->setAttrib('class','btn btn-success');
-		$reset=new Zend_Form_Element_Reset('Reset');
-		$reset->setAttrib('class','btn btn-danger');
+    $submit->setAttrib('class','btn btn-link-2 btn-block');
+
 		
-		$this->addElements(array($id,$username,$email,$password,$confpassword,$submit,$reset));
+		$this->addElements(array($id,$username,$email,$password,$confpassword,$submit));
     }
     public function isValid($data)
       {

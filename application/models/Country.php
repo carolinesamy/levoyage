@@ -28,6 +28,11 @@ class Application_Model_Country extends Zend_Db_Table_Abstract
         $couid=$this->find($country_id)->current();
         return $couid;
     }
+    function getCountryById($country_id)
+    {
+        $conid=$this->find($country_id)->toArray();
+        return $conid;
+    }
 
     function deletecountry($country_id)
     {
@@ -46,6 +51,15 @@ class Application_Model_Country extends Zend_Db_Table_Abstract
         $row->image_path=$countrydata['image_path'];
         $row->save();
 
+    }
+    function editCountry($country)
+    {
+        $edited['name']=$country['name'];
+        if($country['image_path']!="") {
+            $edited['image_path'] = $country['image_path'];
+        }
+        $cid=$country['id'];
+        $this->update($edited,"id=$cid");
     }
 
 

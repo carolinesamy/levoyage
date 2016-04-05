@@ -9,9 +9,10 @@ class UserController extends Zend_Controller_Action
         $authorization=Zend_Auth::getInstance();
         $fbsession=new Zend_Session_Namespace('facebook');
         $twsession=new Zend_Session_Namespace('twitter');
-        if (!$authorization->hasIdentity() &&!isset($fbsession->username) &&!isset($twsession->username))
+        $gogsession=new Zend_Session_Namespace('google');
+        if (!$authorization->hasIdentity() &&!isset($fbsession->username) &&!isset($twsession->username) &&!isset($gogsession->username))
           {
-            if ($this->_request->getActionName() != 'login' && $this->_request->getActionName() != 'add' && $this->_request->getActionName() != 'fbauth' && $this->_request->getActionName() != 'twauth') {
+            if ($this->_request->getActionName() != 'login' && $this->_request->getActionName() != 'add' && $this->_request->getActionName() != 'fbauth' && $this->_request->getActionName() != 'twauth' && $this->_request->getActionName() != 'googleauth') {
                  $this->redirect("user/login");
               }
           }
@@ -377,6 +378,9 @@ class UserController extends Zend_Controller_Action
             $email->setBodyText($message);
             $email->send();
         }
+    }
+    public function googleauthAction()
+    {
 
     }
 

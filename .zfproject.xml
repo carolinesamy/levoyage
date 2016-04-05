@@ -28,6 +28,7 @@
           <actionMethod actionName="comm"/>
           <actionMethod actionName="bookhotel"/>
           <actionMethod actionName="mail"/>
+          <actionMethod actionName="googleauth"/>
         </controllerFile>
         <controllerFile controllerName="Admin">
           <actionMethod actionName="index"/>
@@ -37,6 +38,15 @@
           <actionMethod actionName="twlogout"/>
           <actionMethod actionName="editprofile"/>
           <actionMethod actionName="addexper"/>
+          <actionMethod actionName="edit"/>
+          <actionMethod actionName="deletecity"/>
+          <actionMethod actionName="editcity"/>
+          <actionMethod actionName="addcity"/>
+          <actionMethod actionName="allcity"/>
+          <actionMethod actionName="allhotel"/>
+          <actionMethod actionName="addhotel"/>
+          <actionMethod actionName="edithotel"/>
+          <actionMethod actionName="deletehotel"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -45,7 +55,9 @@
         <formFile formName="Addcounrty"/>
         <formFile formName="Editform"/>
         <formFile formName="Addexperience"/>
+        <formFile formName="Addcity"/>
         <formFile formName="Hotel"/>
+        <formFile formName="Addhotel"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -126,13 +138,41 @@
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="deletecountry"/>
           </viewControllerScriptsDirectory>
-          <viewControllerScriptsDirectory forControllerName="Admin"/>
-          <viewScriptFile forActionName="addcountry"/>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="addcountry"/>
+          </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="addexper"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Index">
             <viewScriptFile forActionName="exper"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="edit"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="deletecity"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="editcity"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="addcity"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="allcity"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="allhotel"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="addhotel"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="edithotel"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="deletehotel"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Index">
             <viewScriptFile forActionName="bookhotel"/>
@@ -142,6 +182,7 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="mail"/>
+            <viewScriptFile forActionName="googleauth"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
