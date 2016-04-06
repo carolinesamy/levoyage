@@ -376,11 +376,7 @@ class AdminController extends Zend_Controller_Action
         $this->redirect("/admin/alluser");
     }
 
-    public function addadminAction()
-    {
-        // action body
 
-    }
 
 
 }
