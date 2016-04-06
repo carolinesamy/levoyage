@@ -288,18 +288,23 @@ class AdminController extends Zend_Controller_Action
         $this->view->editloc=$form;
 
         $request=$this->getRequest();
-        if($request->isPost()) {
-            if ($form->isValid($request->getPost())) {
+        if($request->isPost())
+        {
+            if ($form->isValid($request->getPost()))
+            {
                 $upload = new Zend_File_Transfer_Adapter_Http();
                 $name = $_FILES['image_path']['name'];
 
-                if ($name != "") {
+                if ($name != "")
+                {
                     $upload->addFilter('Rename',
                         array('target' => "/var/www/html/levoyage/public/images/" . $name,
                             'overwrite' => true));
 
                     $_POST['image_path'] = $name;
-                } else {
+                }
+                else
+                {
                     $_POST['image_path'] = "";
                 }
 
@@ -309,6 +314,7 @@ class AdminController extends Zend_Controller_Action
                 $this->redirect('/admin/allloc');
             }
         }
+        
     }
 
     public function deletelocAction()
@@ -370,8 +376,16 @@ class AdminController extends Zend_Controller_Action
         $this->redirect("/admin/alluser");
     }
 
+    public function addadminAction()
+    {
+        // action body
+
+    }
+
 
 }
+
+
 
 
 
