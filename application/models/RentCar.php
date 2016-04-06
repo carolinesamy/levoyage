@@ -10,5 +10,9 @@ protected $_referenceMap=array('user'=>array(
         'refColumns'=>array('id'),
         'onDelete'=>'cascade'
     ));
+    function addRentCar($data){
+        $row=$this->createRow($data);
+        $row->save();
+    }
 }
 

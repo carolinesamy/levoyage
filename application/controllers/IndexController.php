@@ -61,8 +61,6 @@ class IndexController extends Zend_Controller_Action
         $paginator->setCurrentPageNumber($page);
         $this->view->paginator=$paginator;
         $this->view->city_id=$id;
-        $comments=$exps->getRow($page-1)->findDependentRowset('Application_Model_Comment');
-        $this->comments=$comments;
 
     }
 
@@ -81,6 +79,7 @@ class IndexController extends Zend_Controller_Action
         $countryid=$this->_request->getParam("conid");
         $country=new Application_Model_Country();
         $cities=$country->findCities($countryid);
+        $city=[];
         foreach($cities as $key=>$value)
         {
             $city[$key]['id']=$value->id;

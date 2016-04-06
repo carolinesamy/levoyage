@@ -404,6 +404,8 @@ class UserController extends Zend_Controller_Action
 
     public function googleauthAction()
     {
+    }
+
 
         // $client_id = '583487569624-n001lnrj9a18iugmih6rhd9m6ma5pjpb.apps.googleusercontent.com';
         //  $client_secret = 'Q8kgnUl01apPxPhPyEIlYQw5';
@@ -454,15 +456,33 @@ class UserController extends Zend_Controller_Action
                 $user_model-> updateexper ($city_id,$_POST);
                 $this->redirect();
             }
+
+    public function rentcarAction()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $car_model=new Application_Model_RentCar();
+        //makes disable layout
+        $this->_helper->getHelper('layout')->disableLayout(true);
+        $request = $this->getRequest ();
+        if($request->isPost() ){
+            $auth = Zend_Auth::getInstance();
+            $storage = $auth->getStorage();
+            $user=$storage->read();
+        $data= array(
+            'user_id' =>$_REQUEST['user_id'],
+            'from_city' =>$_REQUEST['from_city'],
+            'to_city' =>$_REQUEST['to_city'],
+            'pick_time' =>$_REQUEST['pick_time'],
+            'leaving_time' =>$_REQUEST['leaving_time'],
+        );
+        $car_model->addRentCar($data);
+        echo true;
+
         }
     }
 
 
 }
-
-
-
-
 
 
 

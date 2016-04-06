@@ -1,14 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<script src="/bootstrap/js/jquery.min.js"></script>
-<script src="/bootstrap/js/bootstrap.min.js"></script>
 <?php
 $isLogin=false;
 $user=null;
 $fuser=null;
+$country_model=new Application_Model_Country();
+$destnations=$country_model->allcountry();
 $auth = Zend_Auth::getInstance();
 $storage = $auth->getStorage();
 $sessionRead = $storage->read();
@@ -21,36 +19,102 @@ $user=$sessionRead;
 $fuser=$fbsession->username;
 }
 ?>
-<title></title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Le Voyage</title>
 <!-- Bootstrap Core CSS -->
-<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<!-- Latest compiled and minified JavaScript -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css"  href="/bootstrap/css/city-style.css">
+    <link rel="stylesheet" type="text/css" href="/bootstrap/css/city-animate.min.css">
+    <!--<link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300' rel='stylesheet' type='text/css'>-->
+    <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'>-->
+    <link rel="stylesheet" href="/bootstrap/css/datepicker.css">
+    <script type="text/javascript" src="/bootstrap/js/modernizr.custom.js"></script>
+    <!-- Navigation
+    <!-- Latest compiled and minified JavaScript -->
 <script src="/bootstrap/js/jquery.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
+
 </head>
 <body id="page5">
-<!-- header -->
-<!-- <div class="bg">
-    <nav  id ="top" class="navbar navbar-default navbar-fixed-top">
-        <p class="navbar-text" style="float:right;">
-            <?php
-            if ($isLogin) {
-                $name = $user->username;
-                echo "Welcome $name";
-                echo '<a class="btn btn-default navbar-btn" href="'. $this->baseUrl() .'/user/logout"> Logout </a>';
-                echo' <a class="btn btn-default navbar-btn" href="'. $this->baseUrl() .'/user/editprofile"> update profile </a>';
-                echo' <a class="btn btn-default navbar-btn" href="'. $this->baseUrl() .'/index"> Home </a>';
-            }
-            elseif ($fuser) {
-$fuser=$fbsession->username;
-echo "Welcome $fuser";
- echo'<a class="btn btn-default navbar-btn" href="'. $this->baseUrl().'/user/fblogout"> Logout </a>';
- echo'<a class="btn btn-default navbar-btn" href="'. $this->baseUrl() .'/index"> Home </a>';
-            }
-            ?>
-        </p>
-    </nav>
-</div> -->
+<br><br>
+<div id="preloader">
+    <div id="status"> <img src="/bootstrap/images/preloader.gif" height="64" width="64" alt=""> </div>
+</div>
+<nav id="top" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            <a class="navbar-brand" href="#"><i class="glyphicon glyphicon-flag"></i><strong> Le voyage</strong></a>
+        <?php
+        if($isLogin){
+        ?>
+        <a class="navbar-brand" href="/user/editprofile"><i
+                class="glyphicon glyphicon-user"></i><strong> <?= $name ?></strong></a>
+    </div>
+    <?php
+    }elseif($fuser){
+        ?>
+        <a class="navbar-brand" href="#"><i
+                class="glyphicon glyphicon-user"></i><strong> <?= $fuser ?></strong></a>        <?php
+      echo "</div>";
+
+    }else{
+        echo "</div>";
+    }
+
+    ?>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse nav" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/" class="page-scroll glyphicon glyphicon-home"> Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle glyphicon glyphicon-flag" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Destinations <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <?php
+                        foreach ($destnations as $country):
+                        ?>
+                        <li ><a href="/index/getcities/conid/<?=$country['id']?>" class=""><?=$country['name']?></a></li>
+                        <li role="separator" class="divider"></li>
+                        <?php
+                        endforeach;
+                        ?>
+                    </ul>
+                </li>
+                </li>
+                <?php
+                if($isLogin){
+                    ?>
+                    <li><a href="/user/logout" class="page-scroll glyphicon glyphicon-log-out"> LogOut</a></li>
+                    <?php
+                }elseif($fuser){
+                    ?>
+
+                    <?php
+                }
+                else{
+                    ?>
+                    <li><a href="/user/login" class="page-scroll glyphicon glyphicon-user"> LogIn</a></li>
+                    <li><a href="/user/add" class="page-scroll glyphicon glyphicon-log-in"> SignUp</a></li>
+                    <?php
+                }
+                ?>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
 <?php echo $this->layout()->content; ?>
+<div id="footer">
+    <div class="container">
+        <p>Copyright © ITI-Open Source-Alex 36 Design by  Le Voyage</p>
+    </div>www.levoyage.com
+</div>
+<script type="text/javascript" src="/bootstrap/js/wow.min.js"></script>
+<script type="text/javascript" src="/bootstrap/js/SmoothScroll.js"></script>
+<script type="text/javascript" src="/bootstrap/js/jquery.isotope.js"></script>
+<script type="text/javascript" src="/bootstrap/js/jqBootstrapValidation.js"></script>
+<script type="text/javascript" src="/bootstrap/js/owl.carousel.js"></script>
+<script type="text/javascript" src="/bootstrap/js/main.js"></script>
+</body>
+</html>
