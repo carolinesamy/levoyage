@@ -1,5 +1,6 @@
 <?php
 
+
 class UserController extends Zend_Controller_Action
 {
 
@@ -60,6 +61,7 @@ class UserController extends Zend_Controller_Action
 
     public function loginAction()
     {
+  require_once  'google-api-php-client/src/Google/autoload.php';
         // action body
          $login_form = new Application_Form_Login( );
          $this->view->login_form = $login_form;
@@ -106,7 +108,25 @@ class UserController extends Zend_Controller_Action
             $loginUrl = $helper->getLoginUrl($this->view->serverUrl() .
             $this->view->baseUrl() . '/user/fbauth');
             $this->view->facebook_url = $loginUrl;
+
+            ///////////////////////////////////////////////////
+
             $this->view->twitterUrl = '/user/twauth';
+            ////////////////////////////////////////////////
+
+        $client_id = '583487569624-n001lnrj9a18iugmih6rhd9m6ma5pjpb.apps.googleusercontent.com';
+        $client_secret = 'Q8kgnUl01apPxPhPyEIlYQw5';
+        $redirect_uri = 'http://www.levoyage.com/user/googleauth';
+        $client = new Google_Client();
+        $client->setClientId($client_id);
+        $client->setClientSecret($client_secret);
+        $client->setRedirectUri($redirect_uri);
+        $client->addScope("profile");
+        $client->addScope(" https://www.googleapis.com/auth/plus.profile.emails.read");   
+        $authUrl = $client->createAuthUrl();
+        $this->view->google_url = $authUrl;
+
+
     }
 
     public function fbauthAction()
@@ -310,6 +330,7 @@ class UserController extends Zend_Controller_Action
         $request = $this->getRequest ();
         $city_id = $this->_request->getParam('id');
         if($request-> isPost()){
+
             if($form-> isValid($request-> getPost())){
     	    $auth = Zend_Auth::getInstance();
             $storage = $auth->getStorage();
@@ -326,13 +347,15 @@ class UserController extends Zend_Controller_Action
              //send data to model
     	     $photo=$files['photo']['name'];
              $user_model-> addexper($id,$photo,$_POST,$city_id);
-             $this->redirect("/index/city/id/$city_id");
+             $this->redirect("/index/exper/id/$city_id?/page=1");
+
          }
+         
     }
 
     }
 }
-
+    $this->view->baktocty=$this->redirect('/user/bactocty');
 
     }
 
@@ -378,13 +401,67 @@ class UserController extends Zend_Controller_Action
             $email->send();
         }
     }
+
     public function googleauthAction()
     {
 
+        // $client_id = '583487569624-n001lnrj9a18iugmih6rhd9m6ma5pjpb.apps.googleusercontent.com';
+        //  $client_secret = 'Q8kgnUl01apPxPhPyEIlYQw5';
+        //  $redirect_uri = 'http://www.levoyage.com/user/googleauth';
+
+        $client = new Google_Client();
+        $client->setClientId($client_id);
+        $client->setClientSecret($client_secret);
+        $client->setRedirectUri($redirect_uri);
+        $client->addScope("profile");
+        $client->addScope(" https://www.googleapis.com/auth/plus.profile.emails.read");
+        
+        $authUrl = $client->createAuthUrl();
+    
+    if (isset($_GET['code'])) {
+
+          $client->authenticate($_GET['code']);
+          $redirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+          //echo $_SESSION['access_token'];exit();
+          $service=new Google_Service_Plus($client);
+
+          $data=$service->people->get('me');
+          $mail=$data['modelData']['emails'][0]['value'];
+          $name=$data['modelData']['name']['givenName'];
+          $id=$data['id'];
+          $fpsession = new Zend_Session_Namespace('facebook');
+            // write in session email & id & first_name
+            $gogsession->username = $name;
+            $this->redirect();
+
+    }
+
+    }
+
+    public function bactoctyAction()
+    {
+        $form = new Application_Form_Addexperience ();
+        $this->view->exper_form = $form;
+        $user_model = new Application_Model_Experience();
+        $request = $this->getRequest ();
+        $city_id = $this->_request->getParam('id');
+        $user_data = $user_model-> userDetails ($city_id)->current();
+        $form->populate($user_data->toArray());
+        $this->view->user_form = $form;
+        $request = $this->getRequest ();
+        if($request-> isPost()){
+            if($form-> isValid($request-> getPost())){          
+                $user_model-> updateexper ($city_id,$_POST);
+                $this->redirect();
+            }
+        }
     }
 
 
 }
+
+
+
 
 
 

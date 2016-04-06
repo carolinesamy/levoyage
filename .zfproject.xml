@@ -29,6 +29,7 @@
           <actionMethod actionName="bookhotel"/>
           <actionMethod actionName="mail"/>
           <actionMethod actionName="googleauth"/>
+          <actionMethod actionName="bactocty"/>
         </controllerFile>
         <controllerFile controllerName="Admin">
           <actionMethod actionName="index"/>
@@ -223,10 +224,13 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Admin">
             <viewScriptFile forActionName="addadmin"/>
-            </viewControllerScriptsDirectory>
+          </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="mail"/>
             <viewScriptFile forActionName="googleauth"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="bactocty"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

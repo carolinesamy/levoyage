@@ -33,7 +33,7 @@ class Application_Form_Editform extends Zend_Form
 		$confpassword->setLabel('confirm password');
     $confpassword->addErrorMessage('The passwords do not match');
 
-		$submit=new Zend_Form_Element_Submit('Submit');
+		$submit=new Zend_Form_Element_Submit('Edit');
     $submit->setAttrib('class','btn btn-link-2 btn-block');
 
 		
