@@ -30,6 +30,25 @@ h3 {
     color: #555;
     line-height: 30px;
 }
+.top{
+ 	width:1200px;
+ 	height: 450px;
+}
+    strong.coun{
+    	color: #f3ca27;
+    	font-style: bold;
+        font-size: 300%;
+    }
+        strong{
+    	color: #f3ca27;
+    	font-style: bold;
+    	text-shadow: 1px 1px #f3ca27;
+    	font-size: 150%;
+    }
+#city{
+	 	width:230px;
+ 	height: 130px;
+}
 
 img { max-width: 100%; }
 
