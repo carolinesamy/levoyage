@@ -10,7 +10,6 @@ echo "<center><strong class=\"footer-logo\">".$this->countrydata->name."</strong
 
 
 ?>
-<body>
 <div class="row">
 	<div class="col-sm-12"><img src="<?php echo $this->countrydata->image_path ?>" class="img-thumbnail" alt="Cinque Terre" width="1000" height="236"></div>
 
@@ -30,6 +29,22 @@ foreach($this->cities as $key=>$value)
 
 }
 ?>
+<div id="map" class="table-responsive" style=" height:450px ;border:3px solid white ">
+</div>
+<script>
+	function initMap() {
+		var mapDiv = document.getElementById('map');
+		var myLatLng = {lat:  <?= $this->countrydata->lat?>, lng: <?= $this->countrydata->longd?>};
+		var map = new google.maps.Map(mapDiv, {
+			center: myLatLng,
+			zoom: 8
+		});
+		var marker = new google.maps.Marker({
+			position: myLatLng,
+			map: map,
+			title: '<?= $this->countrydata->name?>'
+		});
+	}
+</script>
 
-</body>
 

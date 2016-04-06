@@ -79,6 +79,7 @@ class IndexController extends Zend_Controller_Action
         $countryid=$this->_request->getParam("conid");
         $country=new Application_Model_Country();
         $cities=$country->findCities($countryid);
+        $city=[];
         foreach($cities as $key=>$value)
         {
             $city[$key]['id']=$value->id;
