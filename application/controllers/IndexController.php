@@ -41,6 +41,8 @@ class IndexController extends Zend_Controller_Action
         $this->view->hotels=$hotels;
         $hotelform=new Application_Form_Hotel();
         $this->view->hotel_form=$hotelform;
+        $locations=$city->findDependentRowset('Application_Model_Location');
+        $this->view->locations=$locations;
     }
 
     public function experAction()
