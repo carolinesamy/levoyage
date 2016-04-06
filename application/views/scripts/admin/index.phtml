@@ -1,27 +1,28 @@
-<br /><br />
-<div id="view-content">
-</div>
-<br /><br /><br />
-<div id="view-content">
 
-	<h3 align="center" > Countries <a href='addcountry'>Add Country</a></h3>
-	<table class='table'>
-		<thead>
-		<tr>
-			<th>ID</th><th>Country Name</th><th>Edit</th><th>Delete</th>
-		</tr>
-		</thead>
-		<?php
-		foreach($this->count as $key => $value)
-		{
-			echo "<tr>".
-				"<td>" . $value['id'] . "</td>" .
-				"<td>" . $value['name'] . "</td>" .
-				"<td><a class='btn btn-success' href='editcountry/cid/".$value['id']."'>Edit</a></td>".
-				"<td><a class='btn btn-danger' href='deletecountry/conid/".$value['id']."'>Delete</a></td>".
-				"</tr>";
-		}
-		?>
+<?php
+$isLogin=false;
+$user=null;
+$auth = Zend_Auth::getInstance();
+$storage = $auth->getStorage();
+$sessionRead = $storage->read();
+if (!empty($sessionRead)) {
+	$name = $sessionRead->username;
+	$isLogin=true;
+	$user=$sessionRead;
+}
+if ($isLogin) {
+	$name = $user->username;
+}
+?>
 
-	</table>
-</div>
+<h3 align="center" > Control in Your Site  <?= $name ?> </h3>
+
+<a class='btn btn-success' href='alluser'>User</a>
+<a class='btn btn-success' href='allcountry'>Countries</a>
+<a class='btn btn-danger' href='allcity'>Cities</a>
+<a class='btn btn-success' href='allloc'>Locations</a>
+<a class='btn btn-success' href='allhotel'>Hotels</a>
+
+
+
+
