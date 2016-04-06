@@ -1,0 +1,42 @@
+
+
+<h3 align="center" > Users </h3>
+<table class='table'>
+	<thead>
+	<tr>
+		<th>ID</th><th>User Name</th><th>Is Admin</th><th>Block</th><th>Set Admin</th><th>Delete</th>
+	</tr>
+	</thead>
+	<?php
+	foreach($this->user as $key => $value)
+	{
+		echo "<tr>".
+			"<td>" . $value['id'] . "</td>" .
+			"<td>" . $value['username'] . "</td>" ;
+			if ($value['is_admin']==1)
+			{
+				echo"<td>Admin</td><td></td><td></td><td></td></tr>";
+			}
+			else{
+				echo"<td></td>";
+				if($value['is_active']==1)
+				{
+					echo "<td><a class='btn btn-danger' href='blockuser/uid/".$value['id']."'>Block</a></td>";
+				}
+				else
+				{
+
+					echo "<td><a class='btn btn-danger' href='unblockuser/uid/".$value['id']."'>UnBlock</a></td>";
+
+
+				}
+				echo "<td><a class='btn btn-success' href='setadmin/uid/".$value['id']."'>SetAdmin</a></td>";
+
+				echo "<td><a class='btn btn-success' href='deleteuser/uid/".$value['id']."'>Delete</a></td></tr>";
+			}
+
+	}
+	?>
+
+</table>
+</div>

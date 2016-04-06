@@ -1,35 +1,62 @@
-<br /><br />
-<div id="view-content">
-</div>
-<?php
-//foreach($this->cities as $key=>$value){
-//	echo $key.": " .$value->name;
-//}
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-echo "<center><strong class=\"footer-logo\">".$this->countrydata->name."</strong></center>";
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <link rel="stylesheet" href="/bootstrap/assets/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/bootstrap/assets/css/form-elements.css">
+        <link rel="stylesheet" href="/bootstrap/assets/css/style.css">
+                <style >
+        body {
+    background-image: url("/bootstrap/assets/img/backgrounds/5.jpg") ;
+    background-size: 1250px ;
+    background-repeat: no-repeat;}
 
-
-?>
+    </style>
+</head>
 <body>
-<div class="row">
-	<div class="col-sm-12"><img src="/images/<?php echo $this->countrydata->image_path ?>" class="img-thumbnail" alt="Cinque Terre" width="1000" height="236"></div>
 
-</div>
+                <div class="container">
+                     <div class="row">    	
+                        <div class="col-md-12 " >
+                        	<!-- <div class="form-box"> -->
+	                        	<br><strong class="coun"><?= $this->countrydata->name ?></strong><br>
+	                        	<img class="top"src="/images/<?php echo $this->countrydata->image_path ?>" class="img-thumbnail" alt="Cinque Terre" ><br>
+	                        <!-- </div -->
+	                    <hr>
+    <nav class="navbar  ">
+        <div class="container">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav " style="float:left">
+                         <?php foreach ($this->cities as $key => $value) : ?>
+	                          <?php echo "<li><a href='/index/city/id/". $value['id']."' >
+	                            	<img id='city' src='/images/". $value['image']."' class=\"img-thumbnail\" alt=\"Cinque Terre\" width=\"236\" height=\"236\"/></a></li>
+	                            	<li><a><strong>".$value['name']."</strong></a></li>";?>
+	                       <?php endforeach; ?>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+	                       </div>
+	                 </div>
+	            </div>
 
-<?php
 
-foreach($this->cities as $key=>$value)
-{
-	echo "<table class=\"info\"><thead><tr class=\"success\">";
-	echo "<td><a href='/index/city/id/". $value['id']."' ><img src='/images/". $value['image']."' class=\"img-thumbnail\" alt=\"Cinque Terre\" width=\"236\" height=\"236\"/></td></a>";
-	//echo "/images/". $value['image'];
-	echo "<td><strong class=\"footer-logo\">".$value['name']."</strong><br>" ;
-	echo "<center>Rate: " .$value['rate']."</center></td></tr></tbody></table>";
-	//echo ":image path: " .$value['image'];
-
-
-}
-?>
-
+        <script src="/bootstrap/assets/js/jquery.backstretch.min.js"></script>
+        <script src="/bootstrap/assets/js/scripts.js"></script>
 </body>
+</html>
+
+
+
+
+
+
 

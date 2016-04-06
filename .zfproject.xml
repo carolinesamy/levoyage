@@ -48,6 +48,16 @@
           <actionMethod actionName="addhotel"/>
           <actionMethod actionName="edithotel"/>
           <actionMethod actionName="deletehotel"/>
+          <actionMethod actionName="addloc"/>
+          <actionMethod actionName="allloc"/>
+          <actionMethod actionName="editloc"/>
+          <actionMethod actionName="deleteloc"/>
+          <actionMethod actionName="deleteuser"/>
+          <actionMethod actionName="blockuser"/>
+          <actionMethod actionName="alluser"/>
+          <actionMethod actionName="unblockuser"/>
+          <actionMethod actionName="setadmin"/>
+          <actionMethod actionName="addadmin"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -59,6 +69,10 @@
         <formFile formName="Addcity"/>
         <formFile formName="Hotel"/>
         <formFile formName="Addhotel"/>
+        <formFile formName="Addlocation"/>
+        <formFile formName="Addlocation"/>
+        <formFile formName="Addlocation"/>
+        <formFile formName="Addlocation"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>
@@ -181,6 +195,36 @@
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="bookhotel"/>
           </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="addloc"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="allloc"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="editloc"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="deleteloc"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="deleteuser"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="blockuser"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="alluser"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="unblockuser"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="setadmin"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Admin">
+            <viewScriptFile forActionName="addadmin"/>
+            </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="mail"/>
             <viewScriptFile forActionName="googleauth"/>

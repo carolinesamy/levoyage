@@ -1,4 +1,23 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Admin</b> and script/action name <b>allhotel</b></p>
+
+
+<h3 align="center" > Hotels <a href='addhotel'>Add Hotel</a></h3>
+<table class='table'>
+	<thead>
+	<tr>
+		<th>Hotel Name</th><th>Edit</th><th>Delete</th>
+	</tr>
+	</thead>
+	<?php
+	foreach($this->hotel as $key => $value)
+	{
+		echo "<tr>".
+
+			"<td>" . $value['name'] . "</td>" .
+			"<td><a class='btn btn-success' href='edithotel/hid/".$value['name']."'>Edit</a></td>".
+			"<td><a class='btn btn-danger' href='deletehotel/hid/".$value['name']."'>Delete</a></td>".
+			"</tr>";
+	}
+	?>
+
+</table>
 </div>

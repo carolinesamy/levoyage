@@ -51,7 +51,7 @@ class UserController extends Zend_Controller_Action
                 $auth = Zend_Auth::getInstance( );
                 $storage = $auth->getStorage();
                 $storage->write($authAdapter->getResultRowObject(array('email','id',
-                'username')));
+                'username','is_active','is_admin')));
 				$this->redirect('/index');
 			}
 		}
@@ -82,12 +82,11 @@ class UserController extends Zend_Controller_Action
                 if ($result->isValid( )) {
 
                 //if the user is valid register his info in session
-                $auth = Zend_Auth::getInstance( );//if the user is valid register his info in session
                 $auth = Zend_Auth::getInstance();
                 $storage = $auth->getStorage();
                 // write in session email & id & first_name
                 $storage->write($authAdapter->getResultRowObject(array('email','id',
-                'username')));
+                'username','is_active')));
                 // redirect to root index/index
                 return $this->redirect('/index');
             } else {

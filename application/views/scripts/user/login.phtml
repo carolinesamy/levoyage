@@ -9,9 +9,8 @@
 
         <!-- CSS -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-        <link rel="stylesheet" href="/bootstrap/assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="/bootstrap/assets/font-awesome/css/font-awesome.min.css">
-		<link rel="stylesheet" href="/bootstrap/assets/css/form-elements.css">
+        <link rel="stylesheet" href="/bootstrap/assets/css/form-elements.css">
         <link rel="stylesheet" href="/bootstrap/assets/css/style.css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -27,6 +26,9 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bootstrap/assets/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bootstrap/assets/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="/bootstrap/assets/ico/apple-touch-icon-57-precomposed.png">
+
+
+
         <style >
         body {
     background-image: url("/bootstrap/assets/img/backgrounds/1.jpg") ;
@@ -62,12 +64,11 @@
 	                        		</div>
 	                            </div>
 	                            <div class="form-bottom">
-<!-- 				                    <form role="form"  class="login-form">
- -->
+
 				                        <?php echo $this->login_form;?>
 				                       <?php echo' <a class="btn btn-link-2 btn-block" href="/user/add"'?>>Register</a>';
-<!-- 				                    </form>
- -->			                    </div>
+                                       <?php echo' <a href="/index"?>Home</a>';?>
+			                    </div>
 		                    </div>
 		                
 		                	<div class="social-login">
@@ -86,7 +87,7 @@
 	                        </div>
 	                        
                         </div>
-					                    </form>
+					                   
 				                    </div>
 	                        	</div>
 	                        	
@@ -101,11 +102,15 @@
 
 
         <!-- Javascript -->
-        <script src="/bootstrap/assets/js/jquery-1.11.1.min.js"></script>
-        <script src="/bootstrap/assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="/bootstrap/assets/js/jquery.backstretch.min.js"></script>
         <script src="/bootstrap/assets/js/scripts.js"></script>
-        
+        <script type="text/javascript">
+        var ff=document.getElementById('file');
+        ff.addEventListner("click",function(){
+            alert("fdfdfdfdf");
+        });
+                          
+        </script>
         <!--[if lt IE 10]>
             <script src="/bootstrap/assets/js/placeholder.js"></script>
         <![endif]-->
