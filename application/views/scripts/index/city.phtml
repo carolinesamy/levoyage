@@ -16,10 +16,10 @@ $user=$sessionRead;
 ?>
 <link rel="stylesheet" type="text/css"  href="/bootstrap/css/city-style.css">
 <link rel="stylesheet" type="text/css" href="/bootstrap/css/city-animate.min.css">
-<link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'>
+<!--<link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300' rel='stylesheet' type='text/css'>-->
+<!--<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800,600,300' rel='stylesheet' type='text/css'>-->
 <link rel="stylesheet" href="/bootstrap/css/datepicker.css">
-<script type="text/javascript" src="/bootstrap/js/modernizr.custom.js"></script>
+<!--<script type="text/javascript" src="/bootstrap/js/modernizr.custom.js"></script>-->
 <div id="preloader">
     <div id="status"> <img src="/bootstrap/images/preloader.gif" height="64" width="64" alt=""> </div>
 </div>
@@ -33,21 +33,24 @@ $user=$sessionRead;
             <a class="navbar-brand" href="#home"><i class="glyphicon glyphicon-flag"></i><strong> Le voyage</strong></a> </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse nav" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#home" class="page-scroll">City Home</a></li>
                 <li><a href="#services-section" class="page-scroll">Description</a></li>
                 <li><a href="#team-section" class="page-scroll">Map</a></li>
                 <li><a href="#works-section" class="page-scroll">Locations</a></li>
                 <li><a href="#city-expe" class="page-scroll">Experience</a></li>
+
                 <?php
                 if($isLogin){
                     ?>
                     <li><a href="#contact-section" class="page-scroll">Reservation</a></li>
+                    <li> <a href="#rentCar" data-toggle="modal">Rent Car</a></li>
                     <li><a href="/user/editprofile" class="page-scroll">Profile</a></li>
                     <li><a href="/user/logout" class="page-scroll">LogOut</a></li>
 
-                    <?php
+                <?php
+
                 }else{
                     ?>
                     <li><a href="/user/login" class="page-scroll">LogIn</a></li>
@@ -63,10 +66,10 @@ $user=$sessionRead;
 
 
 <!-- Header -->
-<header class="text-center" name ="home" style="	background: url(/images/<?=$this->city->image_path?>) no-repeat bottom center;">
+<header class="text-center" id ="home" style="	background: url(/images/<?=$this->city->image_path?>) no-repeat bottom center;">
     <div class="intro-text">
-        <h1 class="wow fadeInDown" data-wow-delay="10000ms"><strong><span class="color"><?=$this->city->name?></span></strong></h1>
-        <a href="#services-section" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="10000ms">City Description</a> </div>
+        <h1 class="wow fadeInDown" data-wow-delay="3000ms"><strong><span class="color"><?=$this->city->name?></span></strong></h1>
+        <a href="#services-section" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="3000ms">City Description</a> </div>
 </header>
 
 <!-- Description  -->
@@ -91,7 +94,7 @@ $user=$sessionRead;
             <hr>
             <div class="clearfix">
             </div>
-            <div id="map" style="width:1200px; height:450px ;border:3px solid white ">
+            <div id="map" class="table-responsive" style=" height:450px ;border:3px solid white ">
             </div>
         </div>
 
@@ -139,13 +142,20 @@ if($isLogin) {
                         ?>
                     </select>
                 </div>
-                <div class="col-md-1"><i class="fa fa-phone fa-2x"></i>
-                    <?= $this->hotel_form->getElement("reset");?>
+                <div class="row">
+                    <div class="col-md-3"><i class="fa fa-phone fa-2x"></i>
+                        <?= $this->hotel_form->getElement("reset");?>
+                    </div>
+                    <div class="col-md-3"><i class="fa fa-phone fa-2x"></i>
+
+                        <button type="submit" class="btn btn-default hotel_submit">Check In</button>
                 </div>
-                <div class="clearfix"></div>
-            </div>
                 <input type="hidden" value="<?=$user->id ?>" class="user_id">
-                <button type="submit" class="btn btn-default hotel_submit">Check In</button>
+
+                <div class="clearfix"></div>
+                <br><br>
+            </div>
+
             </form>
             <div class="col-md-8 col-md-offset-2 wow fadeInUp" data-wow-delay="400ms">
                 <div class="social">
@@ -237,7 +247,66 @@ foreach ($this->locations as $location):
             </div>
         </div>
     </div>
-<?php
+    <div class="portfolio-modal modal fade" id="rentCar" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="close-modal" data-dismiss="modal">
+                <div class="lr">
+                    <div class="rl"> </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="modal-body">
+                            <h2>Rent Car</h2>
+                            <form role="form">
+                                <div class="form-group col-md-6">
+                                    <label for="pickTime"><span class="glyphicon glyphicon-time"></span> pick Time</label>
+                                    <input type="datetime-local" class="form-control " id="pickTime" placeholder="Time" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="leaveTime"><span class="glyphicon glyphicon-time"></span> Leaving Time</label>
+                                    <input type="datetime-local" class="form-control " id="leaveTime" placeholder="Time" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <i class="fa fa-map-marker fa-2x"></i>
+                                    <label for="fromLocation"><span class="glyphicon glyphicon-home"></span> From</label>
+                                    <select  id="fromLocation" class="form-control">
+                                        <option>---Select Location---</option>
+                                        <?php
+                                        foreach ($this->locations as $location):
+                                            ?>
+                                            <option value="<?=$location->id ?>"><?=$location->name ?></option>
+                                            <?php
+                                        endforeach;
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <i class="fa fa-map-marker fa-2x"></i>
+                                    <label for="toLocation"><span class="glyphicon glyphicon-home"></span> To</label>
+                                    <select  id="toLocation" class="form-control">
+                                        <option>---Select Location---</option>
+                                        <?php
+                                        foreach ($this->locations as $location):
+                                            ?>
+                                            <option value="<?=$location->id ?>"><?=$location->name ?></option>
+                                            <?php
+                                        endforeach;
+                                        ?>
+                                    </select>
+                                </div>
+                                <button type="submit" id="rentCarSubmit" class="btn btn-primary">Rent Now</button>
+                            </form>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-times"></i> Close Project</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <?php
 endforeach;
 ?>
 <!------------------------end-locations  modals !------------------------>
@@ -260,13 +329,12 @@ endforeach;
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?callback=initMap"
         async defer></script>
-<script type="text/javascript" src="/bootstrap/js/SmoothScroll.js"></script>
+<!--<script type="text/javascript" src="/bootstrap/js/SmoothScroll.js"></script>-->
 <script type="text/javascript" src="/bootstrap/js/wow.min.js"></script>
 <script type="text/javascript" src="/bootstrap/js/jquery.isotope.js"></script>
 <script type="text/javascript" src="/bootstrap/js/jqBootstrapValidation.js"></script>
-<script type="text/javascript" src="/bootstrap/js/contact_me.js"></script>
 <script type="text/javascript" src="/bootstrap/js/owl.carousel.js"></script>
 <script type="text/javascript" src="/bootstrap/js/main.js"></script>
 <script src="/bootstrap/js/city_script.js"></script>
 <script src="/bootstrap/js/bootstrap-datepicker.js"></script>
-<script> $('.date_field').datepicker('show');</script>
+<script> $('.date_field').datepicker('hide');</script>

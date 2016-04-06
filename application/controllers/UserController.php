@@ -379,13 +379,38 @@ class UserController extends Zend_Controller_Action
             $email->send();
         }
     }
+
     public function googleauthAction()
     {
+    }
 
+    public function rentcarAction()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $car_model=new Application_Model_RentCar();
+        //makes disable layout
+        $this->_helper->getHelper('layout')->disableLayout(true);
+        $request = $this->getRequest ();
+        if($request->isPost() ){
+            $auth = Zend_Auth::getInstance();
+            $storage = $auth->getStorage();
+            $user=$storage->read();
+        $data= array(
+            'user_id' =>$_REQUEST['user_id'],
+            'from_city' =>$_REQUEST['from_city'],
+            'to_city' =>$_REQUEST['to_city'],
+            'pick_time' =>$_REQUEST['pick_time'],
+            'leaving_time' =>$_REQUEST['leaving_time'],
+        );
+        $car_model->addRentCar($data);
+        echo true;
+        }
     }
 
 
 }
+
+
 
 
 

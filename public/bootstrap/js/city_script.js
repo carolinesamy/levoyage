@@ -4,6 +4,8 @@
 $("#top").remove();
 $(function(){
    $(".hotel_submit").on("click",valid_book_hotel);
+    $("#rentCarSubmit").on("click",rent_car_valid);
+
     function valid_book_hotel(){
         var hotel=$("#hotels").val();
         var from = $(".hotel_from").val().split("/");
@@ -30,10 +32,49 @@ $(function(){
                     'user_id':user_id,
                     'members':members,
                 },
-                success:sendMail("Test","this is test for ajax")
+                success:sendMail("Hotel Reservation","you has reserved a room Successfully")
             }
         );
 
+    }
+
+    function rent_car_valid(){
+       var pickTime=$("#pickTime").val().replace("T"," ")+":00";
+        var leaveTime=$("#leaveTime").val().replace("T"," ")+":00";
+        var toLocation=new String($("#toLocation").val());
+        var fromLocation=new String($("#fromLocation").val());
+            if (fromLocation=="---Select Location---"||toLocation=="---Select Location---"||leaveTime==""||pickTime==""){
+                $("#rentCar").modal('toggle');
+                $('#no_rooms').modal();
+                setTimeout(function(){
+                    $('#no_rooms').modal('toggle');
+                    $("#rentCar").modal();
+                },2000);
+                return false;
+            }
+            else {
+                $("#rentCar").modal('toggle');
+                $("#Success_hotel").modal();
+                rent_car(pickTime,leaveTime,toLocation,fromLocation);
+                return false;
+            }
+    }
+    function rent_car(pickTime,leaveTime,toLocation,fromLocation){
+        var user_id=$(".user_id").val();
+        $.ajax(
+            {
+                'url':'/user/rentcar',
+                method:'POST',
+                data:{
+                    'from_city' : fromLocation,
+                    'to_city':toLocation,
+                    'pick_time':pickTime,
+                    'leaving_time':leaveTime,
+                    'user_id':user_id
+                },
+                success:sendMail("Car Rent","you has rent a car successfully..")
+            }
+        );
     }
     function sendMail(subject,message){
         $.ajax(
