@@ -54,7 +54,11 @@ class Application_Model_User extends Zend_Db_Table_Abstract
 		$this->delete("id=$user_id");
 	}
 
-
+	function count()
+	{
+		$rows = $this->select()->from($this, 'count(*) as amt')->query()->fetchAll();
+		return($rows[0]['amt']);
+	}
 
 }
 

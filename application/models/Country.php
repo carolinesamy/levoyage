@@ -62,7 +62,11 @@ class Application_Model_Country extends Zend_Db_Table_Abstract
         $this->update($edited,"id=$cid");
     }
 
-
+    function count()
+    {
+        $rows = $this->select()->from($this, 'count(*) as amt')->query()->fetchAll();
+        return($rows[0]['amt']);
+    }
 
 }
 

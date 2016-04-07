@@ -15,5 +15,6 @@ function addBook($data){
 	$row=$this->createRow($data);
 	$row->save();
 }
+
 }
 

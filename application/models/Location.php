@@ -50,6 +50,11 @@ class Application_Model_Location extends Zend_Db_Table_Abstract
 
         $this->update($edited,"id=$loc_id");
     }
+    function count()
+    {
+        $rows = $this->select()->from($this, 'count(*) as amt')->query()->fetchAll();
+        return($rows[0]['amt']);
+    }
 
 }
 
