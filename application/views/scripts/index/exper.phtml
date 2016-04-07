@@ -15,7 +15,7 @@ if (!empty($sessionRead)) {
 	$user=$sessionRead;
 	include "disqus.phtml";
 	?>
-<script type="text/javascript">
+<script type="text/javascript" xmlns="http://www.w3.org/1999/html">
 	var disqus_config = function() {
 		this.page.remote_auth_s3 = "<?php echo "$message $hmac $timestamp"; ?>";
 		this.page.api_key = "<?php echo DISQUS_PUBLIC_KEY; ?>";
@@ -59,27 +59,31 @@ if (!empty($sessionRead)) {
 				'Sliding',
 				"index/paginatorControl.phtml");
 			?>
+
 			<br>
 		</div>
+		</p>
 			<h2 class=" col-md-6">	<?php echo $exp['title']."</h2>";
 		?>
-		</p>
+</div>
 </header>
 
 <div>
-			<img src="/images/<?= $exp['image_path']?>" style="width: 100%;height: 400px; border: 2px solid yellow">
-		</div>
-		<p style="color: whitesmoke"><?php echo $exp['content']."</p>";
-		if($isLogin){
+	<img src="/images/<?= $exp['image_path']?>" style="width: 60%;height: 400px; border: 1px solid yellow">
+	</div>
+
+<div style="color: whitesmoke;padding: 10px;float: right">
+		<p>
+
+			<?php echo $exp['content']."</p></div>";
+			if($isLogin){
 		?>
-			<a href="/user/addexper/id/<?= $this->city_id?>" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="200ms">Add your
-			Experience</a>
+			<a href="/user/addexper/id/<?= $this->city_id?>" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="200ms">Add Experience</a>
 	<?php
-	if($exp['user_id']==$user->id){
-		echo '<a href="/user/addexper/id/<?= $this->city_id?>" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="300ms">Edit This
-			Experience</a>
-			</div>';
-	}
+			if($exp['user_id']==$user->id){
+				echo '<a href="/user/bactocty/pid/<?= $exp[\'id\']?>" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="300ms">Edit</a>';
+				echo '<a href="/user/deleteexper/pid/<?= $exp[\'id\']?> class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="300ms">Delete</a>';
+			}
 	}
 			?>
 				<div class="text-center">
@@ -96,13 +100,16 @@ if (!empty($sessionRead)) {
 
 <div id="disqus_thread"></div>
 <script>
-	$("#top").remove();
+	$(function(){
+		$("#top").remove();
+		$("#footer").remove();
+	});
+
 </script>
 <script type="text/javascript" src="/bootstrap/js/SmoothScroll.js"></script>
 <script type="text/javascript" src="/bootstrap/js/wow.min.js"></script>
 <script type="text/javascript" src="/bootstrap/js/jquery.isotope.js"></script>
 <script type="text/javascript" src="/bootstrap/js/jqBootstrapValidation.js"></script>
-<script type="text/javascript" src="/bootstrap/js/contact_me.js"></script>
 <script type="text/javascript" src="/bootstrap/js/owl.carousel.js"></script>
 <script type="text/javascript" src="/bootstrap/js/main.js"></script>
 
@@ -128,7 +135,6 @@ s.setAttribute('data-timestamp', +new Date());
 })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-</div>
 <style>
 	body{background: rgb(3,39,49)}
 </style>
