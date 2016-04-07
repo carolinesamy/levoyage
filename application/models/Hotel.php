@@ -40,6 +40,11 @@ class Application_Model_Hotel extends Zend_Db_Table_Abstract
         $edited['city_id']=$hotel['city_id'];
         $this->update($edited,"name='$hotel_name'");
     }
+    function count()
+    {
+        $rows = $this->select()->from($this, 'count(*) as amt')->query()->fetchAll();
+        return($rows[0]['amt']);
+    }
 
 }
 

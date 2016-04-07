@@ -25,7 +25,7 @@ class Application_Form_Addexperience extends Zend_Form
         $content->setAttrib('class','form-control ');
         $content->setAttribs(array("cols"=>'4',"rows"=>'6'));
         $content->setRequired();
-        $content->addValidator('StringLength', false, Array(5,100));
+        $content->addValidator('StringLength', false, Array(5,1000));
         $content->addFilter('StringTrim');
 
         $submit = new Zend_Form_Element_Submit('submit');

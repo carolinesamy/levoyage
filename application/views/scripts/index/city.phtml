@@ -12,8 +12,8 @@ if (!empty($sessionRead)) {
 $isLogin=true;
 $user=$sessionRead;
 
-}elseif( (isset($fbsession->fname) && !empty (isset($fbsession->fname)))){
-    $fuser=$fbsession->fname;
+}elseif( (isset($fbsession->username) && !empty (isset($fbsession->username)))){
+    $fuser=$fbsession->username;
 }
 ?>
 <nav id="menu" class="navbar navbar-default navbar-fixed-top">

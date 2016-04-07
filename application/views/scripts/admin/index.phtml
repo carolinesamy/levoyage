@@ -1,3 +1,4 @@
+<br /><br />
 
 <?php
 $isLogin=false;
@@ -5,24 +6,90 @@ $user=null;
 $auth = Zend_Auth::getInstance();
 $storage = $auth->getStorage();
 $sessionRead = $storage->read();
+
+$country_model=new Application_Model_Country();
+$city_model=new Application_Model_City();
+$hotel_model=new Application_Model_Hotel();
+$loc_model=new Application_Model_Location();
+$user_model=new Application_Model_User();
+
+$country_count=$country_model->count();
+$city_count=$city_model->count();
+$hotel_count=$hotel_model->count();
+$loc_count=$loc_model->count();
+$user_count=$user_model->count();
+
+
+
+
 if (!empty($sessionRead)) {
 	$name = $sessionRead->username;
 	$isLogin=true;
 	$user=$sessionRead;
+
 }
 if ($isLogin) {
 	$name = $user->username;
 }
 ?>
+<nav id="top" class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+			<a class="navbar-brand" href="#"><i class="glyphicon glyphicon-flag"></i><strong> Le voyage</strong></a>
+			<?php
+			if($isLogin){
+			?>
+			<a class="navbar-brand" href="/user/editprofile"><i
+					class="glyphicon glyphicon-user"></i><strong> <?= $name ?></strong></a>
+		</div>
+		<?php
+		}
+		?>
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse nav" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="index" class="page-scroll glyphicon glyphicon-home"> Home</a></li>
+				<li><a href='alluser' class="page-scroll glyphicon glyphicon-user"> User</a></li>
+				<li><a href="allcountry" class="page-scroll glyphicon glyphicon-globe"> Countries</a></li>
+				<li><a href="allcity" class="page-scroll glyphicon glyphicon-plane"> Cities</a></li>
+				<li><a href="allloc" class="page-scroll glyphicon glyphicon-screenshot"> Locations</a></li>
+				<li><a href="allhotel" class="page-scroll glyphicon glyphicon-tower"> Hotels</a></li>
+				<?php
+				if($isLogin){
+					?>
+					<li><a href="/user/logout" class="page-scroll glyphicon glyphicon-log-out"> LogOut</a></li>
+					<?php
+				}
+				?>
+			</ul>
+		</div>
 
-<h3 align="center" > Control in Your Site  <?= $name ?> </h3>
+<h3 align="center" > Control Your Site  <?= $name ?> </h3>
 
-<a class='btn btn-success' href='alluser'>User</a>
-<a class='btn btn-success' href='allcountry'>Countries</a>
-<a class='btn btn-danger' href='allcity'>Cities</a>
-<a class='btn btn-success' href='allloc'>Locations</a>
-<a class='btn btn-success' href='allhotel'>Hotels</a>
+		<div id="view-content">
+
+			<table class='table'>
+				<thead>
+				<tr>
+					<th>Element</th><th>Number</th>
+				</tr>
+				</thead>
+				<tr></tr><td><a href='alluser'>Useres</a></td><td><?=$user_count?></td></tr>
+				<tr></tr><td><a href='allcountry'>Countries</a></td><td><?=$country_count?></td></tr>
+				<tr></tr><td><a href='allcity'>Cities</a></td><td><?=$city_count?></td></tr>
+				<tr></tr><td><a href='allloc'>Locations</a></td><td><?=$loc_count?></td></tr>
+				<tr></tr><td><a href='allhotel'>Hotels</a></td><td><?=$hotel_count?></td></tr>
+
+			</table>
+			<h3 align="center" > Go To  <a href="/" class="page-scroll glyphicon glyphicon-share-alt">LEVOYAGE</a></h3>
+
+		</div>
 
 
+<script src="/bootstrap/js/city_script.js"></script>
+<script src="/bootstrap/js/bootstrap-datepicker.js"></script>
+<script> $('.date_field').datepicker('hide');</script>
 
 

@@ -2,10 +2,19 @@
 define('DISQUS_SECRET_KEY', 'zjhrrNr8Dc7CP6uy8c7D7V4ARyW2Gjoi5Pz6Fu887xiqjn14YvG7rIYHLahjDevl');
 define('DISQUS_PUBLIC_KEY', 'XjFMiYJj5GbojsMhu0LRanNxl8lqBpzfKpySCKabHnZ9KD7jfuyD9KyrZM7gYDyu');
 
+if ($user) {
+	$duser=$user;
+	# code...
+}elseif ($guser) {
+	$duser=$guser;
+}elseif ($fuser) {
+	$duser=$fuser;
+}
+
 $data = array(
-"id" => $user->id,
-"username" => $user->username,
-"email" => $user->email
+"id" => $duser->id,
+"username" => $duser->username,
+"email" => $duser->email
 );
 
 function dsq_hmacsha1($data, $key) {

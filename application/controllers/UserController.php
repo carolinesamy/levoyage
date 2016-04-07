@@ -1,5 +1,7 @@
 <?php
 
+  use Abraham\TwitterOAuth\TwitterOAuth;
+
 class UserController extends Zend_Controller_Action
 {
 
@@ -29,7 +31,8 @@ class UserController extends Zend_Controller_Action
         $authorization=Zend_Auth::getInstance();
         $fbsession=new Zend_Session_Namespace('facebook');
         $twsession=new Zend_Session_Namespace('twitter');
-        if ($authorization->hasIdentity() || isset($fbsession->username)  || isset($twsession->username))
+        $gogsession=new Zend_Session_Namespace('google');
+        if ($authorization->hasIdentity() || isset($fbsession->username)  || isset($twsession->username)|| isset($gogsession->username))
           {
             $this->redirect("/index");
           }
@@ -60,7 +63,8 @@ class UserController extends Zend_Controller_Action
 
     public function loginAction()
     {
-        // action body
+        require_once  'google-api-php-client/src/Google/autoload.php';
+require_once "twitteroauth-master/autoload.php";        // action body
          $login_form = new Application_Form_Login( );
          $this->view->login_form = $login_form;
          if ($this->_request->isPost()) {
@@ -86,7 +90,7 @@ class UserController extends Zend_Controller_Action
                 $storage = $auth->getStorage();
                 // write in session email & id & first_name
                 $storage->write($authAdapter->getResultRowObject(array('email','id',
-                'username','is_active')));
+                'username','is_active','is_admin')));
                 // redirect to root index/index
                 return $this->redirect('/index');
             } else {
@@ -106,7 +110,30 @@ class UserController extends Zend_Controller_Action
             $loginUrl = $helper->getLoginUrl($this->view->serverUrl() .
             $this->view->baseUrl() . '/user/fbauth');
             $this->view->facebook_url = $loginUrl;
-            $this->view->twitterUrl = '/user/twauth';
+
+            ///////////////////////////////////////////////////
+            $connection = new TwitterOAuth('WY7NpcSMyrEpOMhXvdMixoxqJ','vT0r0aTEccIfYRJRu5fchqprcQl3Slr1e939G5rTnRxopkQAbU');
+            $token = $connection->oauth('oauth/request_token', array('oauth_callback' => 'http://levoyage.com/user/twauth'));
+            $_SESSION['oauth_token'] = $token['oauth_token'];
+            $_SESSION['oauth_token_secret'] = $token['oauth_token_secret'];
+
+            $url = $connection->url('oauth/authorize', array('oauth_token' => $token['oauth_token']));
+            $this->view->twitterUrl =$url;
+            ////////////////////////////////////////////////
+
+        $client_id = '583487569624-n001lnrj9a18iugmih6rhd9m6ma5pjpb.apps.googleusercontent.com';
+        $client_secret = 'Q8kgnUl01apPxPhPyEIlYQw5';
+        $redirect_uri = 'http://levoyage.com/user/googleauth';
+        $client = new Google_Client();
+        $client->setClientId($client_id);
+        $client->setClientSecret($client_secret);
+        $client->setRedirectUri($redirect_uri);
+        $client->addScope("profile");
+        $client->addScope(" https://www.googleapis.com/auth/plus.profile.emails.read");   
+        $authUrl = $client->createAuthUrl();
+        $this->view->google_url = $authUrl;
+
+
     }
 
     public function fbauthAction()
@@ -181,7 +208,7 @@ class UserController extends Zend_Controller_Action
             }
             $fpsession = new Zend_Session_Namespace('facebook');
             // write in session email & id & first_name
-            $fpsession->username = $userNode->getName();
+            $fbsession->username = $userNode->getName();
             $this->redirect();
 
     }
@@ -203,22 +230,31 @@ class UserController extends Zend_Controller_Action
 
     public function twauthAction()
     {
-        // $settings = array(
-		// 'oauth_access_token' => "715304296280100865-2E8xbUznLTPrwoqXkRUaSPR7MYfKwS2",
-		// 'oauth_access_token_secret' => "vT0r0aTEccIfYRJRu5fchqprcQl3Slr1e939G5rTnRxopkQAbU",
-		// 'consumer_key' => "WY7NpcSMyrEpOMhXvdMixoxqJ",
-		// 'consumer_secret' => "vsrOIbN1adtWoqyhAJuFH44WBS3xrMarYtvV0RhO9hA5C"
+  //       $settings = array('key' => "WY7NpcSMyrEpOMhXvdMixoxqJ",
+		// 'secret' => "vT0r0aTEccIfYRJRu5fchqprcQl3Slr1e939G5rTnRxopkQAbU"
 		// );
+        require_once "twitteroauth-master/autoload.php";
+        $request_token = [];
+        $request_token['oauth_token'] = $_SESSION['oauth_token'];
+        $request_token['oauth_token_secret'] = $_SESSION['oauth_token_secret'];
+
+        if (isset($_REQUEST['oauth_token']) && $request_token['oauth_token'] !== $_REQUEST['oauth_token']) {
+            // Abort! Something is wrong.
+        }
+
+        $connection = new TwitterOAuth('WY7NpcSMyrEpOMhXvdMixoxqJ', 'vT0r0aTEccIfYRJRu5fchqprcQl3Slr1e939G5rTnRxopkQAbU', $request_token['oauth_token'], $request_token['oauth_token_secret']);
+        $access_token = $connection->oauth("oauth/access_token", ["oauth_verifier" => $_REQUEST['oauth_verifier']]);
 
 
 
-
-        // require('twitteroauth.php');
-        // define('CONSUMER_KEY','WY7NpcSMyrEpOMhXvdMixoxqJ');
-        // define('CONSUMER_SECRET','vsrOIbN1adtWoqyhAJuFH44WBS3xrMarYtvV0RhO9hA5C');
-        // define('OAUTH_CALLBACK', 'http://localhost/levoyage.com/user/twauth');
-
-
+        $connection = new TwitterOAuth('WY7NpcSMyrEpOMhXvdMixoxqJ', 'vT0r0aTEccIfYRJRu5fchqprcQl3Slr1e939G5rTnRxopkQAbU', $access_token['oauth_token'], $access_token['oauth_token_secret']);
+        $content = $connection->get("account/verify_credentials");
+        $id=$content->id;
+        $name=$content->screen_name;
+        $twsession=new Zend_Session_Namespace('twitter');
+        $twsession->username = $name;
+        $twsession->id = $id;
+        $this->redirect();
     }
 
     public function twlogoutAction()
@@ -310,6 +346,7 @@ class UserController extends Zend_Controller_Action
         $request = $this->getRequest ();
         $city_id = $this->_request->getParam('id');
         if($request-> isPost()){
+
             if($form-> isValid($request-> getPost())){
     	    $auth = Zend_Auth::getInstance();
             $storage = $auth->getStorage();
@@ -326,13 +363,14 @@ class UserController extends Zend_Controller_Action
              //send data to model
     	     $photo=$files['photo']['name'];
              $user_model-> addexper($id,$photo,$_POST,$city_id);
-             $this->redirect("/index/city/id/$city_id");
+             $this->redirect("/index/exper/id/$city_id?/page=1");
+
          }
+         
     }
 
     }
 }
-
 
     }
 
@@ -381,6 +419,83 @@ class UserController extends Zend_Controller_Action
 
     public function googleauthAction()
     {
+    
+  require_once  'google-api-php-client/src/Google/autoload.php';
+
+
+        $client_id = '583487569624-n001lnrj9a18iugmih6rhd9m6ma5pjpb.apps.googleusercontent.com';
+         $client_secret = 'Q8kgnUl01apPxPhPyEIlYQw5';
+         $redirect_uri = 'http://levoyage.com/user/googleauth';
+        $client = new Google_Client();
+        $client->setClientId($client_id);
+        $client->setClientSecret($client_secret);
+        $client->setRedirectUri($redirect_uri);
+        $client->addScope("profile");
+        $client->addScope("https://www.googleapis.com/auth/plus.profile.emails.read");
+
+        $authUrl = $client->createAuthUrl();
+
+        if (isset($_GET['code'])) {
+
+          $client->authenticate($_GET['code']);
+          $redirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
+          //echo $_SESSION['access_token'];exit();
+          $service=new Google_Service_Plus($client);
+
+          $data=$service->people->get('me');
+          $mail=$data['modelData']['emails'][0]['value'];
+          $name=$data['modelData']['name']['givenName'];
+          $id=$data['id'];
+          $gogsession = new Zend_Session_Namespace('google');
+            // write in session email & id & first_name
+            $gogsession->username = $name;
+            $gogsession->email = $email;
+            $gogsession->id = $id;
+            $this->redirect();
+
+
+  }  else{
+    $this->redirect("/index");
+  }
+
+    }
+
+    public function bactoctyAction()
+    {
+        $form = new Application_Form_Addexperience ();
+        $this->view->exper_form = $form;
+        $user_model = new Application_Model_Experience();
+        $request = $this->getRequest ();
+        $post_id = $this->_request->getParam('pid');
+        $user_data = $user_model-> userDetails ($post_id)->current();
+        $form->populate($user_data->toArray());
+        $this->view->exper_form = $form;
+        $request = $this->getRequest ();
+        if($request-> isPost()){
+            if($form-> isValid($request-> getPost())){ 
+                $upload = new Zend_File_Transfer_Adapter_Http();
+                $photo= $files['phot']['name'];
+
+                if ($name != "")
+                {
+                    $upload->addFilter('Rename',
+                        array('target' => "/var/www/html/levoyage/public/images/" . $name,
+                            'overwrite' => true));
+
+                    $_POST['image_path'] = $name;
+                }
+                else
+                {
+                    $_POST['photo'] = "";
+                }
+
+                $upload->receive();
+
+                $user_model-> updateexper ($post_id,$_POST);
+                $this->redirect();
+            }
+       }
+
     }
 
     public function rentcarAction()
@@ -403,11 +518,24 @@ class UserController extends Zend_Controller_Action
         );
         $car_model->addRentCar($data);
         echo true;
+
         }
+    }
+
+    public function gologoutAction()
+    {
+        Zend_Session::namespaceUnset('google');
+        $this->redirect("/user/login" );  
+    }
+
+    public function deleteexperAction()
+    {
+        // action body
     }
 
 
 }
+
 
 
 

@@ -3,10 +3,13 @@
 $isLogin=false;
 $user=null;
 $fuser=null;
+$guser=null;
 $auth = Zend_Auth::getInstance();
 $storage = $auth->getStorage();
 $sessionRead = $storage->read();
 $fpsession = new Zend_Session_Namespace('facebook');
+$gogsession = new Zend_Session_Namespace('google');
+
 if (!empty($sessionRead)) {
 	$isLogin=true;
 	$user=$sessionRead;
@@ -20,8 +23,19 @@ if (!empty($sessionRead)) {
 </script
 <?php
 
-}elseif( (isset($fbsession->fname) && !empty (isset($fbsession->fname)))){
-	$fuser=$fbsession->fname;
+}elseif( (isset($fbsession->username) && !empty (isset($fbsession->username)))){
+	$fuser=$fbsession->username;
+}elseif((isset($gogsession) && !empty (isset($gogsession)))){
+    $guser=$gogsession;
+    include "disqus.phtml";
+    ?>
+<script type="text/javascript">
+	var disqus_config = function() {
+		this.page.remote_auth_s3 = "<?php echo "$message $hmac $timestamp"; ?>";
+		this.page.api_key = "<?php echo DISQUS_PUBLIC_KEY; ?>";
+	}
+</script
+<?php
 }
 ?>>
 <link rel="stylesheet" type="text/css"  href="/bootstrap/css/city-style.css">
