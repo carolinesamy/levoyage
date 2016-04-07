@@ -18,7 +18,6 @@ set_include_path(implode(PATH_SEPARATOR, array(
 /** Zend_Application */
 require_once 'Zend/Application.php';
 require_once 'Facebook/autoload.php';
-require_once 'twitter-api-php-master/TwitterAPIExchange.php';
 
 // Create application, bootstrap, and run
 $application = new Zend_Application(
