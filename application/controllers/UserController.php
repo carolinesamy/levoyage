@@ -98,7 +98,7 @@ class UserController extends Zend_Controller_Action
                     $is_admin = $sessionRead->is_admin;
                     if (!$is_admin)
                     {
-                        $ret=$this->redirect("/user/index");
+                        $ret=$this->redirect("/index");
 
                     }
                     else {
