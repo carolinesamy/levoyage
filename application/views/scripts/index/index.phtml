@@ -15,13 +15,19 @@ $user=$sessionRead;
 $fuser=$fbsession->username;
 }
 ?>
+<style type="text/css">
+  .back{
+   background-image:url("/bootstrap/assets/img/backgrounds/5.jpg");
+  }
+</style>
 
   <link href="/bootstrap/css/full-slider.css" rel="stylesheet">
     <!-- Navigation -->
     
     <!-- Custom CSS -->
+}
   
-
+<div class="back">
     <!-- Full Page Image Background Carousel Header -->
     <header id="myCarousel" class="carousel slide">
         <!-- Indicators -->
@@ -38,11 +44,11 @@ $fuser=$fbsession->username;
             <div class="item active">
                 <!-- Set the first background image using inline CSS below. -->
 
- <div class="fill">
+ <div class="fill" >
 
 <div class="img">
   <a  href="/index/getcities/conid/<?=$this->countries[0]['id']?>">
-    <img src="/images/<?=$this->countries[0]['image_path']?>" alt="Trolltunga Norway" width="1300" height="700">
+    <img src="/images/<?=$this->countries[0]['image_path']?>" alt="Trolltunga Norway" style="width:100%" height="600">
   </a>        </div>
 
 </div>
@@ -59,7 +65,7 @@ $fuser=$fbsession->username;
                 <!-- Set the second background image using inline CSS below. -->
                 <div class="img">
                      <a  href="/index/getcities/conid/<?=$this->countries[1]['id']?>">
-                         <img src="/images/<?=$this->countries[1]['image_path']?>" alt="Trolltunga Norway" width="1300" height="700">
+                         <img src="/images/<?=$this->countries[1]['image_path']?>" alt="Trolltunga Norway" style="width:100%" height="600">
                      </a>       
                 </div>
                 <div class="carousel-caption">
@@ -71,7 +77,7 @@ $fuser=$fbsession->username;
                 <!-- Set the third background image using inline CSS below. -->
                 <div class="img">
                     <a  href="/index/getcities/conid/<?=$this->countries[2]['id']?>">
-                        <img src="/images/<?=$this->countries[2]['image_path']?>" alt="Trolltunga Norway" width="1300" height="700">
+                        <img src="/images/<?=$this->countries[2]['image_path']?>" alt="Trolltunga Norway" style="width:100%" height="600">
                     </a>        
                 </div>
                 <div class="carousel-caption">
@@ -83,7 +89,7 @@ $fuser=$fbsession->username;
                 <!-- Set the third background image using inline CSS below. -->
                 <div class="img">
                      <a  href="/index/getcities/conid/<?=$this->countries[3]['id']?>">
-                        <img src="/images/<?=$this->countries[3]['image_path']?>" alt="Trolltunga Norway" width="1300" height="700">
+                        <img src="/images/<?=$this->countries[3]['image_path']?>" alt="Trolltunga Norway" style="width:100%" height="600">
                     </a>        
                 </div>
                 <div class="carousel-caption">
@@ -96,7 +102,7 @@ $fuser=$fbsession->username;
                 <!-- Set the third background image using inline CSS below. -->
                 <div class="img">
                      <a  href="/index/getcities/conid/<?=$this->countries[4]['id']?>">
-                        <img src="/images/<?=$this->countries[4]['image_path']?>" alt="Trolltunga Norway" width="1300" height="700">
+                        <img src="/images/<?=$this->countries[4]['image_path']?>" alt="Trolltunga Norway" style="width:100%" height="600">
                      </a>        
                 </div>
                 <div class="carousel-caption">
@@ -109,7 +115,7 @@ $fuser=$fbsession->username;
                 <!-- Set the third background image using inline CSS below. -->
                <div class="img">
                     <a  href="/index/getcities/conid/<?=$this->countries[5]['id']?>">
-                        <img src="/images/<?=$this->countries[5]['image_path']?>" alt="Trolltunga Norway" width="1300" height="700">
+                        <img src="/images/<?=$this->countries[5]['image_path']?>" alt="Trolltunga Norway" style="width:100%" height="600">
                      </a>        
                 </div>
                 <div class="carousel-caption">
@@ -130,22 +136,22 @@ $fuser=$fbsession->username;
     </header>
 
     <!-- Page Content 22-->
-    <div class="container">
+    <div class="container" >
 <br><br><br><br>
         <div class="row">
   <div class="col-xs-6 col-md-4">
     <a href="/index/city/id/<?=$this->cities[0]['id']?>" class="thumbnail">
-      <img src="/images/<?=$this->cities[0]['image_path']?>" style="width:300px; height:200px;">
+      <img src="/images/<?=$this->cities[0]['image_path']?>" style="width:100%; height:200px;">
     </a>
   </div>
   <div class="col-xs-6 col-md-4">
     <a href="/index/city/id/<?=$this->cities[1]['id']?>" class="thumbnail" class="thumbnail">
-      <img src="/images/<?=$this->cities[1]['image_path']?>"style="width:300px; height:200px;">
+      <img src="/images/<?=$this->cities[1]['image_path']?>"style="width:350px; height:200px;">
     </a>
   </div>
    <div class="col-xs-6 col-md-4">
     <a href="/index/city/id/<?=$this->cities[2]['id']?>" class="thumbnail" class="thumbnail">
-      <img src="/images/<?=$this->cities[2]['image_path']?>"style="width:300px; height:200px;">
+      <img src="/images/<?=$this->cities[2]['image_path']?>"style="width:350px; height:200px;">
     </a>
   </div>
  
@@ -153,17 +159,17 @@ $fuser=$fbsession->username;
     <div class="row">
   <div class="col-xs-6 col-md-4">
     <a href="/index/city/id/<?=$this->cities[3]['id']?>" class="thumbnail" class="thumbnail">
-      <img src="/images/<?=$this->cities[3]['image_path']?>"style="width:300px; height:200px;" >
+      <img src="/images/<?=$this->cities[3]['image_path']?>"style="width:350px; height:200px;" >
     </a>
   </div>
   <div class="col-xs-6 col-md-4">
     <a href="/index/city/id/<?=$this->cities[4]['id']?>" class="thumbnail" class="thumbnail">
-      <img src="/images/<?=$this->cities[4]['image_path']?>"style="width:300px; height:200px;">
+      <img src="/images/<?=$this->cities[4]['image_path']?>"style="width:350px; height:200px;">
     </a>
   </div>
    <div class="col-xs-6 col-md-4">
     <a href="/index/city/id/<?=$this->cities[5]['id']?>" class="thumbnail" class="thumbnail">
-      <img src="/images/<?=$this->cities[5]['image_path']?>"style="width:300px; height:200px;">
+      <img src="/images/<?=$this->cities[5]['image_path']?>"style="width:350px; height:200px;">
     </a>
   </div>
  
@@ -175,7 +181,7 @@ $fuser=$fbsession->username;
 </div>
 
             
-        
+       </div> 
 
         
 
