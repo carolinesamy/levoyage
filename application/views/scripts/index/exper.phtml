@@ -81,8 +81,10 @@ if (!empty($sessionRead)) {
 			<a href="/user/addexper/id/<?= $this->city_id?>" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="200ms">Add Experience</a>
 	<?php
 			if($exp['user_id']==$user->id){
-				echo '<a href="/user/bactocty/pid/<?= $exp[\'id\']?>" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="300ms">Edit</a>';
-				echo '<a href="/user/deleteexper/pid/<?= $exp[\'id\']?> class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="300ms">Delete</a>';
+				?>
+				<a href="/user/bactocty/pid/<?= $exp['id']?>/cid/<?=$this->city_id?>" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="300ms">Edit</a>
+				<a href="/user/deleteexper/pid/<?= $exp['id']?>/cid/<?=$this->city_id?>" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="300ms">Delete</a>
+				<?php
 			}
 	}
 			?>
