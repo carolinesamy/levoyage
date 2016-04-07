@@ -6,6 +6,7 @@ $isLogin=false;
 $user=null;
 $fuser=null;
 $guser=null;
+$tuser=null;
 $country_model=new Application_Model_Country();
 $destnations=$country_model->allcountry();
 $auth = Zend_Auth::getInstance();
@@ -13,6 +14,8 @@ $storage = $auth->getStorage();
 $sessionRead = $storage->read();
 $fbsession = new Zend_Session_Namespace('facebook');
 $gogsession = new Zend_Session_Namespace('google');
+$twsession = new Zend_Session_Namespace('twitter');
+
 if (!empty($sessionRead)) {
 $name = $sessionRead->username;
 $isLogin=true;
@@ -21,7 +24,10 @@ $user=$sessionRead;
 $fuser=$fbsession->username;
 }
 elseif((isset($gogsession->username) && !empty (isset($gogsession->username)))){
-    $guser=$gogsession->username;
+    $guser=$gogsession;
+}
+elseif((isset($twsession->username) && !empty (isset($twsession->username)))){
+    $tuser=$twsession;
 }
 ?>
 <title>Le Voyage</title>
@@ -60,17 +66,26 @@ elseif((isset($gogsession->username) && !empty (isset($gogsession->username)))){
     }elseif($fuser){
         ?>
         <a class="navbar-brand" href="#"><i
-                class="glyphicon glyphicon-user"></i><strong> <?= $fuser ?></strong></a>        <?php
+                class="glyphicon glyphicon-user"></i><strong> <?= $fuser ?></strong></a>       
+                 <?php
       echo "</div>";
 
     
         }elseif($guser){
         ?>
         <a class="navbar-brand" href="#"><i
-                class="glyphicon glyphicon-user"></i><strong> <?= $guser ?></strong></a>        <?php
+                class="glyphicon glyphicon-user"></i><strong> <?= $guser->username ?></strong></a>    
+                    <?php
       echo "</div>";
 
-    }else{
+    }
+    elseif($tuser){
+        ?>
+        <a class="navbar-brand" href="#"><i
+                class="glyphicon glyphicon-user"></i><strong> <?= $tuser->username ?></strong></a>    
+                    <?php
+      echo "</div>";
+  }else{
         echo "</div>";
     }
 
@@ -105,6 +120,10 @@ elseif((isset($gogsession->username) && !empty (isset($gogsession->username)))){
                 }elseif($guser){
                     ?>
                     <li><a href="/user/gologout" class="page-scroll glyphicon glyphicon-log-out"> LogOut</a></li>
+                    <?php
+                }elseif($tuser){
+                    ?>
+                    <li><a href="/user/twlogout" class="page-scroll glyphicon glyphicon-log-out"> LogOut</a></li>
                     <?php
                 }
                 else{

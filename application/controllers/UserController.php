@@ -1,5 +1,6 @@
 <?php
 
+  use Abraham\TwitterOAuth\TwitterOAuth;
 
 class UserController extends Zend_Controller_Action
 {
@@ -31,7 +32,7 @@ class UserController extends Zend_Controller_Action
         $fbsession=new Zend_Session_Namespace('facebook');
         $twsession=new Zend_Session_Namespace('twitter');
         $gogsession=new Zend_Session_Namespace('google');
-        if ($authorization->hasIdentity() || isset($fbsession->username)  || isset($twsession->username))
+        if ($authorization->hasIdentity() || isset($fbsession->username)  || isset($twsession->username)|| isset($gogsession->username))
           {
             $this->redirect("/index");
           }
@@ -62,8 +63,8 @@ class UserController extends Zend_Controller_Action
 
     public function loginAction()
     {
-  require_once  'google-api-php-client/src/Google/autoload.php';
-        // action body
+        require_once  'google-api-php-client/src/Google/autoload.php';
+require_once "twitteroauth-master/autoload.php";        // action body
          $login_form = new Application_Form_Login( );
          $this->view->login_form = $login_form;
          if ($this->_request->isPost()) {
@@ -111,8 +112,13 @@ class UserController extends Zend_Controller_Action
             $this->view->facebook_url = $loginUrl;
 
             ///////////////////////////////////////////////////
+            $connection = new TwitterOAuth('WY7NpcSMyrEpOMhXvdMixoxqJ','vT0r0aTEccIfYRJRu5fchqprcQl3Slr1e939G5rTnRxopkQAbU');
+            $token = $connection->oauth('oauth/request_token', array('oauth_callback' => 'http://levoyage.com/user/twauth'));
+            $_SESSION['oauth_token'] = $token['oauth_token'];
+            $_SESSION['oauth_token_secret'] = $token['oauth_token_secret'];
 
-            $this->view->twitterUrl = '/user/twauth';
+            $url = $connection->url('oauth/authorize', array('oauth_token' => $token['oauth_token']));
+            $this->view->twitterUrl =$url;
             ////////////////////////////////////////////////
 
         $client_id = '583487569624-n001lnrj9a18iugmih6rhd9m6ma5pjpb.apps.googleusercontent.com';
@@ -202,7 +208,7 @@ class UserController extends Zend_Controller_Action
             }
             $fpsession = new Zend_Session_Namespace('facebook');
             // write in session email & id & first_name
-            $fpsession->username = $userNode->getName();
+            $fbsession->username = $userNode->getName();
             $this->redirect();
 
     }
@@ -224,11 +230,31 @@ class UserController extends Zend_Controller_Action
 
     public function twauthAction()
     {
-        $settings = array('key' => "WY7NpcSMyrEpOMhXvdMixoxqJ",
-		'secret' => "vT0r0aTEccIfYRJRu5fchqprcQl3Slr1e939G5rTnRxopkQAbU"
-		);
+  //       $settings = array('key' => "WY7NpcSMyrEpOMhXvdMixoxqJ",
+		// 'secret' => "vT0r0aTEccIfYRJRu5fchqprcQl3Slr1e939G5rTnRxopkQAbU"
+		// );
+        require_once "twitteroauth-master/autoload.php";
+        $request_token = [];
+        $request_token['oauth_token'] = $_SESSION['oauth_token'];
+        $request_token['oauth_token_secret'] = $_SESSION['oauth_token_secret'];
+
+        if (isset($_REQUEST['oauth_token']) && $request_token['oauth_token'] !== $_REQUEST['oauth_token']) {
+            // Abort! Something is wrong.
+        }
+
+        $connection = new TwitterOAuth('WY7NpcSMyrEpOMhXvdMixoxqJ', 'vT0r0aTEccIfYRJRu5fchqprcQl3Slr1e939G5rTnRxopkQAbU', $request_token['oauth_token'], $request_token['oauth_token_secret']);
+        $access_token = $connection->oauth("oauth/access_token", ["oauth_verifier" => $_REQUEST['oauth_verifier']]);
 
 
+
+        $connection = new TwitterOAuth('WY7NpcSMyrEpOMhXvdMixoxqJ', 'vT0r0aTEccIfYRJRu5fchqprcQl3Slr1e939G5rTnRxopkQAbU', $access_token['oauth_token'], $access_token['oauth_token_secret']);
+        $content = $connection->get("account/verify_credentials");
+        $id=$content->id;
+        $name=$content->screen_name;
+        $twsession=new Zend_Session_Namespace('twitter');
+        $twsession->username = $name;
+        $twsession->id = $id;
+        $this->redirect();
     }
 
     public function twlogoutAction()
@@ -500,10 +526,17 @@ class UserController extends Zend_Controller_Action
     {
         Zend_Session::namespaceUnset('google');
         $this->redirect("/user/login" );  
-         }
+    }
+
+    public function deleteexperAction()
+    {
+        // action body
+    }
 
 
 }
+
+
 
 
 

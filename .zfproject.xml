@@ -32,6 +32,7 @@
           <actionMethod actionName="bactocty"/>
           <actionMethod actionName="rentcar"/>
           <actionMethod actionName="gologout"/>
+          <actionMethod actionName="deleteexper"/>
         </controllerFile>
         <controllerFile controllerName="Admin">
           <actionMethod actionName="index"/>
@@ -237,6 +238,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="gologout"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="deleteexper"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
