@@ -6,13 +6,15 @@ $storage = $auth->getStorage();
 $sessionRead = $storage->read();
 if (!empty($sessionRead)) {
 	$name = $sessionRead->username;
+	$is_admin=$sessionRead->is_admin;
 	$isLogin=true;
 	$user=$sessionRead;
 
 }
-if ($isLogin) {
-	$name = $user->username;
-}
+if ($isLogin && $is_admin) {
+$name = $user->username;
+
+
 ?>
 <nav id="top" class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
@@ -93,8 +95,7 @@ if ($isLogin) {
 
 </table>
 </div>
-
-
+		<?php } ?>
 	<script src="/bootstrap/js/city_script.js"></script>
 	<script src="/bootstrap/js/bootstrap-datepicker.js"></script>
 	<script> $('.date_field').datepicker('hide');</script>

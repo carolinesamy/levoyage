@@ -24,6 +24,7 @@ class UserController extends Zend_Controller_Action
     public function indexAction()
     {
         // action body
+
     }
 
     public function addAction()
@@ -92,7 +93,18 @@ class UserController extends Zend_Controller_Action
                 $storage->write($authAdapter->getResultRowObject(array('email','id',
                 'username','is_active','is_admin')));
                 // redirect to root index/index
-                return $this->redirect('/index');
+                    $sessionRead = $storage->read();
+
+                    $is_admin = $sessionRead->is_admin;
+                    if (!$is_admin)
+                    {
+                        $ret=$this->redirect("/user/index");
+
+                    }
+                    else {
+                        $ret =$this->redirect('/admin/index');
+                    }
+                return $ret;
             } else {
                      // if user is not valid send error message to view
                      $this->view->error_message = "Invalid email or Password!";
