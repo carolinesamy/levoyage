@@ -11,14 +11,17 @@ $destnations=$country_model->allcountry();
 $auth = Zend_Auth::getInstance();
 $storage = $auth->getStorage();
 $sessionRead = $storage->read();
-$fpsession = new Zend_Session_Namespace('facebook');
+$fbsession = new Zend_Session_Namespace('facebook');
 $gogsession = new Zend_Session_Namespace('google');
 if (!empty($sessionRead)) {
 $name = $sessionRead->username;
 $isLogin=true;
 $user=$sessionRead;
-}elseif( (isset($fbsession->username) && !empty (isset($fbsession->username))) || (isset($gogsession->username) && !empty (isset($gogsession->username)))){
-$guser=$gogsession->username;
+}elseif( (isset($fbsession->username) && !empty (isset($fbsession->username)))){
+$fuser=$fbsession->username;
+}
+elseif((isset($gogsession->username) && !empty (isset($gogsession->username)))){
+    $guser=$gogsession->username;
 }
 ?>
 <title>Le Voyage</title>
@@ -60,7 +63,7 @@ $guser=$gogsession->username;
                 class="glyphicon glyphicon-user"></i><strong> <?= $fuser ?></strong></a>        <?php
       echo "</div>";
 
-    }
+    
         }elseif($guser){
         ?>
         <a class="navbar-brand" href="#"><i
@@ -97,7 +100,11 @@ $guser=$gogsession->username;
                     <?php
                 }elseif($fuser){
                     ?>
-
+                    <li><a href="/user/fblogout" class="page-scroll glyphicon glyphicon-log-out"> LogOut</a></li>
+                    <?php
+                }elseif($guser){
+                    ?>
+                    <li><a href="/user/gologout" class="page-scroll glyphicon glyphicon-log-out"> LogOut</a></li>
                     <?php
                 }
                 else{

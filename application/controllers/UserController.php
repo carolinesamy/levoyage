@@ -229,14 +229,6 @@ class UserController extends Zend_Controller_Action
 		);
 
 
-
-
-        // require('twitteroauth.php');
-        // define('CONSUMER_KEY','WY7NpcSMyrEpOMhXvdMixoxqJ');
-        // define('CONSUMER_SECRET','vsrOIbN1adtWoqyhAJuFH44WBS3xrMarYtvV0RhO9hA5C');
-        // define('OAUTH_CALLBACK', 'http://localhost/levoyage.com/user/twauth');
-
-
     }
 
     public function twlogoutAction()
@@ -431,13 +423,17 @@ class UserController extends Zend_Controller_Action
           $gogsession = new Zend_Session_Namespace('google');
             // write in session email & id & first_name
             $gogsession->username = $name;
+            $gogsession->email = $email;
+            $gogsession->id = $id;
             $this->redirect();
 
 
-  }  
+  }  else{
+    $this->redirect("/index");
+  }
 
     }
-    //this function is to edit user experience
+
     public function bactoctyAction()
     {
         $form = new Application_Form_Addexperience ();
@@ -475,6 +471,7 @@ class UserController extends Zend_Controller_Action
        }
 
     }
+
     public function rentcarAction()
     {
         $this->_helper->viewRenderer->setNoRender();
@@ -499,8 +496,16 @@ class UserController extends Zend_Controller_Action
         }
     }
 
+    public function gologoutAction()
+    {
+        Zend_Session::namespaceUnset('google');
+        $this->redirect("/user/login" );  
+         }
+
 
 }
+
+
 
 
 
