@@ -13,7 +13,7 @@ class Application_Form_Addexperience extends Zend_Form
         $photo->addValidator('Extension', false, 'jpeg,png,gif,jpg');
         $photo->getValidator('Extension')->setMessage('This file type is not supportted.');
         $photo->setDestination('../public/images');
-        $photo->setRequired(true);
+
         $title = new Zend_Form_Element_Text('title');
         $title->setLabel(' title');
         $title->setAttrib('class','form-control ');

@@ -10,8 +10,7 @@ class Application_Model_User extends Zend_Db_Table_Abstract
 	    $row = $this->createRow();
 		$row->username = $userData['username'];
 		$row->email = $userData['email'];
-		$row->password =$userData['password'];
-		
+		$row->password =$userData['password'];	
 		$row->save();	
 	}
 		function userDetails($id)
