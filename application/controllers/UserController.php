@@ -285,6 +285,13 @@ class UserController extends Zend_Controller_Action
         $user_data = $user_model-> userDetails ($id)->current();
         $carRents=$user_data->findDependentRowset('Application_Model_RentCar');
         $hotelRes=$user_data->findDependentRowset('Application_Model_Bookhotel');
+        $location_model=new Application_Model_Location();
+foreach($carRents as $rent){
+    $from_location=$location_model->getlocById($rent->from_city);
+    $to_location=$location_model->getlocById($rent->to_city);
+    $rent->from_city=$from_location[0]['name'];
+    $rent->to_city=$to_location[0]['name'];
+}
         $this->view->cars=$carRents;
         $this->view->hotels=$hotelRes;
         $form->populate($user_data->toArray());
