@@ -23,6 +23,19 @@ class IndexController extends Zend_Controller_Action
         }
         
         $this->view->countries = $country;
+        $model = new Application_Model_City();
+        
+        $cities = $model->findCities();
+        
+        foreach($cities as $key=>$value)
+        {
+            $city[$key]['id']=$value->id;
+            $city[$key]['name']=$value->name;
+            $city[$key]['image_path']=$value->image_path;
+            $city[$key]['rate']=$value->rate;
+        }
+        
+        $this->view->cities = $city;
     }
 
     public function cityAction()

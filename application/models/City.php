@@ -74,6 +74,15 @@ class Application_Model_City extends Zend_Db_Table_Abstract
         return($rows[0]['amt']);
     }
 
+    function findCities()
+    {
+        $query = $this->select(); 
+        $query->order('rate DESC'); 
+        $query->limit(6);
+        return $results = $this->fetchAll($query);
+        
+    }
+
 
 }
 
