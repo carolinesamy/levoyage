@@ -29,11 +29,10 @@
           <actionMethod actionName="bookhotel"/>
           <actionMethod actionName="mail"/>
           <actionMethod actionName="googleauth"/>
-<<<<<<< HEAD
           <actionMethod actionName="bactocty"/>
-=======
           <actionMethod actionName="rentcar"/>
->>>>>>> 4b625177b1b0f23c1eaf34156522be862049bc6b
+          <actionMethod actionName="gologout"/>
+          <actionMethod actionName="deleteexper"/>
         </controllerFile>
         <controllerFile controllerName="Admin">
           <actionMethod actionName="index"/>
@@ -234,11 +233,14 @@
             <viewScriptFile forActionName="googleauth"/>
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
-<<<<<<< HEAD
             <viewScriptFile forActionName="bactocty"/>
-=======
             <viewScriptFile forActionName="rentcar"/>
->>>>>>> 4b625177b1b0f23c1eaf34156522be862049bc6b
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="gologout"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="deleteexper"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

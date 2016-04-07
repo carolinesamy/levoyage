@@ -6,19 +6,28 @@ $isLogin=false;
 $user=null;
 $fuser=null;
 $guser=null;
+$tuser=null;
 $country_model=new Application_Model_Country();
 $destnations=$country_model->allcountry();
 $auth = Zend_Auth::getInstance();
 $storage = $auth->getStorage();
 $sessionRead = $storage->read();
-$fpsession = new Zend_Session_Namespace('facebook');
+$fbsession = new Zend_Session_Namespace('facebook');
 $gogsession = new Zend_Session_Namespace('google');
+$twsession = new Zend_Session_Namespace('twitter');
+
 if (!empty($sessionRead)) {
 $name = $sessionRead->username;
 $isLogin=true;
 $user=$sessionRead;
-}elseif( (isset($fbsession->username) && !empty (isset($fbsession->username))) || (isset($gogsession->username) && !empty (isset($gogsession->username)))){
-$guser=$gogsession->username;
+}elseif( (isset($fbsession->username) && !empty (isset($fbsession->username)))){
+$fuser=$fbsession->username;
+}
+elseif((isset($gogsession->username) && !empty (isset($gogsession->username)))){
+    $guser=$gogsession;
+}
+elseif((isset($twsession->username) && !empty (isset($twsession->username)))){
+    $tuser=$twsession;
 }
 ?>
 <title>Le Voyage</title>
@@ -61,13 +70,22 @@ $guser=$gogsession->username;
         <?php
       echo "</div>";
 
+
         }elseif($guser){
         ?>
         <a class="navbar-brand" href="#"><i
-                class="glyphicon glyphicon-user"></i><strong> <?= $guser ?></strong></a>        <?php
+                class="glyphicon glyphicon-user"></i><strong> <?= $guser->username ?></strong></a>    
+                    <?php
       echo "</div>";
 
-    }else{
+    }
+    elseif($tuser){
+        ?>
+        <a class="navbar-brand" href="#"><i
+                class="glyphicon glyphicon-user"></i><strong> <?= $tuser->username ?></strong></a>    
+                    <?php
+      echo "</div>";
+  }else{
         echo "</div>";
     }
 
@@ -97,7 +115,15 @@ $guser=$gogsession->username;
                     <?php
                 }elseif($fuser){
                     ?>
-
+                    <li><a href="/user/fblogout" class="page-scroll glyphicon glyphicon-log-out"> LogOut</a></li>
+                    <?php
+                }elseif($guser){
+                    ?>
+                    <li><a href="/user/gologout" class="page-scroll glyphicon glyphicon-log-out"> LogOut</a></li>
+                    <?php
+                }elseif($tuser){
+                    ?>
+                    <li><a href="/user/twlogout" class="page-scroll glyphicon glyphicon-log-out"> LogOut</a></li>
                     <?php
                 }
                 else{
@@ -114,16 +140,10 @@ $guser=$gogsession->username;
     <!-- /.container-fluid -->
 </nav>
 <?php echo $this->layout()->content; ?>
-<div id="footer">
-    <div class="container">
-        <p>Copyright © ITI-Open Source-Alex 36 Design by  Le Voyage</p>
-    </div>www.levoyage.com
-</div>
+
 <script type="text/javascript" src="/bootstrap/js/wow.min.js"></script>
 <script type="text/javascript" src="/bootstrap/js/SmoothScroll.js"></script>
 <script type="text/javascript" src="/bootstrap/js/jquery.isotope.js"></script>
 <script type="text/javascript" src="/bootstrap/js/jqBootstrapValidation.js"></script>
 <script type="text/javascript" src="/bootstrap/js/owl.carousel.js"></script>
 <script type="text/javascript" src="/bootstrap/js/main.js"></script>
-</body>
-</html>
