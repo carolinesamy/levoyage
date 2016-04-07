@@ -1,5 +1,3 @@
-<br /><br />
-
 <?php
 $isLogin=false;
 $user=null;
@@ -19,9 +17,6 @@ $hotel_count=$hotel_model->count();
 $loc_count=$loc_model->count();
 $user_count=$user_model->count();
 
-
-
-
 if (!empty($sessionRead)) {
 	$name = $sessionRead->username;
 	$isLogin=true;
@@ -32,6 +27,24 @@ if ($isLogin) {
 	$name = $user->username;
 }
 ?>
+<html>
+<head>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+	<link rel="stylesheet" href="/bootstrap/assets/font-awesome/css/font-awesome.min.css">
+<!--	<link rel="stylesheet" href="/bootstrap/assets/css/form-elements.css">-->
+	<link rel="stylesheet" href="/bootstrap/assets/css/style.css">
+<!--	<style >-->
+<!--		body {-->
+<!--			background-image: url("/bootstrap/assets/img/backgrounds/5.jpg") ;-->
+<!--			background-size: 100% ;-->
+<!--			background-repeat: no-repeat;}-->
+<!---->
+<!--	</style>-->
+</head>
+<body>
+
 <nav id="top" class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 		<!-- Brand and toggle get grouped for better mobile display -->
@@ -93,3 +106,5 @@ if ($isLogin) {
 <script> $('.date_field').datepicker('hide');</script>
 
 
+</body>
+</html>
