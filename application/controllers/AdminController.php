@@ -6,6 +6,19 @@ class AdminController extends Zend_Controller_Action
     public function init()
     {
         /* Initialize action controller here */
+        $auth=Zend_Auth::getInstance();
+        $storage = $auth->getStorage();
+        $sessionRead = $storage->read();
+        if (!empty($sessionRead))
+        {
+            $is_admin = $sessionRead->is_admin;
+            if (!$is_admin)
+            {
+                $this->redirect("/user/index");
+
+            }
+        }
+
     }
 
     public function indexAction()

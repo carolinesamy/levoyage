@@ -24,6 +24,7 @@ class UserController extends Zend_Controller_Action
     public function indexAction()
     {
         // action body
+
     }
 
     public function addAction()
@@ -32,17 +33,19 @@ class UserController extends Zend_Controller_Action
         $fbsession=new Zend_Session_Namespace('facebook');
         $twsession=new Zend_Session_Namespace('twitter');
         $gogsession=new Zend_Session_Namespace('google');
+        //this part of code to pane logined user from registring 
         if ($authorization->hasIdentity() || isset($fbsession->username)  || isset($twsession->username)|| isset($gogsession->username))
           {
             $this->redirect("/index");
           }
-        // action body
 		$form = new Application_Form_Register();
+        $this->view->register_form = $form;
 		$request = $this->getRequest();
 		if($request->isPost()){
 			if($form->isValid($request->getPost())){
 				$user_model = new Application_Model_User();
 				$user_model-> adduser($request->getParams());
+                //this part of code to login user in automatically after registring
                 $email = $this->_request->getParam('email');
                 $password = $this->_request->getParam('password');
                 $db = Zend_Db_Table::getDefaultAdapter( );
@@ -58,7 +61,6 @@ class UserController extends Zend_Controller_Action
 				$this->redirect('/index');
 			}
 		}
-		$this->view->register_form = $form;
     }
 
     public function loginAction()
@@ -92,7 +94,18 @@ class UserController extends Zend_Controller_Action
                 $storage->write($authAdapter->getResultRowObject(array('email','id',
                 'username','is_active','is_admin')));
                 // redirect to root index/index
-                return $this->redirect('/index');
+                    $sessionRead = $storage->read();
+
+                    $is_admin = $sessionRead->is_admin;
+                    if (!$is_admin)
+                    {
+                        $ret=$this->redirect("/index");
+
+                    }
+                    else {
+                        $ret =$this->redirect('/admin/index');
+                    }
+                return $ret;
             } else {
                      // if user is not valid send error message to view
                      $this->view->error_message = "Invalid email or Password!";
@@ -355,29 +368,29 @@ foreach($carRents as $rent){
         if($request-> isPost()){
 
             if($form-> isValid($request-> getPost())){
-    	    $auth = Zend_Auth::getInstance();
-            $storage = $auth->getStorage();
-            $sessionRead = $storage->read();
-            $id =  $sessionRead->id;
-            $upload = new Zend_File_Transfer_Adapter_Http();
-            $upload->addValidator('Size', false, 52428800, 'image');
-            $upload->setDestination('../public/images');
-            $files = $upload->getFileInfo();
-            foreach ($files as $file => $info) {
-            if ($upload->isValid($file)) {
-                //save image in server
-             $upload->receive($file);
-             //send data to model
-    	     $photo=$files['photo']['name'];
-             $user_model-> addexper($id,$photo,$_POST,$city_id);
-             $this->redirect("/index/exper/id/$city_id?/page=1");
-
-         }
+        	    $auth = Zend_Auth::getInstance();
+                $storage = $auth->getStorage();
+                $sessionRead = $storage->read();
+                $id =  $sessionRead->id;
+                $upload = new Zend_File_Transfer_Adapter_Http();
+                $upload->addValidator('Size', false, 52428800, 'image');
+                $upload->setDestination('../public/images');
+                $files = $upload->getFileInfo();
+                foreach ($files as $file => $info) 
+                {
+                    if ($upload->isValid($file)) {
+                            //save image in server
+                         $upload->receive($file);
+                         //send data to model
+                	     $photo=$files['photo']['name'];
+                         $user_model-> addexper($id,$photo,$_POST,$city_id);
+                         $this->redirect("/index/exper/id/$city_id?/page=1");
+                    }
          
-    }
+               }
 
-    }
-}
+           }
+        }
 
     }
 
@@ -466,7 +479,7 @@ foreach($carRents as $rent){
   }
 
     }
-
+    //this function is to update experience
     public function bactoctyAction()
     {
         $form = new Application_Form_Addexperience ();
