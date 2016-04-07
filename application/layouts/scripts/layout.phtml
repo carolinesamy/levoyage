@@ -5,18 +5,20 @@
 $isLogin=false;
 $user=null;
 $fuser=null;
+$guser=null;
 $country_model=new Application_Model_Country();
 $destnations=$country_model->allcountry();
 $auth = Zend_Auth::getInstance();
 $storage = $auth->getStorage();
 $sessionRead = $storage->read();
 $fpsession = new Zend_Session_Namespace('facebook');
+$gogsession = new Zend_Session_Namespace('google');
 if (!empty($sessionRead)) {
 $name = $sessionRead->username;
 $isLogin=true;
 $user=$sessionRead;
-}elseif( (isset($fbsession->username) && !empty (isset($fbsession->username)))){
-$fuser=$fbsession->username;
+}elseif( (isset($fbsession->username) && !empty (isset($fbsession->username))) || (isset($gogsession->username) && !empty (isset($gogsession->username)))){
+$guser=$gogsession->username;
 }
 ?>
 <title>Le Voyage</title>
@@ -56,6 +58,13 @@ $fuser=$fbsession->username;
         ?>
         <a class="navbar-brand" href="#"><i
                 class="glyphicon glyphicon-user"></i><strong> <?= $fuser ?></strong></a>        <?php
+      echo "</div>";
+
+    }
+        }elseif($guser){
+        ?>
+        <a class="navbar-brand" href="#"><i
+                class="glyphicon glyphicon-user"></i><strong> <?= $guser ?></strong></a>        <?php
       echo "</div>";
 
     }else{
