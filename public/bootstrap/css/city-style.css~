@@ -114,7 +114,7 @@ hr {
 #menu.navbar-default .navbar-nav > li > a {
 	text-transform: uppercase;
 	color: #d9e0e2;
-	font-size: 12px;
+	font-size: 13px;
 	letter-spacing: 1px;
 }
 #menu.navbar-default .navbar-nav > li > a:hover {
@@ -152,19 +152,12 @@ header p {
 	text-transform: uppercase;
 	letter-spacing: 1px;
 }
-
-header p .exp{
-	color: #d9e0e2;
-	font-size: 20px;
-	margin-bottom: 0px;
-	letter-spacing: 1px;
-}
 .intro-text {
 	position: relative;
 	padding-top: 200px;
 	padding-right: 0;
 	padding-left: 0;
-	padding-bottom: 100px;
+	padding-bottom: 150px;
 }
 .intro-text H1 {
 	font-size: 60px;
@@ -544,10 +537,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c1a618', end
 	margin-bottom: 10px;
 }
 label {
-	font-size: 12px;
+	font-size: 20px;
 	font-weight: 400;
 	font-family: 'Open Sans', sans-serif;
-	float: left;
+	
 }
 #contact-section .form-control {
 	display: block;

@@ -2,12 +2,14 @@
 $isLogin=false;
 $user=null;
 $fuser=null;
+$guser=null;
 $country_model=new Application_Model_Country();
 $destnations=$country_model->allcountry();
 $auth = Zend_Auth::getInstance();
 $storage = $auth->getStorage();
 $sessionRead = $storage->read();
 $fpsession = new Zend_Session_Namespace('facebook');
+$gogsession = new Zend_Session_Namespace('google');
 if (!empty($sessionRead)) {
 $isLogin=true;
 $user=$sessionRead;

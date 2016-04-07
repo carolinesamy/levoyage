@@ -24,6 +24,7 @@ ul.errors{
 }
 label.required{
     color:#ad4500;
+    font-size: 25px;
 }
 label.optional{
     color:#ad4500;
