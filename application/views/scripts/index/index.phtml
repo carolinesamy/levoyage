@@ -6,6 +6,7 @@ $auth = Zend_Auth::getInstance();
 $storage = $auth->getStorage();
 $sessionRead = $storage->read();
 $fpsession = new Zend_Session_Namespace('facebook');
+
 if (!empty($sessionRead)) {
 $name = $sessionRead->username;
 $isLogin=true;

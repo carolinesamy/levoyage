@@ -273,6 +273,8 @@ class AdminController extends Zend_Controller_Action
         // action body
         $loc=new Application_Model_Location();
         $c=$loc->allloc();
+        $count=$loc->count();
+        $this->view->loc=$count;
 
         $this->view->location=$c;
     }
