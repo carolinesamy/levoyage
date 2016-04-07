@@ -64,7 +64,7 @@ class UserController extends Zend_Controller_Action
     public function loginAction()
     {
         require_once  'google-api-php-client/src/Google/autoload.php';
-require_once "twitteroauth-master/autoload.php";        // action body
+        require_once "twitteroauth-master/autoload.php";        // action body
          $login_form = new Application_Form_Login( );
          $this->view->login_form = $login_form;
          if ($this->_request->isPost()) {
@@ -121,17 +121,17 @@ require_once "twitteroauth-master/autoload.php";        // action body
             $this->view->twitterUrl =$url;
             ////////////////////////////////////////////////
 
-        $client_id = '583487569624-n001lnrj9a18iugmih6rhd9m6ma5pjpb.apps.googleusercontent.com';
-        $client_secret = 'Q8kgnUl01apPxPhPyEIlYQw5';
-        $redirect_uri = 'http://levoyage.com/user/googleauth';
-        $client = new Google_Client();
-        $client->setClientId($client_id);
-        $client->setClientSecret($client_secret);
-        $client->setRedirectUri($redirect_uri);
-        $client->addScope("profile");
-        $client->addScope(" https://www.googleapis.com/auth/plus.profile.emails.read");   
-        $authUrl = $client->createAuthUrl();
-        $this->view->google_url = $authUrl;
+            $client_id = '583487569624-n001lnrj9a18iugmih6rhd9m6ma5pjpb.apps.googleusercontent.com';
+            $client_secret = 'Q8kgnUl01apPxPhPyEIlYQw5';
+            $redirect_uri = 'http://levoyage.com/user/googleauth';
+            $client = new Google_Client();
+            $client->setClientId($client_id);
+            $client->setClientSecret($client_secret);
+            $client->setRedirectUri($redirect_uri);
+            $client->addScope("profile");
+            $client->addScope(" https://www.googleapis.com/auth/plus.profile.emails.read");   
+            $authUrl = $client->createAuthUrl();
+            $this->view->google_url = $authUrl;
 
 
     }
@@ -474,14 +474,15 @@ foreach($carRents as $rent){
         $user_model = new Application_Model_Experience();
         $request = $this->getRequest ();
         $post_id = $this->_request->getParam('pid');
-        $user_data = $user_model-> userDetails ($post_id)->current();
-        $form->populate($user_data->toArray());
+        $city_id = $this->_request->getParam('cid');
+        $user_data = $user_model-> experDetails($post_id)->toArray();
+        $form->populate($user_data[0]);
         $this->view->exper_form = $form;
         $request = $this->getRequest ();
         if($request-> isPost()){
             if($form-> isValid($request-> getPost())){ 
                 $upload = new Zend_File_Transfer_Adapter_Http();
-                $photo= $files['phot']['name'];
+                $name= $_FILES['photo']['name'];
 
                 if ($name != "")
                 {
@@ -493,13 +494,13 @@ foreach($carRents as $rent){
                 }
                 else
                 {
-                    $_POST['photo'] = "";
+                    $_POST['image_path'] = "";
                 }
 
                 $upload->receive();
 
                 $user_model-> updateexper ($post_id,$_POST);
-                $this->redirect();
+                $this->redirect("/index/exper/id/$city_id?/page=1");
             }
        }
 
@@ -537,15 +538,12 @@ foreach($carRents as $rent){
 
     public function deleteexperAction()
     {
-        // action body
+        $exper_model = new Application_Model_Experience();
+        $exper_id = $this->_request->getParam("pid");
+        $city_id = $this->_request->getParam('cid');
+        $exper_model->deleteexper($exper_id);
+        $this->redirect("/index/exper/id/$city_id?/page=1");
     }
 
 
 }
-
-
-
-
-
-
-
