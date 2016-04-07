@@ -23,6 +23,7 @@ class IndexController extends Zend_Controller_Action
         }
         
         $this->view->countries = $country;
+        
         $model = new Application_Model_City();
         
         $cities = $model->findCities();

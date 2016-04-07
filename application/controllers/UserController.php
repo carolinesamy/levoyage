@@ -33,17 +33,19 @@ class UserController extends Zend_Controller_Action
         $fbsession=new Zend_Session_Namespace('facebook');
         $twsession=new Zend_Session_Namespace('twitter');
         $gogsession=new Zend_Session_Namespace('google');
+        //this part of code to pane logined user from registring 
         if ($authorization->hasIdentity() || isset($fbsession->username)  || isset($twsession->username)|| isset($gogsession->username))
           {
             $this->redirect("/index");
           }
-        // action body
 		$form = new Application_Form_Register();
+        $this->view->register_form = $form;
 		$request = $this->getRequest();
 		if($request->isPost()){
 			if($form->isValid($request->getPost())){
 				$user_model = new Application_Model_User();
 				$user_model-> adduser($request->getParams());
+                //this part of code to login user in automatically after registring
                 $email = $this->_request->getParam('email');
                 $password = $this->_request->getParam('password');
                 $db = Zend_Db_Table::getDefaultAdapter( );
@@ -59,7 +61,6 @@ class UserController extends Zend_Controller_Action
 				$this->redirect('/index');
 			}
 		}
-		$this->view->register_form = $form;
     }
 
     public function loginAction()
@@ -133,17 +134,17 @@ class UserController extends Zend_Controller_Action
             $this->view->twitterUrl =$url;
             ////////////////////////////////////////////////
 
-        $client_id = '583487569624-n001lnrj9a18iugmih6rhd9m6ma5pjpb.apps.googleusercontent.com';
-        $client_secret = 'Q8kgnUl01apPxPhPyEIlYQw5';
-        $redirect_uri = 'http://levoyage.com/user/googleauth';
-        $client = new Google_Client();
-        $client->setClientId($client_id);
-        $client->setClientSecret($client_secret);
-        $client->setRedirectUri($redirect_uri);
-        $client->addScope("profile");
-        $client->addScope(" https://www.googleapis.com/auth/plus.profile.emails.read");   
-        $authUrl = $client->createAuthUrl();
-        $this->view->google_url = $authUrl;
+            $client_id = '583487569624-n001lnrj9a18iugmih6rhd9m6ma5pjpb.apps.googleusercontent.com';
+            $client_secret = 'Q8kgnUl01apPxPhPyEIlYQw5';
+            $redirect_uri = 'http://levoyage.com/user/googleauth';
+            $client = new Google_Client();
+            $client->setClientId($client_id);
+            $client->setClientSecret($client_secret);
+            $client->setRedirectUri($redirect_uri);
+            $client->addScope("profile");
+            $client->addScope(" https://www.googleapis.com/auth/plus.profile.emails.read");   
+            $authUrl = $client->createAuthUrl();
+            $this->view->google_url = $authUrl;
 
 
     }
@@ -296,6 +297,13 @@ class UserController extends Zend_Controller_Action
         $user_data = $user_model-> userDetails ($id)->current();
         $carRents=$user_data->findDependentRowset('Application_Model_RentCar');
         $hotelRes=$user_data->findDependentRowset('Application_Model_Bookhotel');
+        $location_model=new Application_Model_Location();
+foreach($carRents as $rent){
+    $from_location=$location_model->getlocById($rent->from_city);
+    $to_location=$location_model->getlocById($rent->to_city);
+    $rent->from_city=$from_location[0]['name'];
+    $rent->to_city=$to_location[0]['name'];
+}
         $this->view->cars=$carRents;
         $this->view->hotels=$hotelRes;
         $form->populate($user_data->toArray());
@@ -360,29 +368,29 @@ class UserController extends Zend_Controller_Action
         if($request-> isPost()){
 
             if($form-> isValid($request-> getPost())){
-    	    $auth = Zend_Auth::getInstance();
-            $storage = $auth->getStorage();
-            $sessionRead = $storage->read();
-            $id =  $sessionRead->id;
-            $upload = new Zend_File_Transfer_Adapter_Http();
-            $upload->addValidator('Size', false, 52428800, 'image');
-            $upload->setDestination('../public/images');
-            $files = $upload->getFileInfo();
-            foreach ($files as $file => $info) {
-            if ($upload->isValid($file)) {
-                //save image in server
-             $upload->receive($file);
-             //send data to model
-    	     $photo=$files['photo']['name'];
-             $user_model-> addexper($id,$photo,$_POST,$city_id);
-             $this->redirect("/index/exper/id/$city_id?/page=1");
-
-         }
+        	    $auth = Zend_Auth::getInstance();
+                $storage = $auth->getStorage();
+                $sessionRead = $storage->read();
+                $id =  $sessionRead->id;
+                $upload = new Zend_File_Transfer_Adapter_Http();
+                $upload->addValidator('Size', false, 52428800, 'image');
+                $upload->setDestination('../public/images');
+                $files = $upload->getFileInfo();
+                foreach ($files as $file => $info) 
+                {
+                    if ($upload->isValid($file)) {
+                            //save image in server
+                         $upload->receive($file);
+                         //send data to model
+                	     $photo=$files['photo']['name'];
+                         $user_model-> addexper($id,$photo,$_POST,$city_id);
+                         $this->redirect("/index/exper/id/$city_id?/page=1");
+                    }
          
-    }
+               }
 
-    }
-}
+           }
+        }
 
     }
 
@@ -471,7 +479,7 @@ class UserController extends Zend_Controller_Action
   }
 
     }
-
+    //this function is to update experience
     public function bactoctyAction()
     {
         $form = new Application_Form_Addexperience ();
@@ -479,14 +487,15 @@ class UserController extends Zend_Controller_Action
         $user_model = new Application_Model_Experience();
         $request = $this->getRequest ();
         $post_id = $this->_request->getParam('pid');
-        $user_data = $user_model-> userDetails ($post_id)->current();
-        $form->populate($user_data->toArray());
+        $city_id = $this->_request->getParam('cid');
+        $user_data = $user_model-> experDetails($post_id)->toArray();
+        $form->populate($user_data[0]);
         $this->view->exper_form = $form;
         $request = $this->getRequest ();
         if($request-> isPost()){
             if($form-> isValid($request-> getPost())){ 
                 $upload = new Zend_File_Transfer_Adapter_Http();
-                $photo= $files['phot']['name'];
+                $name= $_FILES['photo']['name'];
 
                 if ($name != "")
                 {
@@ -498,13 +507,13 @@ class UserController extends Zend_Controller_Action
                 }
                 else
                 {
-                    $_POST['photo'] = "";
+                    $_POST['image_path'] = "";
                 }
 
                 $upload->receive();
 
                 $user_model-> updateexper ($post_id,$_POST);
-                $this->redirect();
+                $this->redirect("/index/exper/id/$city_id?/page=1");
             }
        }
 
@@ -542,7 +551,11 @@ class UserController extends Zend_Controller_Action
 
     public function deleteexperAction()
     {
-        // action body
+        $exper_model = new Application_Model_Experience();
+        $exper_id = $this->_request->getParam("pid");
+        $city_id = $this->_request->getParam('cid');
+        $exper_model->deleteexper($exper_id);
+        $this->redirect("/index/exper/id/$city_id?/page=1");
     }
 
 

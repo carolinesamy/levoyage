@@ -46,11 +46,18 @@ class Application_Model_Experience extends Zend_Db_Table_Abstract
             return $this->find($id);
           }
 
-          function updateexper($post_id,$experData){
-            $experToBeUpdated['photo']=$experData['photo'];
+          function updateexper($post_id,$experData)
+          {
+            if($experData['image_path']!="")
+            $experToBeUpdated['image_path']=$experData['photo'];
             $experToBeUpdated['title']=$experData['title'];
             $experToBeUpdated['content']=$experData['content'];
             $this->update($experToBeUpdated,"id=$post_id");
+          }
+
+          function deleteexper($id)
+          {
+            $this->delete("id=$id");
           }
 }
 
