@@ -32,6 +32,7 @@ class Application_Form_Addhotel extends Zend_Form
         $add =new Zend_Form_Element_Submit('add');
         $add->setValue('Save');
         $add->setAttribs(array('class'=>'btn btn-success form-vertical'));
+
         $this->addElements(array($name,$city,$add));
 
     }

@@ -7,6 +7,7 @@ $user=null;
 $fuser=null;
 $guser=null;
 $tuser=null;
+$is_admin=0;
 $country_model=new Application_Model_Country();
 $destnations=$country_model->allcountry();
 $auth = Zend_Auth::getInstance();
@@ -18,6 +19,7 @@ $twsession = new Zend_Session_Namespace('twitter');
 
 if (!empty($sessionRead)) {
 $name = $sessionRead->username;
+$is_admin=$sessionRead->is_admin;
 $isLogin=true;
 $user=$sessionRead;
 }elseif( (isset($fbsession->username) && !empty (isset($fbsession->username)))){
@@ -92,6 +94,10 @@ elseif((isset($twsession->username) && !empty (isset($twsession->username)))){
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse nav" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
+                <?php
+                if ($is_admin) {?> <li><a href="/admin" class="page-scroll glyphicon glyphicon-tower"> AdminPage</a></li>
+
+                <?php }?>
                 <li><a href="/" class="page-scroll glyphicon glyphicon-home"> Home</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle glyphicon glyphicon-globe " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Destinations <span class="caret"></span></a>

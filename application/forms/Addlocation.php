@@ -17,6 +17,7 @@ class Application_Form_Addlocation extends Zend_Form
         $name= new Zend_Form_Element_Text('name');
         $name->setLabel('Location Name');
         $name->setAttribs(array('class'=>'form-control'));
+        $name->setRequired();
 
         $description= new Zend_Dojo_Form_Element_Textarea('description');
         $description->setLabel('Description');

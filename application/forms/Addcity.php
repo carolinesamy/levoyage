@@ -17,6 +17,7 @@ class Application_Form_Addcity extends Zend_Form
         $name= new Zend_Form_Element_Text('name');
         $name->setLabel('City Name');
         $name->setAttribs(array('class'=>'form-control'));
+        $name->setRequired();
 
         $description= new Zend_Dojo_Form_Element_Textarea('description');
         $description->setLabel('Description');
@@ -43,18 +44,10 @@ class Application_Form_Addcity extends Zend_Form
 
 
 
-
-
-
-
-        $add =new Zend_Form_Element_Submit('add');
-        $add->setValue('Save');
-        $add->setAttribs(array('class'=>'btn btn-success form-vertical'));
-
         $lat=new Zend_Form_Element_Text('lat');
         $lat->setLabel('Latitude');
         $lat->setAttribs(array('class'=>'form-control'));
-       // $lat->addValidator('');
+        // $lat->addValidator('');
 
         $longd=new Zend_Form_Element_Text('longd');
         $longd->setLabel('Longitude');
@@ -62,8 +55,9 @@ class Application_Form_Addcity extends Zend_Form
 
 
 
-
-
+        $add =new Zend_Form_Element_Submit('add');
+        $add->setValue('Save');
+        $add->setAttribs(array('class'=>'btn btn-success form-vertical'));
 
 
         $this->addElements(array($id,$name ,$country,$description,$image_path,$lat,$longd,$add));

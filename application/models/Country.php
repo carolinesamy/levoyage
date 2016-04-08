@@ -49,6 +49,8 @@ class Application_Model_Country extends Zend_Db_Table_Abstract
         $row=$this->createRow();
         $row->name=$countrydata['name'];
         $row->image_path=$countrydata['image_path'];
+        $row->lat=$countrydata['lat'];
+        $row->longd=$countrydata['longd'];
         $row->save();
 
     }
@@ -58,6 +60,8 @@ class Application_Model_Country extends Zend_Db_Table_Abstract
         if($country['image_path']!="") {
             $edited['image_path'] = $country['image_path'];
         }
+        $edited['lat']=$country['lat'];
+        $edited['longd']=$country['longd'];
         $cid=$country['id'];
         $this->update($edited,"id=$cid");
     }

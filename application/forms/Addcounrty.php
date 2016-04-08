@@ -18,7 +18,7 @@ class Application_Form_Addcounrty extends Zend_Form
         $name= new Zend_Form_Element_Text('name');
         $name->setLabel('Country Name');
         $name->setAttribs(array('class'=>'form-control'));
-
+        $name->setRequired();
 
         $image_path= new Zend_Form_Element_File('image_path');
         $image_path->setLabel('choose Image');
@@ -27,13 +27,22 @@ class Application_Form_Addcounrty extends Zend_Form
 
 
 
+        $lat=new Zend_Form_Element_Text('lat');
+        $lat->setLabel('Latitude');
+        $lat->setAttribs(array('class'=>'form-control'));
+        // $lat->addValidator('');
+
+        $longd=new Zend_Form_Element_Text('longd');
+        $longd->setLabel('Longitude');
+        $longd->setAttribs(array('class'=>'form-control'));
+
         $add =new Zend_Form_Element_Submit('add');
         $add->setValue('Save');
         $add->setAttribs(array('class'=>'btn btn-success form-vertical'));
 
 
 
-        $this->addElements(array($id,$name ,$image_path,$add));
+        $this->addElements(array($id,$name ,$image_path,$lat,$longd ,$add));
 
     }
 
