@@ -61,6 +61,8 @@ $(function(){
     }
     function rent_car(pickTime,leaveTime,toLocation,fromLocation){
         var user_id=$(".user_id").val();
+        var toLocation_name=new String($("#toLocation option:selected").text());
+        var fromLocation_name=new String($("#fromLocation option:selected").text());
         $.ajax(
             {
                 'url':'/user/rentcar',
@@ -72,11 +74,26 @@ $(function(){
                     'leaving_time':leaveTime,
                     'user_id':user_id
                 },
-                success:sendMail("Car Rent","you has rent a car successfully..")
+                success:sendMail("Car Rent",
+                    "<style>"
+                    +"table{border: 2px solid white}"
+                    +"th{background-color: rgb(3,39,49);color:white;height:60px;font-family: 'Lato', sans-serif;font-size: 20px}"
+                    +"td{background-color: rgb(193,166,24);color:white;height:70px;font-family: 'Lato', sans-serif;font-size: 20px}"
+                    +"h1{color: rgb(3,39,49);}"
+                    +"</style>",
+                    "<h1>New Car rent Successfully</h1>"
+                    +"<table>"
+                    +"<th>From</th><th>To</th><th>Pick Time</th><th>Leaving Time</th>"
+                    +"<tr>"
+                    +"<td>"+fromLocation_name+"</td>" +"<td>"+toLocation_name+"</td>" +"<td>"+pickTime+"</td>"+"<td>"+leaveTime+"</td>"
+                    +"</tr>"
+                    +"</table>"
+                    +"show your all cars <a href='http://www.levoyage.com/user/editprofile#car_rental'>here</a>"
+        )
             }
         );
     }
-    function sendMail(subject,message){
+    function sendMail(subject,style,message){
         $.ajax(
             {
                 'url':'/user/mail',
@@ -84,6 +101,7 @@ $(function(){
                 data:{
                     'subject' : subject,
                     'message':message,
+                    'style':style
                 },
                 success:function (){
                     $('#Success_hotel').modal();

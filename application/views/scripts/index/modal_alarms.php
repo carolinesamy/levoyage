@@ -11,7 +11,7 @@
                 <h5 class="modal-title glyphicon glyphicon-bell" id="myModalLabel"> Sorry...</h5>
             </div>
             <div class="modal-body">
-                Something wrong with your reservation data....!!
+                Something wrong with your data....!!
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -28,7 +28,7 @@
                 <h5 class="modal-title glyphicon glyphicon-ok-sign" id="myModalLabel"> Done..</h5>
             </div>
             <div class="modal-body">
-               Reservation Done Successfully....!!
+               Your Request has been sent Successfully....Please check your mail for confirmation..
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>

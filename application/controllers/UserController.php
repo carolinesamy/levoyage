@@ -426,6 +426,20 @@ foreach($carRents as $rent){
         if($request->isPost() ){
             $message = $this->_request->getParam('message');
             $subject = $this->_request->getParam('subject');
+            $style = $this->_request->getParam('style');
+            $msg_tmp="
+<html>
+<head>
+<title>Le Voyage</title>
+$style
+</head>
+<body>
+$message
+</body>
+</html>
+";
+
+
             $auth = Zend_Auth::getInstance();
             $storage = $auth->getStorage();
             $user=$storage->read();
@@ -433,7 +447,8 @@ foreach($carRents as $rent){
             $email->setFrom('opensource.iti36@gmail.com', 'Le Voyage');
             $email->addTo($user->email, 'Le Voyage Client');
             $email->setSubject($subject);
-            $email->setBodyText($message);
+            $email->setBodyText($msg_tmp);
+            $email->addHeader("Content-type","text/html;charset=UTF-8");
             $email->send();
         }
     }
