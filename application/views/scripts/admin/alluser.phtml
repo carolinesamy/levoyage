@@ -16,8 +16,9 @@ $name = $user->username;
 
 
 ?>
+<div class="container">
 <nav id="top" class="navbar navbar-default navbar-fixed-top">
-	<div class="container">
+
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
@@ -49,9 +50,7 @@ $name = $user->username;
 				?>
 			</ul>
 		</div>
-		<div id="view-content">
-		</div>
-		<br /><br /><br />
+</nav>
 		<div id="view-content">
 
 
@@ -94,8 +93,10 @@ $name = $user->username;
 	?>
 
 </table>
+			<?php } ?>
 </div>
-		<?php } ?>
+
+	</div>
 	<script src="/bootstrap/js/city_script.js"></script>
 	<script src="/bootstrap/js/bootstrap-datepicker.js"></script>
 	<script> $('.date_field').datepicker('hide');</script>
