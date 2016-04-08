@@ -1,26 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <!-- CSS -->
+ <!-- CSS -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
         <link rel="stylesheet" href="/bootstrap/assets/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="/bootstrap/assets/css/form-elements.css">
         <link rel="stylesheet" href="/bootstrap/assets/css/style.css">
                 <style >
-        body {
+                    .container-fluid {
     background-image: url("/bootstrap/assets/img/backgrounds/5.jpg") ;
     background-size: 100% ;
-    background-repeat: no-repeat;}
+                        padding: 30px;
+    }
 
     </style>
-</head>
-<body>
 
-                <div class="container">
+                <div class="container-fluid">
                      <div class="row">    	
                         <div class="col-md-12 " >
                         	<!-- <div class="form-box"> -->
@@ -29,7 +21,6 @@
 	                        <!-- </div -->
 	                    <hr>
     <nav class="navbar  ">
-        <div class="container">
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav " style="float:left">
@@ -41,18 +32,31 @@
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
-        </div>
         <!-- /.container -->
     </nav>
 	                       </div>
 	                 </div>
+                    <div id="map" class="table-responsive" style=" height:450px ;border:3px solid white ">
+                    </div>
 	            </div>
-
-
-        <script src="/bootstrap/assets/js/jquery.backstretch.min.js"></script>
+ <script>
+     function initMap() {
+         var mapDiv = document.getElementById('map');
+         var myLatLng = {lat:  <?= $this->countrydata->lat?>, lng: <?= $this->countrydata->longd?>};
+         var map = new google.maps.Map(mapDiv, {
+             center: myLatLng,
+             zoom: 8
+         });
+         var marker = new google.maps.Marker({
+             position: myLatLng,
+             map: map,
+             title: '<?= $this->countrydata->name?>'
+         });
+     }
+ </script>
+ <script src="/bootstrap/assets/js/jquery.backstretch.min.js"></script>
         <script src="/bootstrap/assets/js/scripts.js"></script>
-</body>
-</html>
+
 
 
 

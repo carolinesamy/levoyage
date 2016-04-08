@@ -17,6 +17,8 @@ class AdminController extends Zend_Controller_Action
                 $this->redirect("/user/index");
 
             }
+        }else{
+            $this->redirect("/user/index");
         }
 
     }

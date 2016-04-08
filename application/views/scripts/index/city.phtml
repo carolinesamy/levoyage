@@ -28,9 +28,8 @@ $user=$sessionRead;
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse nav" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#home" class="page-scroll">City Home</a></li>
                 <li><a href="#services-section" class="page-scroll">Description</a></li>
-                <li><a href="#team-section" class="page-scroll">Map</a></li>
+                <li><a href="#team-section" class="page-scroll glyphicon glyphicon-map-marker">Map</a></li>
                 <li><a href="#works-section" class="page-scroll">Locations</a></li>
                 <?php
                 if($isLogin){
@@ -51,7 +50,7 @@ $user=$sessionRead;
                 }
                 ?>
                 <li class="dropdown">
-                    <a href="#" class=" glyphicon glyphicon-flag" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Destinations <span class="caret"></span></a>
+                    <a href="#" class=" glyphicon glyphicon-globe" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Destinations <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <?php
                         foreach ($destnations as $country):

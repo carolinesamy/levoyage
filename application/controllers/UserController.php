@@ -24,6 +24,15 @@ class UserController extends Zend_Controller_Action
     public function indexAction()
     {
         // action body
+        $authorization=Zend_Auth::getInstance();
+        $fbsession=new Zend_Session_Namespace('facebook');
+        $twsession=new Zend_Session_Namespace('twitter');
+        $gogsession=new Zend_Session_Namespace('google');
+        //this part of code to pane logined user from registring
+        if ($authorization->hasIdentity() || isset($fbsession->username)  || isset($twsession->username)|| isset($gogsession->username))
+        {
+            $this->redirect("/index");
+        }
 
     }
 
@@ -65,6 +74,15 @@ class UserController extends Zend_Controller_Action
 
     public function loginAction()
     {
+        $authorization=Zend_Auth::getInstance();
+        $fbsession=new Zend_Session_Namespace('facebook');
+        $twsession=new Zend_Session_Namespace('twitter');
+        $gogsession=new Zend_Session_Namespace('google');
+        //this part of code to pane logined user from registring
+        if ($authorization->hasIdentity() || isset($fbsession->username)  || isset($twsession->username)|| isset($gogsession->username))
+        {
+            $this->redirect("/index");
+        }
         require_once  'google-api-php-client/src/Google/autoload.php';
         require_once "twitteroauth-master/autoload.php";        // action body
          $login_form = new Application_Form_Login( );
@@ -235,6 +253,7 @@ class UserController extends Zend_Controller_Action
 
     public function logoutAction()
     {
+
         // action body
         Zend_Session::namespaceUnset('Zend_Auth');
         $this->redirect("/user/login");      
@@ -331,25 +350,7 @@ foreach($carRents as $rent){
 
     public function getcitiesAction()
     {
-        // action body
-        $countryid=$this->_request->getParam("conid");
-        $country=new Application_Model_Country();
-        $cities=$country->findCities($countryid);
-        foreach($cities as $key=>$value)
-        {
-            $city[$key]['name']=$value->name;
-            $city[$key]['image']=$value->image_path;
-            $city[$key]['rate']=$value->rate;
-        }
-        $this->view->cities=$city;
-        //*********find country name***************
 
-        $countrydata=$country->findConid($countryid);
-        $this->view->countrydata=$countrydata;
-
-
-        //$this->view->country=$country;
-        //$this->view->cities=$cities;
     }
 
     public function commAction()
