@@ -1,0 +1,29 @@
+[production]
+phpSettings.display_startup_errors = 0
+phpSettings.display_errors = 0
+includePaths.library = APPLICATION_PATH "/../library"
+bootstrap.path = APPLICATION_PATH "/Bootstrap.php"
+bootstrap.class = "Bootstrap"
+appnamespace = "Application"
+resources.frontController.controllerDirectory = APPLICATION_PATH "/controllers"
+resources.frontController.params.displayExceptions = 0
+
+<<<<<<< HEAD
+=======
+resources.db.adapter = "PDO_MYSQL"
+resources.db.params.dbname = "levoyage"
+resources.db.params.host = "localhost"
+resources.db.params.username = "root"
+resources.db.params.password = "123"
+>>>>>>> 3e938e7fe8819f50afe405d72982874b30cf58dc
+resources.layout.layoutPath = APPLICATION_PATH "/layouts/scripts/"
+[staging : production]
+
+[testing : production]
+phpSettings.display_startup_errors = 1
+phpSettings.display_errors = 1
+
+[development : production]
+phpSettings.display_startup_errors = 1
+phpSettings.display_errors = 1
+resources.frontController.params.displayExceptions = 1
