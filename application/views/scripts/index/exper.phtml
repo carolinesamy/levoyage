@@ -29,7 +29,7 @@ if (!empty($sessionRead)) {
     $guser=$gogsession;
     include "disqus.phtml";
     ?>
-<script type="text/javascript">
+<script type="text/javascript" xmlns="http://www.w3.org/1999/html">
 	var disqus_config = function() {
 		this.page.remote_auth_s3 = "<?php echo "$message $hmac $timestamp"; ?>";
 		this.page.api_key = "<?php echo DISQUS_PUBLIC_KEY; ?>";
