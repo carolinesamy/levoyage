@@ -77,8 +77,6 @@ class AdminController extends Zend_Controller_Action
     {
         $form =new Application_Form_Addcounrty();
         $country=new Application_Model_Country();
-        //$editcountry_form=new Application_Form_Addcountry();
-        //$country_obj=new Application_Model_Country();
         $country_id=$this->_request->getParam('conid');
         $countryById=$country->getCountryById($country_id);
         $form->populate($countryById[0]);
