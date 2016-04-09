@@ -237,7 +237,7 @@ class UserController extends Zend_Controller_Action
             echo 'Facebook SDK returned an error: ' . $e->getMessage();
             Exit;
             }
-            $fpsession = new Zend_Session_Namespace('facebook');
+            $fbsession = new Zend_Session_Namespace('facebook');
             // write in session email & id & first_name
             $fbsession->username = $userNode->getName();
             $this->redirect();
@@ -478,7 +478,7 @@ $message
           $service=new Google_Service_Plus($client);
 
           $data=$service->people->get('me');
-          $mail=$data['modelData']['emails'][0]['value'];
+          $email=$data['modelData']['emails'][0]['value'];
           $name=$data['modelData']['name']['givenName'];
           $id=$data['id'];
           $gogsession = new Zend_Session_Namespace('google');
