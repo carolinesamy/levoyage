@@ -5,7 +5,27 @@ $("#top").remove();
 $(function(){
    $(".hotel_submit").on("click",valid_book_hotel);
     $("#rentCarSubmit").on("click",rent_car_valid);
+    $("#rate_city_button").on("click",rate_city)
 
+    function rate_city(){
+        var rate_num=$("#rate_menu").val();
+        var user_id=$(".user_id").val();
+        var city_id=$("#city_id").val();
+        $("#rate_city_modal").modal("toggle");
+        $.ajax(
+            {
+                'url':'/user/ratecity',
+                method:'POST',
+                data:{
+                    'city_id' : city_id,
+                    'user_id':user_id,
+                    'rate_num':rate_num
+                },
+            }
+        );
+
+
+    }
     function valid_book_hotel(){
         var hotel=$("#hotels").val();
         var from = $(".hotel_from").val().split("/");
@@ -21,6 +41,7 @@ $(function(){
         }
     }
     function book_hotel(hotel,from,to,user_id,members){
+        var hotel_name=$("#hotels option:selected").text();
         $.ajax(
             {
                 'url':'/user/bookhotel',
@@ -32,8 +53,22 @@ $(function(){
                     'user_id':user_id,
                     'members':members,
                 },
-                success:sendMail("Hotel Reservation","you has reserved a room Successfully")
-            }
+                success:sendMail("Car Rent",
+                    "<style>"
+                    +"table{border: 2px solid white}"
+                    +"th{background-color: rgb(3,39,49);color:white;height:60px;font-family: 'Lato', sans-serif;font-size: 20px}"
+                    +"td{background-color: rgb(193,166,24);color:white;height:70px;font-family: 'Lato', sans-serif;font-size: 20px}"
+                    +"h1{color: rgb(3,39,49);}"
+                    +"</style>",
+                    "<h1>New Reservation has made Successfully</h1>"
+                    +"<table>"
+                    +"<th>From</th><th>To</th><th>Members</th><th>Hotel</th>"
+                    +"<tr>"
+                    +"<td>"+from+"</td>" +"<td>"+to+"</td>" +"<td>"+members+"</td>"+"<td>"+hotel_name+"</td>"
+                    +"</tr>"
+                    +"</table>"
+                    +"show your all cars <a href='http://www.levoyage.com/user/editprofile'>here</a>"
+                )            }
         );
 
     }

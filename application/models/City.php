@@ -82,6 +82,10 @@ class Application_Model_City extends Zend_Db_Table_Abstract
         return $results = $this->fetchAll($query);
         
     }
+    function update_rate($city_id,$total_rate){
+        $this->update(array('rate'=>$total_rate),"id=$city_id");
+    }
+
 
 
 }

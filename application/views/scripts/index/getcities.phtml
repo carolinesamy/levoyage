@@ -6,7 +6,7 @@
                 <style >
                     .container-fluid {
     background-image: url("/bootstrap/assets/img/backgrounds/5.jpg") ;
-    background-size: 100% ;
+    background-size: cover;
                         padding: 30px;
     }
 
@@ -17,17 +17,19 @@
                         <div class="col-md-12 " >
                         	<!-- <div class="form-box"> -->
 	                        	<br><strong class="coun"><?= $this->countrydata->name ?></strong><br>
-	                        	<img class="top"src="/images/<?php echo $this->countrydata->image_path ?>" class="img-thumbnail" alt="Cinque Terre" ><br>
+	                        	<img class="top"src="/images/<?php echo $this->countrydata->image_path ?>" class="img-thumbnail" alt="Cinque Terre" style="border: 5px solid white"><br>
 	                        <!-- </div -->
 	                    <hr>
     <nav class="navbar  ">
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav " style="float:left">
-                         <?php foreach ($this->cities as $key => $value) : ?>
-	                          <?php echo "<li><a href='/index/city/id/". $value['id']."' >
-	                            	<img id='city' src='/images/". $value['image']."' class=\"img-thumbnail\" alt=\"Cinque Terre\" width=\"236\" height=\"236\"/></a></li>
-	                            	<li><a><strong>".$value['name']."</strong></a></li>";?>
+                         <?php
+                         $tim=0;
+                         foreach ($this->cities as $key => $value) : ?>
+	                          <?php $tim+=400;echo "<li class='wow fadeInUp' data-wow-delay={$tim}ms><a href='/index/city/id/". $value['id']."' >
+	                            	<img id='city' src='/images/". $value['image']."' class=\"img-thumbnail\" alt=\"Cinque Terre\" width=\"236\" height=\"236\"/></a>
+	                            	<a><strong>".$value['name']."</strong></a></li>";?>
 	                       <?php endforeach; ?>
                 </ul>
             </div>

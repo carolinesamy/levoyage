@@ -70,7 +70,7 @@ $user=$sessionRead;
 </nav>
 
 <!-- Header -->
-<header class="text-center" id ="home" style="	background: url(/images/<?=$this->city->image_path?>) no-repeat bottom center;">
+<header class="text-center" id ="home" style="	background: url(/images/<?=$this->city->image_path?>);background-size:cover; ">
     <div class="intro-text">
         <h1 class="wow fadeInDown" data-wow-delay="3000ms"><strong><span class="color"><?=$this->city->name?></span></strong></h1>
         <a href="#services-section" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="3000ms">City Description</a> </div>
@@ -116,7 +116,6 @@ if($isLogin) {
                 <hr>
                 <h3>Book Now..</h3>
             </div>
-            <form>
             <div class="col-md-8 col-md-offset-2 wow fadeInUp" data-wow-delay="200ms">
                 <div class="col-md-4"><i class="fa fa-map-marker fa-2x"></i>
                     <?= $this->hotel_form->getElement("from");?>
@@ -131,7 +130,7 @@ if($isLogin) {
             </div>
             <br><br><br>
             <div class="col-md-8 col-md-offset-2 wow fadeInUp" data-wow-delay="200ms">
-                <div class="col-md-8"><i class="fa fa-map-marker fa-2x"></i>
+                <div class="col-md-8">
                     <select  id="hotels" class="form-control">
                         <option>---Select Hotel---</option>
                         <?php
@@ -144,20 +143,17 @@ if($isLogin) {
                     </select>
                 </div>
                 <div class="row">
-                    <div class="col-md-3"><i class="fa fa-phone fa-2x"></i>
+                    <div class="col-md-5">
                         <?= $this->hotel_form->getElement("reset");?>
                     </div>
-                    <div class="col-md-3"><i class="fa fa-phone fa-2x"></i>
-
+                    <div class="col-md-5">
                         <button type="submit" class="btn btn-default hotel_submit">Check In</button>
+                    </div>
                 </div>
-                <input type="hidden" value="<?=$user->id ?>" class="user_id">
-
-                <div class="clearfix"></div>
-                <br><br>
             </div>
 
-            </form>
+            <div class="clearfix"></div>
+            <input type="hidden" value="<?=$user->id ?>" class="user_id">
             <div class="col-md-8 col-md-offset-2 wow fadeInUp" data-wow-delay="400ms">
                 <div class="social">
                     <ul>
@@ -170,7 +166,6 @@ if($isLogin) {
                     </ul>
                 </div>
             </div>
-        </div>
     </div>
     </div>
     <?php
@@ -186,6 +181,10 @@ if($isLogin) {
             <h2><?=$this->city->name?><strong>Locations</strong></h2>
             <hr>
             <div class="clearfix"></div>
+            <?php if($isLogin){
+                echo "<a href=\"#rate_city_modal\" data-toggle=\"modal\" class=\"btn btn-default btn-lg  wow fadeInUp\" data-wow-delay=\"500ms\">Rate This City</a>
+";
+            }?>
         </div>
         <div class="row">
             <div class="portfolio-items">
@@ -309,13 +308,11 @@ foreach ($this->locations as $location):
                     </div>
                 </div>
             </div>
-        </div>tio
+        </div>
     </div>
-
 
 <!------------------------end-locations  modals !------------------------>
 <iframe  id="city-expe" src="/index/exper/id/<?=$this->city->id?>/page/1" style="width: 100%;height: 600px ;border: none"></iframe>
-
 <script>
     function initMap() {
         var mapDiv = document.getElementById('map');

@@ -18,6 +18,7 @@ $fuser=$fbsession->username;
 <style type="text/css">
   .back{
    background-image:url("/bootstrap/assets/img/backgrounds/5.jpg");
+      background-size: cover;
   }
 </style>
 
@@ -139,39 +140,45 @@ $fuser=$fbsession->username;
     <div class="container" >
 <br><br><br><br>
         <div class="row">
-  <div class="col-xs-6 col-md-4">
-    <a href="/index/city/id/<?=$this->cities[0]['id']?>" class="thumbnail">
+  <div class="col-xs-6 col-md-4 wow fadeInDown" data-wow-delay="600ms">
+      <h2 style="color: rgb(193,166,24)"><?=$this->cities[0]['name']?></h2>
+      <a href="/index/city/id/<?=$this->cities[0]['id']?>" class="thumbnail">
       <img src="/images/<?=$this->cities[0]['image_path']?>" style="width:100%; height:200px;">
     </a>
   </div>
-  <div class="col-xs-6 col-md-4">
-    <a href="/index/city/id/<?=$this->cities[1]['id']?>" class="thumbnail" class="thumbnail">
+  <div class="col-xs-6 col-md-4 wow fadeInDown" data-wow-delay="800ms">
+      <h2 style="color: rgb(193,166,24)"><?=$this->cities[1]['name']?></h2>
+      <a href="/index/city/id/<?=$this->cities[1]['id']?>" class="thumbnail" class="thumbnail">
       <img src="/images/<?=$this->cities[1]['image_path']?>"style="width:350px; height:200px;">
     </a>
   </div>
-   <div class="col-xs-6 col-md-4">
-    <a href="/index/city/id/<?=$this->cities[2]['id']?>" class="thumbnail" class="thumbnail">
+   <div class="col-xs-6 col-md-4 wow fadeInDown" data-wow-delay="1000ms">
+       <h2 style="color: rgb(193,166,24)"><?=$this->cities[2]['name']?></h2>
+       <a href="/index/city/id/<?=$this->cities[2]['id']?>" class="thumbnail" class="thumbnail">
       <img src="/images/<?=$this->cities[2]['image_path']?>"style="width:350px; height:200px;">
     </a>
-  </div>
+   </div>
  
 </div>
     <div class="row">
-  <div class="col-xs-6 col-md-4">
-    <a href="/index/city/id/<?=$this->cities[3]['id']?>" class="thumbnail" class="thumbnail">
+  <div class="col-xs-6 col-md-4 wow fadeInUp" data-wow-delay="1200ms">
+      <h2 style="color: rgb(193,166,24)"><?=$this->cities[3]['name']?></h2>
+      <a href="/index/city/id/<?=$this->cities[3]['id']?>" class="thumbnail" class="thumbnail">
       <img src="/images/<?=$this->cities[3]['image_path']?>"style="width:350px; height:200px;" >
     </a>
   </div>
-  <div class="col-xs-6 col-md-4">
-    <a href="/index/city/id/<?=$this->cities[4]['id']?>" class="thumbnail" class="thumbnail">
+  <div class="col-xs-6 col-md-4 wow fadeInUp" data-wow-delay="1300ms">
+      <h2 style="color: rgb(193,166,24)"><?=$this->cities[4]['name']?></h2>
+      <a href="/index/city/id/<?=$this->cities[4]['id']?>" class="thumbnail" class="thumbnail">
       <img src="/images/<?=$this->cities[4]['image_path']?>"style="width:350px; height:200px;">
     </a>
   </div>
-   <div class="col-xs-6 col-md-4">
-    <a href="/index/city/id/<?=$this->cities[5]['id']?>" class="thumbnail" class="thumbnail">
+   <div class="col-xs-6 col-md-4 wow fadeInUp" data-wow-delay="1400ms">
+       <h2 style="color: rgb(193,166,24)"><?=$this->cities[4]['name']?></h2>
+       <a href="/index/city/id/<?=$this->cities[5]['id']?>" class="thumbnail" class="thumbnail">
       <img src="/images/<?=$this->cities[5]['image_path']?>"style="width:350px; height:200px;">
     </a>
-  </div>
+   </div>
  
 </div>
         <hr>

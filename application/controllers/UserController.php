@@ -350,7 +350,6 @@ foreach($carRents as $rent){
 
     public function getcitiesAction()
     {
-
     }
 
     public function commAction()
@@ -495,7 +494,7 @@ $message
   }
 
     }
-    //this function is to update experience
+
     public function bactoctyAction()
     {
         $form = new Application_Form_Addexperience ();
@@ -574,5 +573,19 @@ $message
         $this->redirect("/index/exper/id/$city_id?/page=1");
     }
 
+    public function ratecityAction()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->getHelper('layout')->disableLayout(true);
+        $rate_model = new Application_Model_Ratecity();
+        $city_id = $this->_request->getParam("city_id");
+        $user_id = $this->_request->getParam('user_id');
+        $new_rate = $this->_request->getParam('rate_num');
+        $rate_model->updateRate($city_id,$user_id,$new_rate);
+
+    }
+
 
 }
+
+

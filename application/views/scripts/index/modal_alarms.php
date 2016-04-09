@@ -37,4 +37,28 @@
     </div>
 </div>
 
+<div class="modal fade" id="rate_city_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title glyphicon glyphicon-ok-sign" id="myModalLabel"> Fead Back</h5>
+            </div>
+            <div class="modal-body">
+                <h2>How do you rate this city?</h2>
+                <select  id="rate_menu" class="form-control">
+                    <option value="1">Not Bad</option>
+                    <option value="2">Good</option>
+                    <option value="3">Very Good</option>
+                    <option value="4">Amazing</option>
+                </select>
+                <input type="hidden" value="<?=$this->city->id?>" id="city_id">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" id="rate_city_button">Send</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 <?php
