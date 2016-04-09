@@ -67,6 +67,8 @@ class Application_Model_Country extends Zend_Db_Table_Abstract
         $rows = $this->select()->from($this, 'count(*) as amt')->query()->fetchAll();
         return($rows[0]['amt']);
     }
-
+    function update_rate($country_id,$total_rate){
+        $this->update(array('rate'=>$total_rate),"id=$country_id");
+    }
 }
 

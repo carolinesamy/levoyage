@@ -585,7 +585,18 @@ $message
 
     }
 
-
+    public function ratecountryAction()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->getHelper('layout')->disableLayout(true);
+        $rate_model = new Application_Model_Ratecountry();
+        $country_id = $this->_request->getParam("country_id");
+        $user_id = $this->_request->getParam('user_id');
+        $new_rate = $this->_request->getParam('rate_num');
+        $rate_model->updateRate($country_id,$user_id,$new_rate);
+    }
 }
+
+
 
 

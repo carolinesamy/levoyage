@@ -26,6 +26,7 @@ $(function(){
 
 
     }
+
     function valid_book_hotel(){
         var hotel=$("#hotels").val();
         var from = $(".hotel_from").val().split("/");
