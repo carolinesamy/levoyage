@@ -1,4 +1,26 @@
- <!-- CSS -->
+
+<?php
+$isLogin=false;
+$user=null;
+$fuser=null;
+$guser=null;
+$country_model=new Application_Model_Country();
+$destnations=$country_model->allcountry();
+$auth = Zend_Auth::getInstance();
+$storage = $auth->getStorage();
+$sessionRead = $storage->read();
+$fpsession = new Zend_Session_Namespace('facebook');
+$gogsession = new Zend_Session_Namespace('google');
+if (!empty($sessionRead)) {
+    $isLogin=true;
+    $user=$sessionRead;
+
+}elseif( (isset($fbsession->username) && !empty (isset($fbsession->username)))){
+    $fuser=$fbsession->username;
+}
+?>
+
+<!-- CSS -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
         <link rel="stylesheet" href="/bootstrap/assets/font-awesome/css/font-awesome.min.css">
 		<link rel="stylesheet" href="/bootstrap/assets/css/form-elements.css">
@@ -6,7 +28,7 @@
                 <style >
                     .container-fluid {
     background-image: url("/bootstrap/assets/img/backgrounds/5.jpg") ;
-    background-size: 100% ;
+    background-size: cover;
                         padding: 30px;
     }
 
@@ -17,17 +39,19 @@
                         <div class="col-md-12 " >
                         	<!-- <div class="form-box"> -->
 	                        	<br><strong class="coun"><?= $this->countrydata->name ?></strong><br>
-	                        	<img class="top"src="/images/<?php echo $this->countrydata->image_path ?>" class="img-thumbnail" alt="Cinque Terre" ><br>
+	                        	<img class="top"src="/images/<?php echo $this->countrydata->image_path ?>" class="img-thumbnail" alt="Cinque Terre" style="border: 5px solid white"><br>
 	                        <!-- </div -->
 	                    <hr>
     <nav class="navbar  ">
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav " style="float:left">
-                         <?php foreach ($this->cities as $key => $value) : ?>
-	                          <?php echo "<li><a href='/index/city/id/". $value['id']."' >
-	                            	<img id='city' src='/images/". $value['image']."' class=\"img-thumbnail\" alt=\"Cinque Terre\" width=\"236\" height=\"236\"/></a></li>
-	                            	<li><a><strong>".$value['name']."</strong></a></li>";?>
+                         <?php
+                         $tim=0;
+                         foreach ($this->cities as $key => $value) : ?>
+	                          <?php $tim+=400;echo "<li class='wow fadeInUp' data-wow-delay={$tim}ms><a href='/index/city/id/". $value['id']."' >
+	                            	<img id='city' src='/images/". $value['image']."' class=\"img-thumbnail\" alt=\"Cinque Terre\" width=\"236\" height=\"236\"/></a>
+	                            	<a><strong>".$value['name']."</strong></a></li>";?>
 	                       <?php endforeach; ?>
                 </ul>
             </div>
@@ -37,6 +61,37 @@
 	                       </div>
 	                 </div>
                     <div id="map" class="table-responsive" style=" height:450px ;border:3px solid white ">
+                    </div>
+                    <div class="clearfix"></div>
+                    <?php if($isLogin){
+                        echo "<a href=\"#rate_country_modal\" data-toggle=\"modal\" class=\"btn btn-default btn-lg  wow fadeInUp\" data-wow-delay=\"500ms\">Rate This Country</a>
+";
+                    }?>
+                    <div class="modal fade" id="rate_country_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h5 class="modal-title glyphicon glyphicon-ok-sign" id="myModalLabel"> Fead Back</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <h2>How do you rate this country?</h2>
+                                    <select  id="rate_menu_country" class="form-control">
+                                        <option value="1">Not Bad</option>
+                                        <option value="2">Good</option>
+                                        <option value="3">Very Good</option>
+                                        <option value="4">Amazing</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-info" id="rate_country_button">Send</button>
+                                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                                    <input type="hidden" value="<?=$this->countrydata->id?>" id="country_id">
+                                    <input type="hidden" value="<?=$user->id?>" id="user_id">
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
 	            </div>
  <script>
@@ -54,8 +109,37 @@
          });
      }
  </script>
- <script src="/bootstrap/assets/js/jquery.backstretch.min.js"></script>
-        <script src="/bootstrap/assets/js/scripts.js"></script>
+<script src="/bootstrap/assets/js/jquery.backstretch.min.js"></script>
+<script src="/bootstrap/assets/js/scripts.js"></script>
+
+ <?php
+ if($isLogin){
+     ?>
+     <script>
+         $("#rate_country_button").on("click",rate_country)
+         function rate_country(){
+             var rate_num=$("#rate_menu_country").val();
+             var country_id=$("#country_id").val();
+             var user_id=$("#user_id").val();
+             $("#rate_country_modal").modal("toggle");
+             $.ajax(
+                 {
+                     'url':'/user/ratecountry',
+                     method:'POST',
+                     data:{
+                         'country_id' : country_id,
+                         'user_id':user_id,
+                         'rate_num':rate_num
+                     },
+                 }
+             );
+
+
+         }
+     </script>
+<?php
+ }
+ ?>
 
 
 

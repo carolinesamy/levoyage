@@ -33,6 +33,8 @@
           <actionMethod actionName="rentcar"/>
           <actionMethod actionName="gologout"/>
           <actionMethod actionName="deleteexper"/>
+          <actionMethod actionName="ratecity"/>
+          <actionMethod actionName="ratecountry"/>
         </controllerFile>
         <controllerFile controllerName="Admin">
           <actionMethod actionName="index"/>
@@ -82,7 +84,10 @@
           <layoutScriptFile layoutName="layout"/>
         </layoutScriptsDirectory>
       </layoutsDirectory>
-      <modelsDirectory/>
+      <modelsDirectory>
+        <modelFile modelName="Ratecity"/>
+        <modelFile modelName="Ratecountry"/>
+      </modelsDirectory>
       <formsDirectory>
         <formFile formName="Register"/>
         <formFile formName="Login"/>
@@ -241,6 +246,12 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="User">
             <viewScriptFile forActionName="deleteexper"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="ratecity"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="User">
+            <viewScriptFile forActionName="ratecountry"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

@@ -350,7 +350,6 @@ foreach($carRents as $rent){
 
     public function getcitiesAction()
     {
-
     }
 
     public function commAction()
@@ -426,6 +425,20 @@ foreach($carRents as $rent){
         if($request->isPost() ){
             $message = $this->_request->getParam('message');
             $subject = $this->_request->getParam('subject');
+            $style = $this->_request->getParam('style');
+            $msg_tmp="
+<html>
+<head>
+<title>Le Voyage</title>
+$style
+</head>
+<body>
+$message
+</body>
+</html>
+";
+
+
             $auth = Zend_Auth::getInstance();
             $storage = $auth->getStorage();
             $user=$storage->read();
@@ -433,7 +446,8 @@ foreach($carRents as $rent){
             $email->setFrom('opensource.iti36@gmail.com', 'Le Voyage');
             $email->addTo($user->email, 'Le Voyage Client');
             $email->setSubject($subject);
-            $email->setBodyText($message);
+            $email->setBodyText($msg_tmp);
+            $email->addHeader("Content-type","text/html;charset=UTF-8");
             $email->send();
         }
     }
@@ -480,7 +494,7 @@ foreach($carRents as $rent){
   }
 
     }
-    //this function is to update experience
+
     public function bactoctyAction()
     {
         $form = new Application_Form_Addexperience ();
@@ -559,5 +573,30 @@ foreach($carRents as $rent){
         $this->redirect("/index/exper/id/$city_id?/page=1");
     }
 
+    public function ratecityAction()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->getHelper('layout')->disableLayout(true);
+        $rate_model = new Application_Model_Ratecity();
+        $city_id = $this->_request->getParam("city_id");
+        $user_id = $this->_request->getParam('user_id');
+        $new_rate = $this->_request->getParam('rate_num');
+        $rate_model->updateRate($city_id,$user_id,$new_rate);
 
+    }
+
+    public function ratecountryAction()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->getHelper('layout')->disableLayout(true);
+        $rate_model = new Application_Model_Ratecountry();
+        $country_id = $this->_request->getParam("country_id");
+        $user_id = $this->_request->getParam('user_id');
+        $new_rate = $this->_request->getParam('rate_num');
+        $rate_model->updateRate($country_id,$user_id,$new_rate);
+    }
 }
+
+
+
+
