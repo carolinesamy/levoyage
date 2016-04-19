@@ -94,11 +94,12 @@ hr {
 }
 /* Navigation */
 #menu {
-	padding: 20px;
+	padding: 10px;
 	transition: all 0.8s;
 }
 #menu.navbar-default {
-	background-color: rgba(248, 248, 248, 0);
+	background-color: #032731;
+	/*background-color: rgba(248, 248, 248, 0);*/
 	border-color: rgba(231, 231, 231, 0);
 }
 #menu a.navbar-brand {
@@ -150,7 +151,7 @@ header {
 header p {
 	color: #d9e0e2;
 	font-size: 20px;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 	text-transform: uppercase;
 	letter-spacing: 1px;
 }

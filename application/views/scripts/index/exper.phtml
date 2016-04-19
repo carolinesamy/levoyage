@@ -96,9 +96,7 @@ if (!empty($sessionRead)) {
 			</span>
 			<div style='clear:both'>";
 			if($isLogin){
-		?>
-			<a href="/user/addexper/id/<?= $this->city_id?>" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="200ms">Add Experience</a>
-	<?php
+
 			if($exp['user_id']==$user->id){
 				?>
 				<a href="/user/bactocty/pid/<?= $exp['id']?>/cid/<?=$this->city_id?>" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="400ms">Edit</a>
@@ -108,6 +106,10 @@ if (!empty($sessionRead)) {
 	}
 			?>
 			</div>
+				<div id="disqus_thread"></div>
+			<?php
+			endforeach;
+			?>
 				<div class="text-center page-scroll wow fadeInUp" data-wow-delay="500ms">
 		<p>
 		<?=
@@ -116,14 +118,16 @@ if (!empty($sessionRead)) {
 				'Sliding',
 				"index/paginatorControl.phtml");
 			?>
-	</p></p>
+	</p>
+		<?php if($isLogin){?>
 			<br>
+			<a href="/user/addexper/id/<?= $this->city_id?>" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="200ms">Add Experience</a>
+	<?php
+	}
+	?>
 		</div>
-			<?php
-		endforeach;
-		?>
 
-<div id="disqus_thread"></div>
+
 <script>
 	$(function(){
 		$("#top").remove();
@@ -131,11 +135,6 @@ if (!empty($sessionRead)) {
 	});
 
 </script>
-<script type="text/javascript" src="/bootstrap/js/SmoothScroll.js"></script>
-<script type="text/javascript" src="/bootstrap/js/wow.min.js"></script>
-<script type="text/javascript" src="/bootstrap/js/jquery.isotope.js"></script>
-<script type="text/javascript" src="/bootstrap/js/jqBootstrapValidation.js"></script>
-<script type="text/javascript" src="/bootstrap/js/owl.carousel.js"></script>
 <script type="text/javascript" src="/bootstrap/js/main.js"></script>
 
 

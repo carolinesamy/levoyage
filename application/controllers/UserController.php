@@ -138,8 +138,7 @@ class UserController extends Zend_Controller_Action
              'default_graph_version' => 'v2.2',
             ]);
             $helper = $fb->getRedirectLoginHelper();
-            $loginUrl = $helper->getLoginUrl($this->view->serverUrl() .
-            $this->view->baseUrl() . '/user/fbauth');
+            $loginUrl = $helper->getLoginUrl($this->view->serverUrl().$this->view->baseUrl().'/user/fbauth');
             $this->view->facebook_url = $loginUrl;
 
             ///////////////////////////////////////////////////
@@ -160,7 +159,7 @@ class UserController extends Zend_Controller_Action
             $client->setClientSecret($client_secret);
             $client->setRedirectUri($redirect_uri);
             $client->addScope("profile");
-            $client->addScope(" https://www.googleapis.com/auth/plus.profile.emails.read");   
+            $client->addScope(" https://www.googleapis.com/auth/plus.profile.emails.read");
             $authUrl = $client->createAuthUrl();
             $this->view->google_url = $authUrl;
 
@@ -177,7 +176,9 @@ class UserController extends Zend_Controller_Action
             'default_graph_version' => 'v2.2',
             ]);
             // use helper method of facebook for login
+
             $helper = $fb->getRedirectLoginHelper();
+
             try {
             $accessToken = $helper->getAccessToken();
             }

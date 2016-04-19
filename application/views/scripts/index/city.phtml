@@ -23,7 +23,8 @@ $user=$sessionRead;
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-            <a class="navbar-brand" href="/"><i class="glyphicon glyphicon-flag"></i><strong> Le voyage</strong></a> </div>
+            <a class="navbar-brand" href="/"><i class="glyphicon glyphicon-flag"></i><strong> Le voyage</strong></a>
+        </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse nav" id="bs-example-navbar-collapse-1">
@@ -66,13 +67,14 @@ $user=$sessionRead;
         </div>
         <!-- /.navbar-collapse -->
     </div>
+
     <!-- /.container-fluid -->
 </nav>
 
 <!-- Header -->
 <header class="text-center" id ="home" style="	background: url(/images/<?=$this->city->image_path?>);background-size:cover; ">
     <div class="intro-text">
-        <h1 class="wow fadeInDown" data-wow-delay="3000ms"><strong><span class="color"><?=$this->city->name?></span></strong></h1>
+        <h1 class="wow fadeInDown" data-wow-delay="3000ms"><strong><span ><?=$this->city->name?></span></strong></h1>
         <a href="#services-section" class="btn btn-default btn-lg page-scroll wow fadeInUp" data-wow-delay="3000ms">City Description</a> </div>
 </header>
 
